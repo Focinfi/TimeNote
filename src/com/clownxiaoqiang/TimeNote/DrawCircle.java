@@ -173,28 +173,6 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         Log.d("x2", "x2--->" + x2);
         Log.d("x3", "x3--->" + x3);
         Log.d("y2", "y2--->" + y2);
-//        if (x3 > x2 && y3 <= y2) {
-//            if ((x3 < x1) || (y3 < y1))
-//                return 1;
-//            if ((x3 > x1) || (y3 > y1))
-//                return 0;
-//        } else if (x3 >= x2 && y3 > y2) {
-//            if ((x3 < x1) || (y3 > y1))
-//                return 0;
-//            if ((x3 > x1) || (y3 < y1))
-//                return 1;
-//        } else if (x3 < x2 && y3 >= y2) {
-//            if ((x3 < x1) || (y3 < y1))
-//                return 0;
-//            if ((x3 > x1) || (y3 > y1))
-//                return 1;
-//
-//        } else if (x3 <= x2 && y3 < y2) {
-//            if ((x3 < x1) || (y3 > y1))
-//                return 1;
-//            if ((x3 > x1) || (y3 < y1))
-//                return 0;
-//        }
 
         if ((y3 > y1 - Center_y / 4) && (y3 < y1 + Center_y / 4)) {
             if (y3 > y2) {
