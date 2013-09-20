@@ -12,5 +12,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".HomePage"/>
+        <activity android:name=".Today"/>
+        <activity android:name=".Diary"/>
+        <activity android:name=".blank"/>
     </application>
 </manifest>
