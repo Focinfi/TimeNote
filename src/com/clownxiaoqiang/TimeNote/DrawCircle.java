@@ -2,6 +2,8 @@ package com.clownxiaoqiang.TimeNote;
 
 import android.content.Context;
 import android.graphics.*;
+import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -36,6 +38,10 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
 
     public DrawCircle(Context context) {
         super(context);
+    }
+
+    public DrawCircle(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
     public DrawCircle(Context context, float center_x, float center_y) {
