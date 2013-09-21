@@ -48,17 +48,17 @@ public class MyActivity extends TabActivity implements CompoundButton.OnCheckedC
         TabHost localtabhost = this.tabHost;
 
         localtabhost.addTab(buildTabSpec("homepage", R.string.homepage,
-                R.drawable.namcard_picker_bkg_hover, this.homepage_intent));
+                R.drawable.home_page_icon, this.homepage_intent));
 
         localtabhost.addTab(buildTabSpec("see", R.string.see,
-                R.drawable.namcard_picker_bkg_hover, this.today_intent));
+                R.drawable.today_page_icon, this.today_intent));
 
         localtabhost.addTab(buildTabSpec("write",
-                R.string.see_diary, R.drawable.namcard_picker_bkg_hover,
+                R.string.see_diary, R.drawable.diary_page,
                 this.diary_intent));
 
         localtabhost.addTab(buildTabSpec("about",
-                R.string.about, R.drawable.namcard_picker_bkg_hover, blank_intent));
+                R.string.about, R.drawable.diary_page, blank_intent));
     }
 
     private TabHost.TabSpec buildTabSpec(String tag, int name, int icon,

@@ -26,7 +26,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/maintabbackground"
                 >
             <RadioButton
                     android:id="@+id/radio_button0"

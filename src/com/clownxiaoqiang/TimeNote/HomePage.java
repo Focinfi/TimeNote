@@ -19,18 +19,17 @@ public class HomePage extends Activity {
 
     private int Screen_x,Screen_y;
     private DrawCircle drawCircle;
-    private RelativeLayout relativeLayout;
+    private LinearLayout linearLayout;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.homepage);
+        setContentView(R.layout.homepage);
         DisplayMetrics displayMetrics =new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         Screen_x = displayMetrics.widthPixels;
         Screen_y = displayMetrics.heightPixels;
-        //drawCircle = (DrawCircle)findViewById(R.id.drawcirlce);
-       // drawCircle =new DrawCircle(this,Screen_x,Screen_y);
         drawCircle =new DrawCircle(this,Screen_x,Screen_y);
-        setContentView(drawCircle);
+        linearLayout = (LinearLayout)findViewById(R.id.mylayout);
+        linearLayout.addView(drawCircle);
     }
 }
