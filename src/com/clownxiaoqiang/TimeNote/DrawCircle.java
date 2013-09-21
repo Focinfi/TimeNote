@@ -1,5 +1,7 @@
 package com.clownxiaoqiang.TimeNote;
 
+import android.*;
+import android.R;
 import android.content.Context;
 import android.graphics.*;
 import android.util.AttributeSet;
@@ -72,7 +74,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
 
 
         Center_x = center_x / 2;
-        Center_y = center_y / 2;
+        Center_y = (float)(center_y *0.4);
         //Log.d("TAG","初始化完成");
     }
 
@@ -117,29 +119,29 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     }
 
     protected void Draw() {
-        b_paint.setColor(Color.BLACK);
-        canvas.drawColor(Color.WHITE);
-        RectF rectf = new RectF((float) 0.5 * Center_x, (float) (Center_y - (0.5 * Center_x)), (float) (Center_x * 1.5), (float) ((0.5 * Center_x) + Center_y));
+        b_paint.setARGB(255,7,220,208);
+        canvas.drawColor(Color.argb(255,237,237,237));
+        RectF rectf = new RectF((float) 0.2* Center_x, (float) (Center_y - (0.5 * Center_x)-0.3*Center_x), (float) (Center_x * 1.8), (float) ((0.5 * Center_x) + Center_y+0.3*Center_x));
         // Log.d("Test","upangle-->"+upangle+"angle--->"+angle);
         canvas.drawArc(rectf, 0, angle, true, b_paint);
         super.onDraw(canvas);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    protected void DrawRedCircle() {
-        r_paint.setColor(Color.RED);
-        RectF rectF = new RectF((float) (0.625 * Center_x), (float) ((Center_y - (0.5 * Center_x)) + 0.125 * Center_x),
-                (float) ((Center_x * 1.5) - 0.125 * Center_x), (float) (((0.5 * Center_x) + Center_y) - 0.125 * Center_x));
+    protected void DrawinnerCircle() {
+        r_paint.setARGB(255,210,245,47);
+        RectF rectF = new RectF((float) (0.625 * Center_x-0.3*Center_x), (float) ((Center_y - (0.5 * Center_x) + 0.125 * Center_x-0.3*Center_x)),
+                (float) ((Center_x * 1.5) - 0.125 * Center_x+0.3*Center_x), (float) (((0.5 * Center_x) + Center_y) - 0.125 * Center_x+0.3*Center_x));
         canvas.drawArc(rectF, 0, angle, true, r_paint);
     }
 
     protected void DrawWhiteCircle() {
-        w_paint.setColor(Color.WHITE);
-        canvas.drawCircle(Center_x, Center_y, Center_x / 4, w_paint);
+        w_paint.setARGB(255,237,237,237);
+        canvas.drawCircle(Center_x, Center_y, (float)(Center_x / 4+0.3*Center_x), w_paint);
     }
 
     protected void DrawText() {
         t_paint.setColor(Color.BLACK);
-        t_paint.setTextSize(30);
+        t_paint.setTextSize(Center_x/5);
         t_paint.setTextAlign(Paint.Align.CENTER);
         canvas.drawText(ChangeTime(CountTime(angle)), Center_x, Center_y, t_paint);
     }
@@ -252,7 +254,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
                 /** 拿到当前画布 然后锁定 **/
                 canvas = surfaceHolder.lockCanvas();
                 Draw();
-                DrawRedCircle();
+                DrawinnerCircle();
                 DrawWhiteCircle();
                 DrawText();
                 /** 绘制结束后解锁显示在屏幕上 **/

@@ -7,15 +7,39 @@
               android:id="@+id/mylayout"
               android:background="@android:color/white"
         >
-    <TextView
-        android:id="@+id/mytextview"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="@android:color/black"
-        android:background="@android:color/holo_blue_dark"
-        android:text="@string/homepage"
-        />
+    <LinearLayout
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_weight="9"
+            android:orientation="horizontal"
+            android:background="@android:color/black">
+        <TextView
+            android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            />
+        <TextView
+                android:id="@+id/mytextview"
+                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="7"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:text="@string/homepage"/>
+        <Spinner
+                android:id="@+id/myspinner"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="fill_parent"
+                />
+            </LinearLayout>
+    <LinearLayout
+            android:id="@+id/mylinearlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            </LinearLayout>
+
 
 </LinearLayout>

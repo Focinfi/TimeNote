@@ -16,5 +16,6 @@
         <activity android:name=".Today"/>
         <activity android:name=".Diary"/>
         <activity android:name=".blank"/>
+        <activity android:name=".DiaryWrite"/>
     </application>
 </manifest>
