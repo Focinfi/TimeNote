@@ -28,8 +28,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     private float Touch_x, Touch_y;
     private float Move_x, Move_y;
     private float angle = 0;
-    private float upangle = 0;
-    private Paint w_paint, b_paint, r_paint, t_paint;
+    private Paint w_paint, b_paint, r_paint, t_paint,p_paint;
     private Canvas canvas;
     private SurfaceHolder surfaceHolder = null;
     boolean mIsRunning = false;
@@ -37,6 +36,9 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     private float change_x, change_y;
     private static final double Average_Angle = 180 / Math.PI;
     private static final double Average_Time = 1;
+    private String Time;
+    private int MinuteTime;
+
 
     public DrawCircle(Context context) {
         super(context);
@@ -71,6 +73,9 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
 
         t_paint = new Paint();
         t_paint.setAntiAlias(true);
+
+        p_paint = new Paint();
+        p_paint.setAntiAlias(true);
 
 
         Center_x = center_x / 2;
@@ -119,12 +124,10 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     }
 
     protected void Draw() {
-        b_paint.setARGB(255,7,220,208);
-        canvas.drawColor(Color.argb(255,237,237,237));
+        b_paint.setARGB(255, 7, 220, 208);
         RectF rectf = new RectF((float) 0.2* Center_x, (float) (Center_y - (0.5 * Center_x)-0.3*Center_x), (float) (Center_x * 1.8), (float) ((0.5 * Center_x) + Center_y+0.3*Center_x));
         // Log.d("Test","upangle-->"+upangle+"angle--->"+angle);
         canvas.drawArc(rectf, 0, angle, true, b_paint);
-        super.onDraw(canvas);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     protected void DrawinnerCircle() {
@@ -136,14 +139,19 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
 
     protected void DrawWhiteCircle() {
         w_paint.setARGB(255,237,237,237);
-        canvas.drawCircle(Center_x, Center_y, (float)(Center_x / 4+0.3*Center_x), w_paint);
+        canvas.drawCircle(Center_x, Center_y, (float) (Center_x / 4 + 0.3 * Center_x), w_paint);
+    }
+    protected  void DrawPreyCircle(){
+        p_paint.setARGB(255,201,201,201);
+        canvas.drawCircle(Center_x,Center_y,(float)(0.8*Center_x),p_paint);
     }
 
     protected void DrawText() {
         t_paint.setColor(Color.BLACK);
-        t_paint.setTextSize(Center_x/5);
+        t_paint.setTextSize(Center_x / 5);
         t_paint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText(ChangeTime(CountTime(angle)), Center_x, Center_y, t_paint);
+        Time =  ChangeTime(CountTime(angle));
+        canvas.drawText(Time, Center_x, Center_y, t_paint);
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
@@ -167,6 +175,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
 
     private int CountTime(float angle) {
         int time = (int) (angle * Average_Time);
+        MinuteTime = time;
         return time;
     }
 
@@ -253,6 +262,8 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
             synchronized (surfaceHolder) {
                 /** 拿到当前画布 然后锁定 **/
                 canvas = surfaceHolder.lockCanvas();
+                canvas.drawARGB(255,237,237,237);
+                DrawPreyCircle();
                 Draw();
                 DrawinnerCircle();
                 DrawWhiteCircle();
@@ -274,5 +285,21 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
                 Thread.yield();
             }
         }
+    }
+
+    public void setTime(String time) {
+        Time = time;
+    }
+
+    public String getTime() {
+
+        return Time;
+    }
+    public int getMinuteTime() {
+        return MinuteTime;
+    }
+
+    public void setMinuteTime(int minuteTime) {
+        MinuteTime = minuteTime;
     }
 }

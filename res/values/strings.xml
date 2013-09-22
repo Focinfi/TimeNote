@@ -5,4 +5,8 @@
     <string name="see">时间表</string>
     <string name="see_diary">看日记</string>
     <string name="about">关于</string>
+    <string name="dairy_write">回味生活</string>
+    <string name="hint_edittext">记下你的一点点....</string>
+    <string name="clear_text">清除</string>
+    <string name="save_text">保存</string>
 </resources>

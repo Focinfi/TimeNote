@@ -7,8 +7,42 @@
               android:background="@android:color/white"
         >
     <TextView
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_width="fill_parent"
-            android:text="写日记"/>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:background="@android:color/black"
+            android:text="@string/dairy_write"/>
+    <EditText
+            android:id="@+id/diary_content"
+            android:layout_width="fill_parent"
+            android:gravity="top"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:textColor="@android:color/black"
+            android:hint="@string/hint_edittext"
+            />
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            >
+        <Button
+                android:id="@+id/clear"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/clear_text"
+                />
+        <Button
+                android:id="@+id/save"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/save_text"
+                />
+            </LinearLayout>
 
 </LinearLayout>

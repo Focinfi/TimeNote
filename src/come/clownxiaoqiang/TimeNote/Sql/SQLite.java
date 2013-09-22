@@ -3,6 +3,7 @@ package come.clownxiaoqiang.TimeNote.Sql;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,31 +14,27 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class SQLite extends SQLiteOpenHelper {
     //表名Diary
-    private static final String SQLNAME = "Diary" ;
-    private static final String SQLNAME_2 = "Tag" ;
+    public static final String SQLNAME = "note" ;
     //_id这个自动生成，为了是生成的唯一性，subject为主题，time为记录下日记的时间，content为记录下的内容
-    private static final String CREAT_TABLE = "creat table if not exist Diary(_id integer primary key autoincrement,subject String,time String,content String)";
-
-    private static final String CREAT_TABLE_2 ="creat table if not exist Tag(_id integer primary key autoincrement,tag String)";
+    public static final String CREAT_TABLE = "create table if not exists note(_id integer primary key autoincrement,date String,tag String,time String,event_id String,minute_time String)";
 
     private static final int VERSION = 1;
 
-
-    public SQLite(Context context, String name, SQLiteDatabase factory, int version,String table) {
-        super(context, name, null, VERSION);
-        onCreate(factory, table);
+    public SQLite(Context context){
+        super(context,SQLNAME,null,VERSION);
+    }
+    public SQLite(Context context, String name, SQLiteDatabase.CursorFactory factory,
+                  int version) {
+        super(context, SQLNAME, factory, VERSION);
+        // TODO Auto-generated constructor stub
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //To change body of implemented methods use File | Settings | File Templates.
+        sqLiteDatabase.execSQL(CREAT_TABLE);
     }
 
-    public void onCreate(SQLiteDatabase sqLiteDatabase,String Name) {
-        //To change body of implemented methods use File | Settings | File Templates.
-        sqLiteDatabase.execSQL(Name);
-
-    }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {

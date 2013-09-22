@@ -10,4 +10,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="about页"/>
+        <Button
+                android:id="@+id/querybutton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="查询"
+                />
 </LinearLayout>
