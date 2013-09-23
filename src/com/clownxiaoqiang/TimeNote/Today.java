@@ -26,14 +26,14 @@ public class Today extends Activity {
     private int Screen_x;
     private int Screen_y;
     private TodayCircle todayCircle;
-    private LinearLayout linearLayout;
+    private LinearLayout Layout;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.today);
         dateTextView = (TextView) this.findViewById(R.id.dateTextView);
         addNote = (Button)this.findViewById(R.id.addNote);
-        date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        date = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
         dateTextView.setText(date);
         addNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,14 +42,16 @@ public class Today extends Activity {
                 startActivity(intent);
             }
         });
-    }
-    public void onStart(){
-        super.onStart();
         DisplayMetrics displayMetrics =new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         Screen_x = displayMetrics.widthPixels;
         Screen_y = displayMetrics.heightPixels;
         todayCircle = new TodayCircle(this,Screen_x,Screen_y);
-        linearLayout = (LinearLayout)this.findViewById(R.id.todayCircleView);
-        linearLayout.addView(todayCircle);
+        Layout = (LinearLayout)this.findViewById(R.id.todayCircleView);
+        Layout.addView(todayCircle);
+    }
+    public void onStart(){
+        super.onStart();
+
     }
 }
