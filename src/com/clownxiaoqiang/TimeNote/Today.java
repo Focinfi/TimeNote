@@ -34,6 +34,13 @@ public class Today extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.today);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        Screen_x = displayMetrics.widthPixels;
+        Screen_y = displayMetrics.heightPixels;
+        todayCircle = new TodayCircle(this, Screen_x, Screen_y);
+        Layout = (LinearLayout) this.findViewById(R.id.todayCircleView);
+        Layout.addView(todayCircle);
         dateTextView = (TextView) this.findViewById(R.id.dateTextView);
         addNote = (Button) this.findViewById(R.id.addNote);
         date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
@@ -49,7 +56,7 @@ public class Today extends Activity {
 
     }
 
-    public void onStart() {
+    /*public void onStart() {
         super.onStart();
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -58,7 +65,7 @@ public class Today extends Activity {
         todayCircle = new TodayCircle(this, Screen_x, Screen_y);
         Layout = (LinearLayout) this.findViewById(R.id.todayCircleView);
         Layout.addView(todayCircle);
-    }
+    }*/
 
     public void onPause() {
         super.onPause();
@@ -77,6 +84,11 @@ public class Today extends Activity {
 
     public void onRestart() {
         super.onRestart();
+        if (first_in > 0) {
+            todayCircle = new TodayCircle(this, Screen_x, Screen_y);
+            Layout.addView(todayCircle);
+        }
+        first_in++;
         Log.d("restart_today", "run_today");
 
     }
