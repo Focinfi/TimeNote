@@ -29,16 +29,25 @@ public class Today extends Activity {
     private int Screen_y;
     private TodayCircle todayCircle;
     private LinearLayout Layout;
+    private int logo ;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.today);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        Screen_x = displayMetrics.widthPixels;
+        Screen_y = displayMetrics.heightPixels;
+        todayCircle = new TodayCircle(this, Screen_x, Screen_y);
+        Layout = (LinearLayout) this.findViewById(R.id.todayCircleView);
+        Layout.addView(todayCircle);
         dateTextView = (TextView) this.findViewById(R.id.dateTextView);
         addNote = (Button) this.findViewById(R.id.addNote);
         date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
         dateTextView.setText(date);
+
+
         addNote.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Today.this, DiaryWrite.class);
                 startActivity(intent);
@@ -47,16 +56,9 @@ public class Today extends Activity {
 
     }
 
-    public void onStart() {
+   /* public void onStart() {
         super.onStart();
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        Screen_x = displayMetrics.widthPixels;
-        Screen_y = displayMetrics.heightPixels;
-        todayCircle = new TodayCircle(this, Screen_x, Screen_y);
-        Layout = (LinearLayout) this.findViewById(R.id.todayCircleView);
-        Layout.addView(todayCircle);
-    }
+    }*/
 
     public void onPause() {
         super.onPause();
@@ -65,6 +67,10 @@ public class Today extends Activity {
 
     public void  onResume(){
         super.onResume();
+        if(logo > 0){
+            Layout.addView(todayCircle);
+        }
+        logo++;
         Log.d("resume_today", "run_resume");
     }
 
