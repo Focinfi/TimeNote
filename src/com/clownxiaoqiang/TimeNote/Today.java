@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -32,8 +34,8 @@ public class Today extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.today);
         dateTextView = (TextView) this.findViewById(R.id.dateTextView);
-        addNote = (Button)this.findViewById(R.id.addNote);
-        date = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+        addNote = (Button) this.findViewById(R.id.addNote);
+        date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
         dateTextView.setText(date);
         addNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,16 +44,33 @@ public class Today extends Activity {
                 startActivity(intent);
             }
         });
-        DisplayMetrics displayMetrics =new DisplayMetrics();
+
+    }
+
+    public void onStart() {
+        super.onStart();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         Screen_x = displayMetrics.widthPixels;
         Screen_y = displayMetrics.heightPixels;
-        todayCircle = new TodayCircle(this,Screen_x,Screen_y);
-        Layout = (LinearLayout)this.findViewById(R.id.todayCircleView);
+        todayCircle = new TodayCircle(this, Screen_x, Screen_y);
+        Layout = (LinearLayout) this.findViewById(R.id.todayCircleView);
         Layout.addView(todayCircle);
     }
-    public void onStart(){
-        super.onStart();
+
+    public void onPause() {
+        super.onPause();
+        Layout.removeView(todayCircle);
+    }
+
+    public void  onResume(){
+        super.onResume();
+        Log.d("resume_today", "run_resume");
+    }
+
+    public void onRestart() {
+        super.onRestart();
+        Log.d("restart_today", "run_today");
 
     }
 }
