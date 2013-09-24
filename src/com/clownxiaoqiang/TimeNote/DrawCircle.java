@@ -229,9 +229,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         float A_angle = 0;
 
         //对于A角的计算
-        if (Math.abs(x2 - x3) > 1 && (Math.abs((y1 - y2) / (x1 - x2) - (y1 - y3) / (x1 - x3)) > 0.1)
-                ) {
-
+        if (Math.abs(x2 - x3) > 1&&(Math.abs((y1-y2)/(x1-x2)-(y1-y3)/(x1-x3))>0.1)) {
             A_angle = (float) Math.acos(((x3 - x1) * (x2 - x1) + (y3 - y1) * (y2 - y1)) /
                     ((Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))) *
                             (Math.sqrt((Math.pow(x3 - x1, 2) + Math.pow(y3 - y1, 2))))));

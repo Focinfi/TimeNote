@@ -30,6 +30,7 @@ public class Today extends Activity {
     private int first_in;
     private TodayCircle todayCircle;
     private LinearLayout Layout;
+    private int logo ;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +46,9 @@ public class Today extends Activity {
         addNote = (Button) this.findViewById(R.id.addNote);
         date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
         dateTextView.setText(date);
+
+
         addNote.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Today.this, DiaryWrite.class);
                 startActivity(intent);
@@ -56,15 +58,9 @@ public class Today extends Activity {
 
     }
 
-    /*public void onStart() {
+
+   /* public void onStart() {
         super.onStart();
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        Screen_x = displayMetrics.widthPixels;
-        Screen_y = displayMetrics.heightPixels;
-        todayCircle = new TodayCircle(this, Screen_x, Screen_y);
-        Layout = (LinearLayout) this.findViewById(R.id.todayCircleView);
-        Layout.addView(todayCircle);
     }*/
 
     public void onPause() {
@@ -74,11 +70,12 @@ public class Today extends Activity {
 
     public void onResume() {
         super.onResume();
-        if (first_in > 0) {
+        if(logo > 0){
             todayCircle = new TodayCircle(this, Screen_x, Screen_y);
             Layout.addView(todayCircle);
         }
-        first_in++;
+        logo++;
+
         Log.d("resume_today", "run_resume");
     }
 

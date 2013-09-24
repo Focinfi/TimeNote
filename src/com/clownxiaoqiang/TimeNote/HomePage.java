@@ -30,6 +30,7 @@ public class HomePage extends Activity {
     private ArrayAdapter<String> adapter;
     private SQlManager sQlManager;
     private String minute_time;
+    private int logo ;
     //要储存的数据
     private String tag, date, time, event_id;
 
@@ -54,6 +55,7 @@ public class HomePage extends Activity {
         myspinner.setSelection(0);
         myspinner.setOnItemSelectedListener(new ItemSelectedListener());
 
+
         savebutton = (Button) findViewById(R.id.savebutton);
         savebutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -77,12 +79,13 @@ public class HomePage extends Activity {
 
     public void onResume() {
         super.onResume();
-        if (first_in > 0) {
-            drawCircle = new DrawCircle(this, Screen_x, Screen_y);
+        Log.d("resume_home",logo+"");
+        if(logo > 0){
             linearLayout.addView(drawCircle);
         }
-        first_in++;
-        Log.d("resume_home", "run_resume");
+        logo++;
+        Log.d("resume_home",logo+"");
+
     }
 
     public void onRestart() {
