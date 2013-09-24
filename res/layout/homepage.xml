@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:id="@+id/mylayout"
+              android:background="@android:color/white"
+        >
+    <LinearLayout
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_weight="5"
+            android:orientation="horizontal"
+            android:background="@android:color/black"
+            >
+        <TextView
+            android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            />
+        <TextView
+                android:id="@+id/mytextview"
+                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="7"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:text="@string/homepage"/>
+        <Spinner
+                android:id="@+id/myspinner"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="fill_parent"
+                />
+            </LinearLayout>
+    <LinearLayout
+            android:id="@+id/mylinearlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            </LinearLayout>
+    <Button
+            android:id="@+id/savebutton"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="5"
+            android:textColor="@android:color/black"
+            android:text="@string/save_text"
+            />
+
+
+</LinearLayout>
