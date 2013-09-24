@@ -27,6 +27,7 @@ public class Today extends Activity {
     private TextView dateTextView;
     private int Screen_x;
     private int Screen_y;
+    private int first_in;
     private TodayCircle todayCircle;
     private LinearLayout Layout;
     private int logo ;
@@ -53,6 +54,7 @@ public class Today extends Activity {
                 startActivity(intent);
             }
         });
+        first_in = 0;
 
     }
 
@@ -65,12 +67,14 @@ public class Today extends Activity {
         Layout.removeView(todayCircle);
     }
 
-    public void  onResume(){
+    public void onResume() {
         super.onResume();
         if(logo > 0){
+            todayCircle = new TodayCircle(this, Screen_x, Screen_y);
             Layout.addView(todayCircle);
         }
         logo++;
+
         Log.d("resume_today", "run_resume");
     }
 
