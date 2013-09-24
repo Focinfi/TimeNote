@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background_gray">#ededed</color>
+    <color name="work_color">#448aca</color>
+    <color name="study_color">#13b5b1</color>
+    <color name="play_color">#ec6941</color>
+    <color name="sleep_color">#facd89</color>
 </resources>

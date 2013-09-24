@@ -38,7 +38,7 @@ public class Today extends Activity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         Screen_x = displayMetrics.widthPixels;
-        Screen_y = displayMetrics.heightPixels;
+        Screen_y = Screen_x;
         todayCircle = new TodayCircle(this, Screen_x, Screen_y);
         Layout = (LinearLayout) this.findViewById(R.id.todayCircleView);
         Layout.addView(todayCircle);
@@ -81,11 +81,6 @@ public class Today extends Activity {
 
     public void onRestart() {
         super.onRestart();
-        if (first_in > 0) {
-            todayCircle = new TodayCircle(this, Screen_x, Screen_y);
-            Layout.addView(todayCircle);
-        }
-        first_in++;
         Log.d("restart_today", "run_today");
 
     }

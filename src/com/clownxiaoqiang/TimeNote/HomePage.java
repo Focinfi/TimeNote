@@ -90,11 +90,6 @@ public class HomePage extends Activity {
 
     public void onRestart() {
         super.onRestart();
-        if (first_in > 0) {
-            drawCircle = new DrawCircle(this, Screen_x, Screen_y);
-            linearLayout.addView(drawCircle);
-        }
-        first_in++;
         Log.d("restart_home", "home_run");
     }
 
