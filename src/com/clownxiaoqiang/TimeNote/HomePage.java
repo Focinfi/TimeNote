@@ -21,7 +21,7 @@ import java.util.Date;
  */
 public class HomePage extends Activity {
 
-    private int Screen_x, Screen_y;
+    private int Screen_x, Screen_y, first_in;
     private DrawCircle drawCircle;
     private LinearLayout linearLayout;
     private Spinner myspinner;
@@ -42,6 +42,7 @@ public class HomePage extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         Screen_x = displayMetrics.widthPixels;
         Screen_y = displayMetrics.heightPixels;
+        first_in = 0;
         drawCircle = new DrawCircle(this, Screen_x, Screen_y);
         linearLayout = (LinearLayout) findViewById(R.id.mylinearlayout);
         linearLayout.addView(drawCircle);
@@ -65,13 +66,22 @@ public class HomePage extends Activity {
         });
     }
 
+    public void onStart() {
+        super.onStart();
+    }
+
     public void onPause() {
         super.onPause();
         linearLayout.removeView(drawCircle);
     }
 
-    public void  onResume(){
+    public void onResume() {
         super.onResume();
+        if (first_in > 0) {
+            drawCircle = new DrawCircle(this, Screen_x, Screen_y);
+            linearLayout.addView(drawCircle);
+        }
+        first_in++;
         Log.d("resume_home", "run_resume");
     }
 
