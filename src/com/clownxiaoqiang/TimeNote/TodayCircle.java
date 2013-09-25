@@ -46,7 +46,7 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
         super(context, attrs);
     }
 
-    public TodayCircle(Context context, float center_x, float center_y) {
+    public TodayCircle(Context context, float center_x, float center_y, int work_time, int study_time, int play_time, int sleep_time) {
 
         super(context);
         this.context = context;
@@ -76,10 +76,10 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
 
         radius = Center_x * 4 / 5;
 
-        workTime = 60;
-        studyTime = 100;
-        playTime = 60;
-        sleepTime = 90;
+        this.workTime = work_time;
+        this.studyTime = study_time;
+        this.playTime = play_time;
+        this.sleepTime = sleep_time;
 
         rectf = new RectF(Center_x - radius, (float) 0, Center_x + radius, radius * 2);
         startAngle = 0;

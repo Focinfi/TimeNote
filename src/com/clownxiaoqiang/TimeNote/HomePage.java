@@ -10,7 +10,9 @@ import android.widget.*;
 import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,11 +30,15 @@ public class HomePage extends Activity {
     private Button savebutton;
     private static final String[] Spinner_Text = {"学习", "工作", "睡觉", "娱乐"};
     private ArrayAdapter<String> adapter;
-    private SQlManager sQlManager;
+    private SQlManager sQlManager, dataQuery;
     private String minute_time;
-    private int logo ;
+    private int logo;
     //要储存的数据
     private String tag, date, time, event_id;
+    //要查询的数据
+    private ArrayList<Map<String, Object>> arrayList;
+    private int workTime, studyTime, playTime, sleepTime, totalTime;
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +67,32 @@ public class HomePage extends Activity {
             public void onClick(View view) {
                 time = drawCircle.getTime();
                 minute_time = drawCircle.getMinuteTime() + "";
-                sQlManager = new SQlManager(HomePage.this);
-                sQlManager.Addnote(date, tag, time, event_id, minute_time);
-                Log.d("message", date + tag + time + event_id);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+                Date date_S = new Date(System.currentTimeMillis());
+                String date_x = simpleDateFormat.format(date_S);
+                dataQuery = new SQlManager(HomePage.this);
+                arrayList = new ArrayList<Map<String, Object>>();
+                arrayList = dataQuery.GetTimeToDrawPicture(date_x);
+                Log.d("arraylist", arrayList.toString());
+                if (arrayList.isEmpty()) {
+                    workTime = studyTime = playTime = sleepTime = 0;
+                } else {
+                    workTime = Integer.parseInt((String) arrayList.get(0).get((Object) "work_time"));
+                    studyTime = Integer.parseInt((String) arrayList.get(0).get((Object) "study_time"));
+                    playTime = Integer.parseInt((String) arrayList.get(0).get((Object) "play_time"));
+                    sleepTime = Integer.parseInt((String) arrayList.get(0).get((Object) "sleep_time"));
+                    totalTime = workTime + studyTime + playTime + sleepTime + Integer.parseInt(minute_time);
+                    Log.d("arraylist", workTime + " " + studyTime + " " + playTime + " " + sleepTime + " "+totalTime);
+
+                }
+                if (totalTime > 1440) {
+                    Toast.makeText(HomePage.this, "已经超过24小时了", Toast.LENGTH_SHORT).show();
+                } else {
+                    sQlManager = new SQlManager(HomePage.this);
+                    sQlManager.Addnote(date, tag, time, event_id, minute_time);
+                    Toast.makeText(HomePage.this, "保存成功", Toast.LENGTH_SHORT).show();
+                    Log.d("message", date + tag + time + event_id);
+                }
             }
         });
     }
@@ -74,18 +103,18 @@ public class HomePage extends Activity {
 
     public void onPause() {
         super.onPause();
-        Log.d("zhuangtai","pause");
+        Log.d("zhuangtai", "pause");
         linearLayout.removeView(drawCircle);
     }
 
     public void onResume() {
         super.onResume();
-        Log.d("resume_home",logo+"");
-        if(logo > 0){
+        Log.d("resume_home", logo + "");
+        if (logo > 0) {
             linearLayout.addView(drawCircle);
         }
         logo++;
-        Log.d("resume_home",logo+"");
+        Log.d("resume_home", logo + "");
 
     }
 
