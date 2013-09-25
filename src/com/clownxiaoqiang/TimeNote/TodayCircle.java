@@ -46,7 +46,7 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
         super(context, attrs);
     }
 
-    public TodayCircle(Context context, float center_x, float center_y) {
+    public TodayCircle(Context context, float center_x, float center_y, int work_time, int study_time, int play_time, int sleep_time) {
 
         super(context);
         this.context = context;
@@ -74,13 +74,14 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
         Center_x = center_x / 2;
         Center_y = (float) (center_y * 0.4);
 
-        workTime = 60;
-        studyTime = 100;
-        playTime = 0;
-        sleepTime = 90;
+        radius = Center_x * 4 / 5;
 
-        rectf = new RectF((float) 0.2 * Center_x, (float) (Center_y - (0.5 * Center_x) - 0.3 * Center_x), (float) (Center_x * 1.8), (float) ((0.5 * Center_x) + Center_y + 0.3 * Center_x));
+        this.workTime = work_time;
+        this.studyTime = study_time;
+        this.playTime = play_time;
+        this.sleepTime = sleep_time;
 
+        rectf = new RectF(Center_x - radius, (float) 0, Center_x + radius, radius * 2);
         startAngle = 0;
         endAngle = 0;
         angle = 1;
@@ -148,7 +149,7 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
             synchronized (surfaceHolder) {
                 /** 拿到当前画布 然后锁定 **/
                 canvas = surfaceHolder.lockCanvas();
-                canvas.drawARGB(255,237,237,237);
+                canvas.drawARGB(255, 237, 237, 237);
 
                 DrawGreyCircle();
 
@@ -173,7 +174,7 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
                 } else {
                     DrawWorkCircle(0, workTime);
                 }
-                angle = angle + 3;
+                angle = angle + 4;
 
 
                 /** 绘制结束后解锁显示在屏幕上 **/

@@ -34,6 +34,14 @@
                 android:layout_height="fill_parent"
                 />
             </LinearLayout>
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textColor="@android:color/black"
+        android:hint="添加标签"/>
     <LinearLayout
             android:id="@+id/mylinearlayout"
             android:layout_width="fill_parent"
@@ -47,8 +55,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="5"
             android:textColor="@android:color/black"
-            android:text="@string/save_text"
-            />
+            android:text="@string/save_text"/>
 
 
 </LinearLayout>
