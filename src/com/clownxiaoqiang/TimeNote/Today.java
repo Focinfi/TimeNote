@@ -10,9 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,6 +35,8 @@ public class Today extends Activity {
     private TodayCircle todayCircle;
     private LinearLayout Layout;
     private int logo ;
+    private SQlManager sQlManager ;
+    private ArrayList<Map<String,Object>> arrayList;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +48,15 @@ public class Today extends Activity {
         todayCircle = new TodayCircle(this, Screen_x, Screen_y);
         Layout = (LinearLayout) this.findViewById(R.id.todayCircleView);
         Layout.addView(todayCircle);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        Date date_S = new Date(System.currentTimeMillis());
+        String date_x = simpleDateFormat.format(date_S);
+        sQlManager = new SQlManager(Today.this);
+        arrayList = new ArrayList<Map<String, Object>>();
+        arrayList = sQlManager.GetTimeToDrawPicture(date_x);
+        Log.d("arraylist",arrayList.toString());
+
         dateTextView = (TextView) this.findViewById(R.id.dateTextView);
         addNote = (Button) this.findViewById(R.id.addNote);
         date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());

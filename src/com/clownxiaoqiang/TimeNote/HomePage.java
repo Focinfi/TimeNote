@@ -74,6 +74,7 @@ public class HomePage extends Activity {
 
     public void onPause() {
         super.onPause();
+        Log.d("zhuangtai","pause");
         linearLayout.removeView(drawCircle);
     }
 
@@ -95,7 +96,7 @@ public class HomePage extends Activity {
 
     class ItemSelectedListener implements AdapterView.OnItemSelectedListener {
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         Date date_S = new Date(System.currentTimeMillis());
 
         @Override
