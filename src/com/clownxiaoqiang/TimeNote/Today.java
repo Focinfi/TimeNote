@@ -31,23 +31,16 @@ public class Today extends Activity {
     private TextView dateTextView;
     private int Screen_x;
     private int Screen_y;
-    private int first_in;
+    private int logo;
+    private int workTime, studyTime, playTime, sleepTime;
     private TodayCircle todayCircle;
     private LinearLayout Layout;
-    private int logo ;
-    private SQlManager sQlManager ;
-    private ArrayList<Map<String,Object>> arrayList;
+    private SQlManager sQlManager;
+    private ArrayList<Map<String, Object>> arrayList;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.today);
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        Screen_x = displayMetrics.widthPixels;
-        Screen_y = displayMetrics.heightPixels;
-        todayCircle = new TodayCircle(this, Screen_x, Screen_y);
-        Layout = (LinearLayout) this.findViewById(R.id.todayCircleView);
-        Layout.addView(todayCircle);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         Date date_S = new Date(System.currentTimeMillis());
@@ -55,7 +48,25 @@ public class Today extends Activity {
         sQlManager = new SQlManager(Today.this);
         arrayList = new ArrayList<Map<String, Object>>();
         arrayList = sQlManager.GetTimeToDrawPicture(date_x);
-        Log.d("arraylist",arrayList.toString());
+        Log.d("arraylist", arrayList.toString());
+        if (arrayList.isEmpty()) {
+            workTime = studyTime = playTime = sleepTime = 0;
+        } else {
+            workTime = Integer.parseInt((String) arrayList.get(0).get((Object) "work_time"))/4;
+            studyTime = Integer.parseInt((String) arrayList.get(0).get((Object) "study_time"))/4;
+            playTime = Integer.parseInt((String) arrayList.get(0).get((Object) "play_time"))/4;
+            sleepTime = Integer.parseInt((String) arrayList.get(0).get((Object) "sleep_time"))/4;
+            Log.d("arraylist", workTime + " " + studyTime + " " + playTime + " " + sleepTime + "");
+
+        }
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        Screen_x = displayMetrics.widthPixels;
+        Screen_y = Screen_x;
+        todayCircle = new TodayCircle(this, Screen_x, Screen_y, workTime, studyTime, playTime, sleepTime);
+        Layout = (LinearLayout) this.findViewById(R.id.todayCircleView);
+        Layout.addView(todayCircle);
+
 
         dateTextView = (TextView) this.findViewById(R.id.dateTextView);
         addNote = (Button) this.findViewById(R.id.addNote);
@@ -69,9 +80,9 @@ public class Today extends Activity {
                 startActivity(intent);
             }
         });
-        first_in = 0;
 
     }
+
 
    /* public void onStart() {
         super.onStart();
@@ -84,8 +95,24 @@ public class Today extends Activity {
 
     public void onResume() {
         super.onResume();
-        if(logo > 0){
-            todayCircle = new TodayCircle(this, Screen_x, Screen_y);
+        if (logo > 0) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            Date date_S = new Date(System.currentTimeMillis());
+            String date_x = simpleDateFormat.format(date_S);
+            arrayList = new ArrayList<Map<String, Object>>();
+            arrayList = sQlManager.GetTimeToDrawPicture(date_x);
+            Log.d("arraylist", arrayList.toString());
+            if (arrayList.isEmpty()) {
+                workTime = studyTime = playTime = sleepTime = 0;
+            } else {
+                workTime = Integer.parseInt((String) arrayList.get(0).get((Object) "work_time"))/4;
+                studyTime = Integer.parseInt((String) arrayList.get(0).get((Object) "study_time"))/4;
+                playTime = Integer.parseInt((String) arrayList.get(0).get((Object) "play_time"))/4;
+                sleepTime = Integer.parseInt((String) arrayList.get(0).get((Object) "sleep_time"))/4;
+                Log.d("arraylist", workTime + " " + studyTime + " " + playTime + " " + sleepTime + "");
+
+            }
+            todayCircle = new TodayCircle(this, Screen_x, Screen_y, workTime, studyTime, playTime, sleepTime);
             Layout.addView(todayCircle);
         }
         logo++;
