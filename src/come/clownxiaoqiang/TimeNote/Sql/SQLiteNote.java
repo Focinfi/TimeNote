@@ -12,7 +12,7 @@ import android.util.Log;
  * Time: 下午11:23
  * To change this template use File | Settings | File Templates.
  */
-public class SQLite extends SQLiteOpenHelper {
+public class SQLiteNote extends SQLiteOpenHelper {
     //表名Diary
     public static final String SQLNAME = "note" ;
     //_id这个自动生成，为了是生成的唯一性，subject为主题，time为记录下日记的时间，content为记录下的内容
@@ -20,11 +20,11 @@ public class SQLite extends SQLiteOpenHelper {
 
     private static final int VERSION = 1;
 
-    public SQLite(Context context){
+    public SQLiteNote(Context context){
         super(context,SQLNAME,null,VERSION);
     }
-    public SQLite(Context context, String name, SQLiteDatabase.CursorFactory factory,
-                  int version) {
+    public SQLiteNote(Context context, String name, SQLiteDatabase.CursorFactory factory,
+                      int version) {
         super(context, SQLNAME, factory, VERSION);
         // TODO Auto-generated constructor stub
     }
