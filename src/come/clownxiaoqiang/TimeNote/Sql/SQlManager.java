@@ -50,7 +50,7 @@ public class SQlManager {
             e.printStackTrace();
         }finally {
             update(date,event_id,minute_time);
-            Toast.makeText(context,date+tag+time+event_id+"minute_time-->"+minute_time,Toast.LENGTH_LONG).show();
+            //Toast.makeText(context,date+tag+time+event_id+"minute_time-->"+minute_time,Toast.LENGTH_LONG).show();
         }
     }
     //这个是today表的获取方法
@@ -168,4 +168,14 @@ public class SQlManager {
         }
 
     }
+
+    private void updatenote(String note,String event_id,String date){
+        ContentValues values = new ContentValues();
+        String event_name = Judge(event_id);
+        values.put(event_name,note);
+        String whereClause = "date=?";
+        String [] whereArgs = {String.valueOf(date)};
+        sqLiteDatabase.update("today",values,whereClause,whereArgs);
+    }
+
 }

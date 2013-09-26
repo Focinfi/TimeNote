@@ -10,7 +10,7 @@
     <LinearLayout
             android:layout_height="fill_parent"
             android:layout_width="fill_parent"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:orientation="horizontal"
             android:background="@android:color/black"
             >
@@ -35,17 +35,17 @@
                 />
             </LinearLayout>
     <EditText
+        android:id="@+id/tagedittext"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:layout_weight="4"
         android:gravity="center"
-        android:textSize="25sp"
         android:textColor="@android:color/black"
         android:hint="添加标签"/>
     <LinearLayout
             android:id="@+id/mylinearlayout"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1">
 
             </LinearLayout>
@@ -53,7 +53,7 @@
             android:id="@+id/savebutton"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:textColor="@android:color/black"
             android:text="@string/save_text"/>
 

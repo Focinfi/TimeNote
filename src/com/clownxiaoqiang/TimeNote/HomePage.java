@@ -74,7 +74,10 @@ public class HomePage extends Activity {
                 arrayList = dataQuery.GetTimeToDrawPicture(date_x);
                 Log.d("arraylist", arrayList.toString());
                 if (arrayList.isEmpty()) {
-                    workTime = studyTime = playTime = sleepTime = 0;
+                    workTime = 0;
+                    studyTime = 0;
+                    playTime = 0;
+                    sleepTime = 0;
                 } else {
                     workTime = Integer.parseInt((String) arrayList.get(0).get((Object) "work_time"));
                     studyTime = Integer.parseInt((String) arrayList.get(0).get((Object) "study_time"));
@@ -95,6 +98,7 @@ public class HomePage extends Activity {
             }
         });
     }
+
 
     public void onStart() {
         super.onStart();
@@ -132,7 +136,6 @@ public class HomePage extends Activity {
             Log.d("click", "id--->" + l);
             event_id = l + "";
             date = simpleDateFormat.format(date_S);
-            tag = "打游戏";
         }
 
         @Override
