@@ -1,16 +1,12 @@
 package com.clownxiaoqiang.TimeNote;
 
-import android.*;
-import android.R;
 import android.content.Context;
 import android.graphics.*;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,6 +24,9 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     private float Touch_x, Touch_y;
     private float Move_x, Move_y;
     private float angle = 0;
+    private float baseRadius;//低园半径
+    private float middleRadius;//中园半径
+    private float innerBlankRadius;//中间空白园半径
     private Paint w_paint, b_paint, r_paint, t_paint, p_paint;
     private Canvas canvas;
     private SurfaceHolder surfaceHolder = null;
@@ -80,6 +79,10 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
 
         Center_x = center_x / 2;
         Center_y = (float) (center_y * 0.4);
+
+        baseRadius = Center_x * 4 / 5;
+        middleRadius = Center_x * 27 / 40;
+        innerBlankRadius = Center_x * 11 / 20;
         //Log.d("TAG","初始化完成");
     }
 
@@ -125,34 +128,34 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
 
     protected void Draw() {
         b_paint.setARGB(255, 7, 220, 208);
-        RectF rectf = new RectF((float) 0.2 * Center_x, (float) (Center_y - (0.5 * Center_x) - 0.3 * Center_x), (float) (Center_x * 1.8), (float) ((0.5 * Center_x) + Center_y + 0.3 * Center_x));
+        RectF rectf = new RectF(Center_x - baseRadius, (float) 0, Center_x + baseRadius, baseRadius * 2);
         // Log.d("Test","upangle-->"+upangle+"angle--->"+angle);
         canvas.drawArc(rectf, 0, angle, true, b_paint);
     }
 
     protected void DrawinnerCircle() {
         r_paint.setARGB(255, 210, 245, 47);
-        RectF rectF = new RectF((float) (0.625 * Center_x - 0.3 * Center_x), (float) ((Center_y - (0.5 * Center_x) + 0.125 * Center_x - 0.3 * Center_x)),
-                (float) ((Center_x * 1.5) - 0.125 * Center_x + 0.3 * Center_x), (float) (((0.5 * Center_x) + Center_y) - 0.125 * Center_x + 0.3 * Center_x));
+        RectF rectF = new RectF(Center_x - middleRadius, baseRadius - middleRadius,
+                Center_x + middleRadius, baseRadius + middleRadius);
         canvas.drawArc(rectF, 0, angle, true, r_paint);
     }
 
     protected void DrawWhiteCircle() {
         w_paint.setARGB(255, 237, 237, 237);
-        canvas.drawCircle(Center_x, Center_y, (float) (Center_x / 4 + 0.3 * Center_x), w_paint);
+        canvas.drawCircle(Center_x, baseRadius, innerBlankRadius, w_paint);
     }
 
     protected void DrawPreyCircle() {
         p_paint.setARGB(255, 201, 201, 201);
-        canvas.drawCircle(Center_x, Center_y, (float) (0.8 * Center_x), p_paint);
+        canvas.drawCircle(Center_x, baseRadius, baseRadius, p_paint);
     }
 
     protected void DrawText() {
         t_paint.setColor(Color.BLACK);
-        t_paint.setTextSize(Center_x / 5);
+        t_paint.setTextSize(Center_x / 4);
         t_paint.setTextAlign(Paint.Align.CENTER);
         Time = ChangeTime(CountTime(angle));
-        canvas.drawText(Time, Center_x, Center_y, t_paint);
+        canvas.drawText(Time, Center_x, baseRadius, t_paint);
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
@@ -229,7 +232,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         float A_angle = 0;
 
         //对于A角的计算
-        if (Math.abs(x2 - x3) > 1&&(Math.abs((y1-y2)/(x1-x2)-(y1-y3)/(x1-x3))>0.1)) {
+        if (Math.abs(x2 - x3) > 1 && (Math.abs((y1 - y2) / (x1 - x2) - (y1 - y3) / (x1 - x3)) > 0.1)) {
             A_angle = (float) Math.acos(((x3 - x1) * (x2 - x1) + (y3 - y1) * (y2 - y1)) /
                     ((Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))) *
                             (Math.sqrt((Math.pow(x3 - x1, 2) + Math.pow(y3 - y1, 2))))));
