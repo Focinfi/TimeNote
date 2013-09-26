@@ -76,13 +76,15 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         p_paint = new Paint();
         p_paint.setAntiAlias(true);
 
-
         Center_x = center_x / 2;
-        Center_y = (float) (center_y * 0.4);
 
         baseRadius = Center_x * 4 / 5;
         middleRadius = Center_x * 27 / 40;
         innerBlankRadius = Center_x * 11 / 20;
+
+        Center_y = baseRadius;
+
+
         //Log.d("TAG","初始化完成");
     }
 
@@ -195,7 +197,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         Log.d("x3", "x3--->" + x3);
         Log.d("y2", "y2--->" + y2);
 
-        if ((y3 > y1 - Center_y / 4) && (y3 < y1 + Center_y / 4)) {
+        if ((y3 > baseRadius / 2) && (y3 < baseRadius / 2 * 3)) {
             if (y3 > y2) {
                 if (x3 < x1)
                     return 0;
