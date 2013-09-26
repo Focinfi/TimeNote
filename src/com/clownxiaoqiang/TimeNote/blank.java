@@ -18,21 +18,9 @@ import java.util.Map;
  */
 public class blank extends Activity {
 
-    private Button querybutton;
-    private ArrayList<Map<String,Object>> arrayList;
-    private SQlManager sQlManager;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
 
-        querybutton = (Button)findViewById(R.id.querybutton);
-        querybutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sQlManager = new SQlManager(blank.this);
-                arrayList = sQlManager.query("");
-
-            }
-        });
     }
 }

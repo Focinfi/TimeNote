@@ -22,11 +22,12 @@ import java.util.Map;
  */
 public class HomePage extends Activity {
 
-    private int Screen_x, Screen_y, first_in;
+    private int Screen_x, Screen_y;
     private DrawCircle drawCircle;
     private LinearLayout linearLayout;
     private Spinner myspinner;
     private Button savebutton;
+    private EditText tagEditText;
     private static final String[] Spinner_Text = {"学习", "工作", "睡觉", "娱乐"};
     private ArrayAdapter<String> adapter;
     private SQlManager sQlManager, dataQuery;
@@ -48,10 +49,11 @@ public class HomePage extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         Screen_x = displayMetrics.widthPixels;
         Screen_y = displayMetrics.heightPixels;
-        first_in = 0;
         drawCircle = new DrawCircle(this, Screen_x, Screen_y);
         linearLayout = (LinearLayout) findViewById(R.id.mylinearlayout);
         linearLayout.addView(drawCircle);
+
+        tagEditText = (EditText) this.findViewById(R.id.tagEditText);
 
         myspinner = (Spinner) findViewById(R.id.myspinner);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Spinner_Text);
@@ -64,6 +66,7 @@ public class HomePage extends Activity {
         savebutton = (Button) findViewById(R.id.savebutton);
         savebutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                tag = tagEditText.getText().toString();
                 time = drawCircle.getTime();
                 minute_time = drawCircle.getMinuteTime() + "";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -84,11 +87,13 @@ public class HomePage extends Activity {
                     playTime = Integer.parseInt((String) arrayList.get(0).get((Object) "play_time"));
                     sleepTime = Integer.parseInt((String) arrayList.get(0).get((Object) "sleep_time"));
                     totalTime = workTime + studyTime + playTime + sleepTime + Integer.parseInt(minute_time);
-                    Log.d("arraylist", workTime + " " + studyTime + " " + playTime + " " + sleepTime + " "+totalTime);
+                    Log.d("arraylist", workTime + " " + studyTime + " " + playTime + " " + sleepTime + " " + totalTime);
 
                 }
                 if (totalTime > 1440) {
                     Toast.makeText(HomePage.this, "已经超过24小时了", Toast.LENGTH_SHORT).show();
+                } else if (tag.isEmpty()) {
+                    Toast.makeText(HomePage.this, "还没添加标签", Toast.LENGTH_SHORT).show();
                 } else {
                     sQlManager = new SQlManager(HomePage.this);
                     sQlManager.Addnote(date, tag, time, event_id, minute_time);

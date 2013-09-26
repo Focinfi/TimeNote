@@ -73,15 +73,14 @@ public class SQlManager {
 
     public ArrayList<Map<String,Object>> query(String date){
         ArrayList<Map<String,Object>> records =new ArrayList<Map<String,Object>>();
-        Cursor cursor =sqLiteDatabase.rawQuery("select * from note where date like ?",new String[]{"%"+date+"%"});
+        Cursor cursor =sqLiteDatabase.rawQuery("select * from today where date = ?",new String[]{date});
         while(cursor.moveToNext()){
             Map<String,Object> item =new HashMap<String, Object>();
-            item.put("id", cursor.getInt(cursor.getColumnIndex("_id")));
-            item.put("date", cursor.getString(cursor.getColumnIndex("date")));
-            item.put("tag", cursor.getString(cursor.getColumnIndex("tag")));
-            item.put("time", cursor.getString(cursor.getColumnIndex("time")));
-            item.put("event_id",cursor.getString(cursor.getColumnIndex("event_id")));
-            item.put("minute_time",cursor.getString(cursor.getColumnIndex("minute_time")));
+            item.put("work_time", cursor.getInt(cursor.getColumnIndex("work_time")));
+            item.put("study_time", cursor.getString(cursor.getColumnIndex("study_time")));
+            item.put("sleep_time", cursor.getString(cursor.getColumnIndex("sleep_time")));
+            item.put("play_time", cursor.getString(cursor.getColumnIndex("play_time")));
+            item.put("note",cursor.getString(cursor.getColumnIndex("note")));
             records.add(item);
             Log.d("item", item.toString());
         }
@@ -89,6 +88,21 @@ public class SQlManager {
         cursor.close();
         return records;
     }
+
+    public ArrayList<Map<String,Object>> queryTag(String date,String event_id){
+        sqLiteDatabase = sqLite.getWritableDatabase();
+        ArrayList<Map<String,Object>> records = new ArrayList<Map<String, Object>>();
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from today where date = ? and event_id = ?", new String[]{date, event_id});
+        while (cursor.moveToNext()){
+            Map<String,Object> item = new HashMap<String, Object>();
+            item.put("tag",cursor.getString(cursor.getColumnIndex("tag")));
+            item.put("time",cursor.getString(cursor.getColumnIndex("time")));
+            records.add(item);
+        }
+        cursor.close();
+        return records;
+    }
+
     public boolean querydate(String date){
         sqLiteDatabase = sqLite.getWritableDatabase();
         sqLiteDatabase = sQliteTwo.getWritableDatabase();
