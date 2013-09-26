@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="fill_parent"
@@ -8,17 +7,16 @@
               android:background="@android:color/white"
         >
     <LinearLayout
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            android:layout_weight="4"
             android:orientation="horizontal"
             android:background="@android:color/black"
             >
         <TextView
-            android:layout_height="fill_parent"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            />
+                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                />
         <TextView
                 android:id="@+id/mytextview"
                 android:layout_height="fill_parent"
@@ -33,27 +31,44 @@
                 android:layout_weight="2"
                 android:layout_height="fill_parent"
                 />
-            </LinearLayout>
-    <EditText
-        android:id="@+id/tagedittext"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="4"
-        android:gravity="center"
-        android:textColor="@android:color/black"
-        android:hint="添加标签"/>
+    </LinearLayout>
     <LinearLayout
-            android:id="@+id/mylinearlayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
+            android:background="@color/background_gray"
+            android:orientation="horizontal">
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"/>
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:textColor="@android:color/black"
+                android:cursorVisible="false"
+                android:hint="添加标签"/>
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"/>
+    </LinearLayout>
 
-            </LinearLayout>
+    <LinearLayout
+            android:id="@+id/mylinearlayout"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+    </LinearLayout>
     <Button
             android:id="@+id/savebutton"
+            android:layout_weight="3"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="4"
             android:textColor="@android:color/black"
             android:text="@string/save_text"/>
 
