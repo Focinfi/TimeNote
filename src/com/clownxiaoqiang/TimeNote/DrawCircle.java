@@ -157,7 +157,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     }
 
     protected void DrawPreyCircle() {
-        p_paint.setARGB(255, 201, 201, 201);
+        p_paint.setARGB(255, 216, 216, 216);
         canvas.drawCircle(Center_x, baseRadius, baseRadius, p_paint);
     }
 
@@ -214,7 +214,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         String s = simpleDateFormat.format(date);
         return s;
     }
-
+    //判断手指滑动的方向，顺时针返回 1，逆时针返回 0，无法判断返回 2
     private int GetDirection(float x1, float y1, float x2, float y2, float x3, float y3) {
         Log.d("x2", "x2--->" + x2);
         Log.d("x3", "x3--->" + x3);
