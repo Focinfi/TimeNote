@@ -115,7 +115,7 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
     }
 
     public void DrawGreyCircle() {
-        greyPaint.setARGB(255, 201, 201, 201);
+        greyPaint.setARGB(255, 216, 216, 216);
         canvas.drawArc(rectf, 0, 360, true, greyPaint);
         super.onDraw(canvas);
     }

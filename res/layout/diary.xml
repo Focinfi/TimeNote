@@ -11,15 +11,15 @@
             android:orientation="horizontal"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:background="@android:color/black">
-        <Button
-                android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:paddingTop="0dp"
-                android:paddingBottom="0dp"
-                android:background="@drawable/backspacing_bg"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
+            android:background="@drawable/bottom_bg">
+        <!--<Button-->
+        <!--android:layout_weight="2"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:paddingTop="0dp"-->
+        <!--android:paddingBottom="0dp"-->
+        <!--android:background="@drawable/backspacing_bg"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"/>-->
 
 
         <TextView
@@ -32,28 +32,28 @@
                 android:text="我的时间轴"
                 android:textColor="@android:color/white"
                 android:textSize="25sp"/>
-        <TextView
-                android:layout_weight="2"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"/>
+        <!--<TextView-->
+        <!--android:layout_weight="2"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
     </LinearLayout>
-    <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-        <EditText
-                android:id="@+id/searchTimeLineEditText"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="搜索  例如：20130928"/>
-        <Button
-                android:id="@+id/searchTimeLineButton"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:text="搜"/>
-    </LinearLayout>
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal">-->
+    <!--<EditText-->
+    <!--android:id="@+id/searchTimeLineEditText"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:hint="搜索  例如：20130928"/>-->
+    <!--<Button-->
+    <!--android:id="@+id/searchTimeLineButton"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="6"-->
+    <!--android:text="搜"/>-->
+    <!--</LinearLayout>-->
     <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"

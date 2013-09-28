@@ -157,7 +157,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     }
 
     protected void DrawPreyCircle() {
-        p_paint.setARGB(255, 201, 201, 201);
+        p_paint.setARGB(255, 216, 216, 216);
         canvas.drawCircle(Center_x, baseRadius, baseRadius, p_paint);
     }
 

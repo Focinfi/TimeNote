@@ -53,6 +53,23 @@ public class Diary extends Activity {
         diaryListView.setAdapter(timeLineAdapter);
     }
 
+    public void onResume(){
+        super.onResume();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        Date date_S = new Date(System.currentTimeMillis());
+        String date_x = simpleDateFormat.format(date_S);
+        sQlManager = new SQlManager(Diary.this);
+        arrayList = new ArrayList<Map<String, Object>>();
+
+        arrayList = sQlManager.query("");
+        Log.d("d_all", arrayList.toString());
+
+//        timeLineAdapter = new SimpleAdapter(Diary.this, arrayList, R.layout.item_time_line,
+//                new String[]{"work_time", "study_time", "play_time", "sleep_time", "note", "date_month", "date_week"},
+//                new int[]{R.id.workTimeView, R.id.studyTimeView, R.id.playTimeView, R.id.sleepTimeView, R.id.diaryNoteTextView, R.id.dateMonthTextView, R.id.dateWeekTextView});
+        timeLineAdapter.notifyDataSetChanged();
+    }
+
     public final class DiaryViewHolder {
         public TextView workTimeTextView;
         public TextView studyTimeTextView;
@@ -87,6 +104,7 @@ public class Diary extends Activity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            position = arrayList.size() - 1 - position; //倒置数组顺序
             DiaryViewHolder holder = null;
             if (convertView == null) {
 
@@ -106,11 +124,11 @@ public class Diary extends Activity {
 
                 holder = (DiaryViewHolder) convertView.getTag();
             }
-            String work_time = "工 作   " + ChangeTime(Integer.parseInt(arrayList.get(position).get((Object) "work_time").toString()));
-            String study_time = "学 习   " + ChangeTime(Integer.parseInt(arrayList.get(position).get((Object) "study_time").toString()));
-            String play_time = "娱 乐   " + ChangeTime(Integer.parseInt(arrayList.get(position).get((Object) "play_time").toString()));
-            String sleep_time = "休 息   " + ChangeTime(Integer.parseInt(arrayList.get(position).get((Object) "sleep_time").toString()));
-            String note = "笔记："+arrayList.get(position).get((Object) "note").toString();
+            String work_time = "工作   " + ChangeTime(Integer.parseInt(arrayList.get(position).get((Object) "work_time").toString()));
+            String study_time = "学习   " + ChangeTime(Integer.parseInt(arrayList.get(position).get((Object) "study_time").toString()));
+            String play_time = "娱乐   " + ChangeTime(Integer.parseInt(arrayList.get(position).get((Object) "play_time").toString()));
+            String sleep_time = "休息   " + ChangeTime(Integer.parseInt(arrayList.get(position).get((Object) "sleep_time").toString()));
+            String note = "笔记：" + arrayList.get(position).get((Object) "note").toString();
             String date_month = arrayList.get(position).get((Object) "date_month").toString();
             String date_week = arrayList.get(position).get((Object) "date_week").toString();
 
