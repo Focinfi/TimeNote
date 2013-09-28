@@ -2,6 +2,10 @@ package com.clownxiaoqiang.TimeNote;
 
 import android.content.Context;
 import android.graphics.*;
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -10,6 +14,7 @@ import android.view.SurfaceView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.LogRecord;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,6 +32,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     private float baseRadius;//低园半径
     private float middleRadius;//中园半径
     private float innerBlankRadius;//中间空白园半径
+    private CountTime countTime;
     private Paint w_paint, b_paint, r_paint, t_paint, p_paint;
     private Canvas canvas;
     private SurfaceHolder surfaceHolder = null;
@@ -35,8 +41,11 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     private float change_x, change_y;
     private static final double Average_Angle = 180 / Math.PI;
     private static final double Average_Time = 1;
-    private String Time;
+    private static final double Average_CountTime = 360.0/(6*60*60);
+    private String Time,SecondString;
+    private long Second;
     private int MinuteTime;
+    final static int Msg = 1;
 
 
     public DrawCircle(Context context) {
@@ -160,6 +169,14 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         canvas.drawText(Time, Center_x, baseRadius, t_paint);
     }
 
+    protected void DrawTextSecond(){
+        t_paint.setColor(Color.BLUE);
+        t_paint.setTextSize(Center_x/4);
+        t_paint.setTextAlign(Paint.Align.CENTER);
+        SecondString = ChangeSecond((int)Second % 60);
+        canvas.drawText(SecondString,Center_x,baseRadius+Center_x/4,t_paint);
+    }
+
     public void surfaceCreated(SurfaceHolder holder) {
         /**开始游戏主循环线程**/
         mIsRunning = true;
@@ -185,6 +202,12 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         return time;
     }
 
+    private String ChangeSecond(int Second){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ss");
+        Date date = new Date(0,0,0,0,0,Second);
+        String s = simpleDateFormat.format(date);
+        return s;
+    }
     private String ChangeTime(int minute) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date(0, 0, 0, 0, minute);
@@ -274,6 +297,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
                 DrawinnerCircle();
                 DrawWhiteCircle();
                 DrawText();
+                DrawTextSecond();
                 /** 绘制结束后解锁显示在屏幕上 **/
                 surfaceHolder.unlockCanvasAndPost(canvas);
             }
@@ -293,6 +317,27 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         }
     }
 
+    public void TimeCount (){
+        Log.d("counttime","MinuteTime---->"+MinuteTime);
+        countTime = new CountTime(MinuteTime*60*1000,1000);
+        countTime.start();
+    }
+
+    public Handler mHandler = new Handler() {
+        public void handleMessage(Message msg){
+            switch (msg.what){
+                case Msg:
+                    Second = msg.getData().getLong("Changetime")/1000;
+                    angle =(float)((msg.getData().getLong("Changetime")/1000)*Average_CountTime);
+                    Log.d("counttime","angle---->"+angle);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    };
+
     public void setTime(String time) {
         Time = time;
     }
@@ -309,4 +354,32 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     public void setMinuteTime(int minuteTime) {
         MinuteTime = minuteTime;
     }
+
+    class CountTime extends CountDownTimer{
+
+        public CountTime(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long l) {
+            Log.d("counttime","ChangeTime----->"+l);
+            SendMessage(l);
+            //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        @Override
+        public void onFinish() {
+            //To change body of implemented methods use File | Settings | File Templates.
+        }
+        private void SendMessage(long l){
+            Message message = new Message();
+            message.what = DrawCircle.Msg;
+            Bundle bundle = new Bundle();
+            bundle.putLong("Changetime",l);
+            message.setData(bundle);
+            mHandler.sendMessage(message);
+        }
+    }
 }
+

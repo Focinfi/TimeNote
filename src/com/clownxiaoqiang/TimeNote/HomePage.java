@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
+import java.util.logging.Handler;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,7 +27,7 @@ public class HomePage extends Activity {
     private DrawCircle drawCircle;
     private LinearLayout linearLayout;
     private Spinner myspinner;
-    private Button savebutton;
+    private Button savebutton,counttimebutton;
     private EditText tagEditText;
     private static final String[] Spinner_Text = {"学习", "工作", "睡觉", "娱乐"};
     private ArrayAdapter<String> adapter;
@@ -38,6 +39,7 @@ public class HomePage extends Activity {
     //要查询的数据
     private ArrayList<Map<String, Object>> arrayList;
     private int workTime, studyTime, playTime, sleepTime, totalTime;
+
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,13 @@ public class HomePage extends Activity {
         myspinner.setSelection(0);
         myspinner.setOnItemSelectedListener(new ItemSelectedListener());
 
-
+        counttimebutton = (Button)findViewById(R.id.CountTimeButton);
+        counttimebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawCircle.TimeCount();
+            }
+        });
         savebutton = (Button) findViewById(R.id.savebutton);
         savebutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -139,6 +147,7 @@ public class HomePage extends Activity {
         super.onRestart();
         Log.d("restart_home", "home_run");
     }
+
 
     class ItemSelectedListener implements AdapterView.OnItemSelectedListener {
 
