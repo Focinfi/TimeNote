@@ -47,10 +47,9 @@
                 android:layout_weight="1"/>
         <Button
                 android:id="@+id/addNote"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:background="@drawable/add_note_bt"/>
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/write_btn"/>
     </LinearLayout>
 
     <LinearLayout
@@ -83,6 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="center"
+                    android:textColor="#232323"
                     android:text="工作"/>
         </LinearLayout>
         <LinearLayout
@@ -103,6 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="center"
+                    android:textColor="#232323"
                     android:text="学习"/>
         </LinearLayout>
         <LinearLayout
@@ -123,6 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="center"
+                    android:textColor="#232323"
                     android:text="娱乐"/>
         </LinearLayout>
         <LinearLayout
@@ -143,6 +145,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="center"
+                    android:textColor="#232323"
                     android:text="休息"/>
         </LinearLayout>
 

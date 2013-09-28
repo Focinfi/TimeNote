@@ -8,7 +8,7 @@
     <string name="dairy_write">回味生活</string>
     <string name="hint_edittext">记下你的一点点....</string>
     <string name="clear_text">清除</string>
-    <string name="save_text">保存</string>
+    <string name="save_text">保     存</string>
     <string name="today_title">今天的时光</string>
     <string name="toast">输入标签为空。。。</string>
 </resources>

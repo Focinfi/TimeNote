@@ -76,6 +76,10 @@ public class Today extends Activity {
         addNote.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(Today.this, DiaryWrite.class);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M月d日");
+                Date date_S = new Date(System.currentTimeMillis());
+                String date_month = simpleDateFormat.format(date_S);
+                intent.putExtra("date_month", date_month);
                 startActivity(intent);
             }
         });
