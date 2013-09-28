@@ -73,7 +73,7 @@ public class SQlManager {
 
     public ArrayList<Map<String,Object>> query(String date){
         ArrayList<Map<String,Object>> records =new ArrayList<Map<String,Object>>();
-        Cursor cursor =sqLiteDatabase.rawQuery("select * from today where date = ?",new String[]{date});
+        Cursor cursor =sqLiteDatabase.rawQuery("select * from today where date like ?",new String[]{"%"+date+"%"});
         while(cursor.moveToNext()){
             Map<String,Object> item =new HashMap<String, Object>();
             item.put("work_time", cursor.getInt(cursor.getColumnIndex("work_time")));

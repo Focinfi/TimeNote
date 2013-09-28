@@ -1,7 +1,11 @@
 package com.clownxiaoqiang.TimeNote;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.*;
@@ -12,7 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
-import java.util.logging.Handler;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,12 +37,14 @@ public class HomePage extends Activity {
     private SQlManager sQlManager, dataQuery;
     private String minute_time;
     private int logo;
+    private static boolean Iscounting = false;
+    private boolean IsDestroyButton = false;
+    final static int Count =2;
     //要储存的数据
     private String tag, date, time, event_id;
     //要查询的数据
     private ArrayList<Map<String, Object>> arrayList;
     private int workTime, studyTime, playTime, sleepTime, totalTime;
-
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +73,10 @@ public class HomePage extends Activity {
         counttimebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawCircle.TimeCount();
+                if(Iscounting == false){
+                    drawCircle.TimeCount();
+                    Iscounting = true ;
+                }
             }
         });
         savebutton = (Button) findViewById(R.id.savebutton);
@@ -113,31 +121,39 @@ public class HomePage extends Activity {
     }
 
 
-    public void onStart() {
-        super.onStart();
-    }
-
     public void onPause() {
         super.onPause();
         Log.d("zhuangtai", "pause");
-        linearLayout.removeView(drawCircle);
+        if(IsDestroyButton == false){
+            drawCircle.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();    //To change body of overridden methods use File | Settings | File Templates.
+        Log.d("zhuangtai","destroy");
     }
 
     public void onResume() {
         super.onResume();
-        Log.d("resume_home", logo + "");
         if (logo > 0) {
-            linearLayout.addView(drawCircle);
+            drawCircle.setVisibility(View.VISIBLE);
         }
         logo++;
-        Log.d("resume_home", logo + "");
 
     }
-
-    public void onRestart() {
-        super.onRestart();
-        Log.d("restart_home", "home_run");
-    }
+     public static Handler cHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case Count:
+                    Iscounting = msg.getData().getBoolean("changeIscounting");
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
 
     class ItemSelectedListener implements AdapterView.OnItemSelectedListener {
@@ -155,6 +171,32 @@ public class HomePage extends Activity {
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
             //To change body of implemented methods use File | Settings | File Templates.
+        }
+    }
+    public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
+        {
+            if (keyCode == event.KEYCODE_BACK) {
+                new AlertDialog.Builder(this)
+                        .setTitle("提示：")
+                        .setMessage("是否退出？")
+                        .setNegativeButton("取消",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                        .setPositiveButton("确定",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        IsDestroyButton = true ;
+                                        finish();
+                                    }
+                                }).show();
+                return true;
+            } else {
+                return super.onKeyDown(keyCode, event);
+            }
         }
     }
 }

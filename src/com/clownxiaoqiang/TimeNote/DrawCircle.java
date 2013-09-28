@@ -2,6 +2,7 @@ package com.clownxiaoqiang.TimeNote;
 
 import android.content.Context;
 import android.graphics.*;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -46,6 +47,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     private long Second;
     private int MinuteTime;
     final static int Msg = 1;
+
 
 
     public DrawCircle(Context context) {
@@ -170,8 +172,8 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     }
 
     protected void DrawTextSecond(){
-        t_paint.setColor(Color.BLUE);
-        t_paint.setTextSize(Center_x/4);
+        t_paint.setColor(Color.BLACK);
+        t_paint.setTextSize(Center_x/8);
         t_paint.setTextAlign(Paint.Align.CENTER);
         SecondString = ChangeSecond((int)Second % 60);
         canvas.drawText(SecondString,Center_x,baseRadius+Center_x/4,t_paint);
@@ -338,6 +340,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
 
     };
 
+
     public void setTime(String time) {
         Time = time;
     }
@@ -370,6 +373,10 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
 
         @Override
         public void onFinish() {
+            SendMessage(0);
+            MediaPlayer mediaPlayer =new MediaPlayer().create(context, R.raw.alarm);
+            mediaPlayer.start();
+            SendMessage();
             //To change body of implemented methods use File | Settings | File Templates.
         }
         private void SendMessage(long l){
@@ -379,6 +386,15 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
             bundle.putLong("Changetime",l);
             message.setData(bundle);
             mHandler.sendMessage(message);
+        }
+
+        private void SendMessage(){
+            Message message = new Message();
+            message.what = HomePage.Count;
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("changeIscounting", false);
+            message.setData(bundle);
+            HomePage.cHandler.sendMessage(message);
         }
     }
 }
