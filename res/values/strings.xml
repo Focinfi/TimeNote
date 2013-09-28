@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">TimeNote</string>
-    <string name="homepage">主页</string>
+    <string name="homepage">旋转时间</string>
     <string name="see">时间表</string>
     <string name="see_diary">看日记</string>
     <string name="about">关于</string>
@@ -9,6 +9,9 @@
     <string name="hint_edittext">记下你的一点点....</string>
     <string name="clear_text">清除</string>
     <string name="save_text">保存</string>
-    <string name="today_title">今天的</string>
+    <string name="today_title">今天的时光</string>
     <string name="toast">输入标签为空。。。</string>
+    <string name="title_1">看一看</string>
+    <string name="edit_text">编辑</string>
+    <string name="back_text">后退</string>
 </resources>

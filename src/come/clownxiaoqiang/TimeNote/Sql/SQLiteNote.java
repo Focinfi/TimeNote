@@ -15,7 +15,7 @@ public class SQLiteNote extends SQLiteOpenHelper {
     //表名Diary
     public static final String SQLNAME = "note" ;
     //_id这个自动生成，为了是生成的唯一性，subject为主题，time为记录下日记的时间，content为记录下的内容
-    public static final String CREAT_TABLE = "create table if not exists note(_id integer primary key autoincrement,date String,tag String,time String,event_id String,minute_time String)";
+    public static final String CREAT_TABLE = "create table if not exists note(_id integer primary key autoincrement,date String,tag String,time String,event_id String,minute_time String,date_month String,date_week String)";
 
     private static final int VERSION = 1;
 

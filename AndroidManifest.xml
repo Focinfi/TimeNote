@@ -17,6 +17,6 @@
         <activity android:name=".Diary"/>
         <activity android:name=".blank"/>
         <activity android:name=".DiaryWrite"/>
-        <activity android:name=".DiarySee"/>
+        <activity android:name=".TagDetail"/>
     </application>
 </manifest>

@@ -41,7 +41,7 @@ public class HomePage extends Activity {
     private boolean IsDestroyButton = false;
     final static int Count =2;
     //要储存的数据
-    private String tag, date, time, event_id;
+    private String tag, date, time, event_id, date_month, date_week;
     //要查询的数据
     private ArrayList<Map<String, Object>> arrayList;
     private int workTime, studyTime, playTime, sleepTime, totalTime;
@@ -88,6 +88,15 @@ public class HomePage extends Activity {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
                 Date date_S = new Date(System.currentTimeMillis());
                 String date_x = simpleDateFormat.format(date_S);
+
+                SimpleDateFormat monthFormat = new SimpleDateFormat("M月d日");
+                date_month = monthFormat.format(date_S);
+
+                SimpleDateFormat weekFormat = new SimpleDateFormat("E");
+                date_week = weekFormat.format(date_S);
+
+                Log.d("h_date", date_month + "--" + date_week);
+
                 dataQuery = new SQlManager(HomePage.this);
                 arrayList = new ArrayList<Map<String, Object>>();
                 arrayList = dataQuery.GetTimeToDrawPicture(date_x);
@@ -103,7 +112,7 @@ public class HomePage extends Activity {
                     playTime = Integer.parseInt((String) arrayList.get(0).get((Object) "play_time"));
                     sleepTime = Integer.parseInt((String) arrayList.get(0).get((Object) "sleep_time"));
                     totalTime = workTime + studyTime + playTime + sleepTime + Integer.parseInt(minute_time);
-                    Log.d("arraylist", workTime + " " + studyTime + " " + playTime + " " + sleepTime + " " + totalTime);
+                    Log.d("arraylist", workTime + " " + studyTime + " " + playTime + " " + sleepTime + " " +Integer.parseInt(minute_time)+" "+ totalTime);
 
                 }
                 if (totalTime > 1440) {
@@ -112,7 +121,7 @@ public class HomePage extends Activity {
                     Toast.makeText(HomePage.this, "还没添加标签", Toast.LENGTH_SHORT).show();
                 } else {
                     sQlManager = new SQlManager(HomePage.this);
-                    sQlManager.Addnote(date, tag, time, event_id, minute_time);
+                    sQlManager.Addnote(date, tag, time, event_id, minute_time, date_month, date_week);
                     Toast.makeText(HomePage.this, "保存成功", Toast.LENGTH_SHORT).show();
                     Log.d("message", date + tag + time + event_id);
                 }
