@@ -83,8 +83,8 @@ public class SQlManager {
             item.put("sleep_time", cursor.getString(cursor.getColumnIndex("sleep_time")));
             item.put("play_time", cursor.getString(cursor.getColumnIndex("play_time")));
             item.put("note", cursor.getString(cursor.getColumnIndex("note")));
-            item.put("date_month",cursor.getString(cursor.getColumnIndex("date_month")));
-            item.put("date_week",cursor.getString(cursor.getColumnIndex("date_week")));
+            item.put("date_month", cursor.getString(cursor.getColumnIndex("date_month")));
+            item.put("date_week", cursor.getString(cursor.getColumnIndex("date_week")));
             records.add(item);
             Log.d("item", item.toString());
         }
@@ -188,10 +188,9 @@ public class SQlManager {
 
     }
 
-    private void updatenote(String note, String event_id, String date) {
+    public void updatenote(String note, String date) {
         ContentValues values = new ContentValues();
-        String event_name = Judge(event_id);
-        values.put(event_name, note);
+        values.put("note", note);
         String whereClause = "date=?";
         String[] whereArgs = {String.valueOf(date)};
         sqLiteDatabase.update("today", values, whereClause, whereArgs);

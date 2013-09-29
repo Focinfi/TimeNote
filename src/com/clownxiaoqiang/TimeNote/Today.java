@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
 
 import java.text.SimpleDateFormat;
@@ -36,6 +37,7 @@ public class Today extends Activity {
     private LinearLayout Layout;
     private SQlManager sQlManager;
     private ArrayList<Map<String, Object>> arrayList;
+    private String date_x, date_month;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,7 @@ public class Today extends Activity {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         Date date_S = new Date(System.currentTimeMillis());
-        String date_x = simpleDateFormat.format(date_S);
+        date_x = simpleDateFormat.format(date_S);
         sQlManager = new SQlManager(Today.this);
         arrayList = new ArrayList<Map<String, Object>>();
         arrayList = sQlManager.GetTimeToDrawPicture(date_x);
@@ -51,10 +53,10 @@ public class Today extends Activity {
         if (arrayList.isEmpty()) {
             workTime = studyTime = playTime = sleepTime = 0;
         } else {
-            workTime = Integer.parseInt((String) arrayList.get(0).get((Object) "work_time"))/4;
-            studyTime = Integer.parseInt((String) arrayList.get(0).get((Object) "study_time"))/4;
-            playTime = Integer.parseInt((String) arrayList.get(0).get((Object) "play_time"))/4;
-            sleepTime = Integer.parseInt((String) arrayList.get(0).get((Object) "sleep_time"))/4;
+            workTime = Integer.parseInt((String) arrayList.get(0).get((Object) "work_time")) / 4;
+            studyTime = Integer.parseInt((String) arrayList.get(0).get((Object) "study_time")) / 4;
+            playTime = Integer.parseInt((String) arrayList.get(0).get((Object) "play_time")) / 4;
+            sleepTime = Integer.parseInt((String) arrayList.get(0).get((Object) "sleep_time")) / 4;
             Log.d("arraylist", workTime + " " + studyTime + " " + playTime + " " + sleepTime + "");
 
         }
@@ -75,12 +77,17 @@ public class Today extends Activity {
 
         addNote.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(Today.this, DiaryWrite.class);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M月d日");
-                Date date_S = new Date(System.currentTimeMillis());
-                String date_month = simpleDateFormat.format(date_S);
-                intent.putExtra("date_month", date_month);
-                startActivity(intent);
+                if (arrayList.isEmpty()) {
+                    Toast.makeText(Today.this, "今天还没有记录时间呢", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(Today.this, DiaryWrite.class);
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M月d日");
+                    Date date_S = new Date(System.currentTimeMillis());
+                    date_month = simpleDateFormat.format(date_S);
+                    intent.putExtra("date", date_x);
+                    intent.putExtra("date_month", date_month);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -108,10 +115,10 @@ public class Today extends Activity {
             if (arrayList.isEmpty()) {
                 workTime = studyTime = playTime = sleepTime = 0;
             } else {
-                workTime = Integer.parseInt((String) arrayList.get(0).get((Object) "work_time"))/4;
-                studyTime = Integer.parseInt((String) arrayList.get(0).get((Object) "study_time"))/4;
-                playTime = Integer.parseInt((String) arrayList.get(0).get((Object) "play_time"))/4;
-                sleepTime = Integer.parseInt((String) arrayList.get(0).get((Object) "sleep_time"))/4;
+                workTime = Integer.parseInt((String) arrayList.get(0).get((Object) "work_time")) / 4;
+                studyTime = Integer.parseInt((String) arrayList.get(0).get((Object) "study_time")) / 4;
+                playTime = Integer.parseInt((String) arrayList.get(0).get((Object) "play_time")) / 4;
+                sleepTime = Integer.parseInt((String) arrayList.get(0).get((Object) "sleep_time")) / 4;
                 Log.d("arraylist", workTime + " " + studyTime + " " + playTime + " " + sleepTime + "");
 
             }
