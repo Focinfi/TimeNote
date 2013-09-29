@@ -202,6 +202,10 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    public void Clear (){
+        canvas.drawARGB(255,237,237,237);
+    }
+
     private int CountTime(float angle) {
         int time = (int) (angle * Average_Time);
         MinuteTime = time;
@@ -329,8 +333,11 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
 
     public void TimeCount (){
         Log.d("counttime","MinuteTime---->"+MinuteTime);
-        countTime = new CountTime(MinuteTime*60*1000,1000);
+        countTime = new CountTime((MinuteTime*60+Integer.parseInt(SecondString))*1000,1000);
         countTime.start();
+    }
+    public void TimeCountCancle(){
+        countTime.cancel();
     }
 
     public Handler mHandler = new Handler() {
