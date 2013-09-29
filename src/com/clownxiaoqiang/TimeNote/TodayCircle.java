@@ -146,6 +146,7 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
             long startTime = System.currentTimeMillis();
 
             /** 在这里加上线程安全锁 **/
+            try{
             synchronized (surfaceHolder) {
                 /** 拿到当前画布 然后锁定 **/
                 canvas = surfaceHolder.lockCanvas();
@@ -192,6 +193,9 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
                 diffTime = (int) (System.currentTimeMillis() - startTime);
                 /** 线程等待 **/
                 Thread.yield();
+            }
+            }catch (Exception e){
+                e.printStackTrace();
             }
 
 

@@ -3,6 +3,9 @@ package com.clownxiaoqiang.TimeNote;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -134,6 +137,7 @@ public class HomePage extends Activity {
         super.onPause();
         Log.d("zhuangtai", "pause");
         if(IsDestroyButton == false){
+            //drawCircle.getCanvas().drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
             drawCircle.setVisibility(View.INVISIBLE);
         }
     }
