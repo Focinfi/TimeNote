@@ -79,19 +79,33 @@
             android:layout_height="fill_parent"
             android:layout_weight="1">
     </LinearLayout>
-    <Button
-            android:id="@+id/CountTimeButton"
+    <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="2"
+            android:orientation="horizontal"
+            >
+    <Button
+            android:id="@+id/CountTimeButton"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:text="倒计时"/>
     <Button
             android:id="@+id/savebutton"
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:textColor="@android:color/black"
             android:text="@string/save_text"
-            android:layout_weight="2"/>
+            android:layout_weight="1"/>
+    <Button
+            android:id="@+id/CancleButton"
+            android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="取消"
+            />
+        </LinearLayout>
 
 
 </LinearLayout>

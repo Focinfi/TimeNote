@@ -33,7 +33,7 @@ public class HomePage extends Activity {
     private DrawCircle drawCircle;
     private LinearLayout linearLayout;
     private Spinner myspinner;
-    private Button savebutton,counttimebutton;
+    private Button savebutton,counttimebutton,canclebutton;
     private EditText tagEditText;
     private static final String[] Spinner_Text = {"学习", "工作", "睡觉", "娱乐"};
     private ArrayAdapter<String> adapter;
@@ -80,6 +80,15 @@ public class HomePage extends Activity {
                     drawCircle.TimeCount();
                     Iscounting = true ;
                 }
+            }
+        });
+
+        canclebutton = (Button)findViewById(R.id.CancleButton);
+        canclebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawCircle.TimeCountCancle();
+                Iscounting = false;
             }
         });
         savebutton = (Button) findViewById(R.id.savebutton);
@@ -138,7 +147,8 @@ public class HomePage extends Activity {
         Log.d("zhuangtai", "pause");
         if(IsDestroyButton == false){
             //drawCircle.getCanvas().drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-            drawCircle.setVisibility(View.INVISIBLE);
+            drawCircle.setVisibility(View.GONE);
+            drawCircle.Clear();
         }
     }
 
