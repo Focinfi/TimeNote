@@ -11,4 +11,7 @@
     <string name="save_text">保     存</string>
     <string name="today_title">今天的时光</string>
     <string name="toast">输入标签为空。。。</string>
+    <string name="title_1">看一看</string>
+    <string name="edit_text">编辑</string>
+    <string name="back_text">后退</string>
 </resources>

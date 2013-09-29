@@ -3,6 +3,7 @@ package com.clownxiaoqiang.TimeNote;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,10 +13,7 @@ import android.widget.*;
 import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,7 +24,6 @@ import java.util.Map;
  */
 public class Diary extends Activity {
     private ListView diaryListView;
-    private String workTime, studyTime, playTime, sleepTime, date, week;
     private SQlManager sQlManager;
     private ArrayList<Map<String, Object>> arrayList;
     private DiaryAdapter timeLineAdapter;
@@ -44,13 +41,13 @@ public class Diary extends Activity {
         arrayList = new ArrayList<Map<String, Object>>();
 
         arrayList = sQlManager.query("");
-        Log.d("d_all", arrayList.toString());
 
 //        timeLineAdapter = new SimpleAdapter(Diary.this, arrayList, R.layout.item_time_line,
 //                new String[]{"work_time", "study_time", "play_time", "sleep_time", "note", "date_month", "date_week"},
 //                new int[]{R.id.workTimeView, R.id.studyTimeView, R.id.playTimeView, R.id.sleepTimeView, R.id.diaryNoteTextView, R.id.dateMonthTextView, R.id.dateWeekTextView});
         timeLineAdapter = new DiaryAdapter(Diary.this);
         diaryListView.setAdapter(timeLineAdapter);
+        diaryListView.setOnItemClickListener(new diaryItemClickListener());
     }
 
     public void onResume(){
@@ -149,6 +146,22 @@ public class Diary extends Activity {
             String s = simpleDateFormat.format(date);
             return s;
 
+        }
+
+
+    }
+
+    class diaryItemClickListener implements AdapterView.OnItemClickListener{
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            HashMap<String,Object> hashMap = (HashMap<String, Object>) parent.getItemAtPosition(position);
+            String datetext = (String) hashMap.get("date");
+            Log.d("datetext",datetext);
+            Intent intent = new Intent();
+            intent.putExtra("datetext",datetext);
+            intent.setClass(Diary.this,TagDetail.class);
+            Diary.this.startActivity(intent);
         }
     }
 }

@@ -83,8 +83,9 @@ public class SQlManager {
             item.put("sleep_time", cursor.getString(cursor.getColumnIndex("sleep_time")));
             item.put("play_time", cursor.getString(cursor.getColumnIndex("play_time")));
             item.put("note", cursor.getString(cursor.getColumnIndex("note")));
-            item.put("date_month", cursor.getString(cursor.getColumnIndex("date_month")));
-            item.put("date_week", cursor.getString(cursor.getColumnIndex("date_week")));
+            item.put("date_month",cursor.getString(cursor.getColumnIndex("date_month")));
+            item.put("date_week",cursor.getString(cursor.getColumnIndex("date_week")));
+            item.put("date",cursor.getString(cursor.getColumnIndex("date")));
             records.add(item);
             Log.d("item", item.toString());
         }
@@ -93,14 +94,15 @@ public class SQlManager {
         return records;
     }
 
-    public ArrayList<Map<String, Object>> queryTag(String date, String event_id) {
+    public ArrayList<Map<String, Object>> queryTag(String date) {
         sqLiteDatabase = sqLite.getWritableDatabase();
         ArrayList<Map<String, Object>> records = new ArrayList<Map<String, Object>>();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from today where date = ? and event_id = ?", new String[]{date, event_id});
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from note where date like ?", new String[]{"%"+date+"%"});
         while (cursor.moveToNext()) {
             Map<String, Object> item = new HashMap<String, Object>();
             item.put("tag", cursor.getString(cursor.getColumnIndex("tag")));
             item.put("time", cursor.getString(cursor.getColumnIndex("time")));
+            item.put("event_id",cursor.getString(cursor.getColumnIndex("event_id")));
             records.add(item);
         }
         cursor.close();
@@ -126,6 +128,17 @@ public class SQlManager {
         Log.d("records", "true");
         return true;
     }
+
+  /*  public String querynote(String date){
+        String notetext = "";
+        sqLiteDatabase = sQliteTwo.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from today where date like ?",new String[]{"%"+date+"%"});
+        while (cursor.moveToNext()){
+            notetext = cursor.getString(cursor.getColumnIndex("note"));
+        }
+        Log.d("notetext",notetext);
+        return notetext;
+    }*/
 
     public String queryTime(String event_id, String date, String newTime) {
         sqLiteDatabase = sQliteTwo.getWritableDatabase();
