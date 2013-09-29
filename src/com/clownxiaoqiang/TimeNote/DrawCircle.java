@@ -58,6 +58,10 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         super(context, attrs);
     }
 
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
     public DrawCircle(Context context, float center_x, float center_y) {
         super(context);
         this.context = context;
@@ -289,6 +293,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
             /** 取得更新游戏之前的时间 **/
             long startTime = System.currentTimeMillis();
 
+            try{
             /** 在这里加上线程安全锁 **/
             synchronized (surfaceHolder) {
                 /** 拿到当前画布 然后锁定 **/
@@ -315,6 +320,9 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
                 diffTime = (int) (System.currentTimeMillis() - startTime);
                 /** 线程等待 **/
                 Thread.yield();
+            }
+            }catch (Exception e){
+                e.printStackTrace();
             }
         }
     }
@@ -354,9 +362,6 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         return MinuteTime;
     }
 
-    public void setMinuteTime(int minuteTime) {
-        MinuteTime = minuteTime;
-    }
 
     class CountTime extends CountDownTimer{
 

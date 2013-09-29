@@ -155,7 +155,8 @@ public class Diary extends Activity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            HashMap<String,Object> hashMap = (HashMap<String, Object>) parent.getItemAtPosition(position);
+            int trueposition = arrayList.size() - 1 - position;
+            HashMap<String,Object> hashMap = (HashMap<String, Object>) parent.getItemAtPosition(trueposition);
             String datetext = (String) hashMap.get("date");
             Log.d("datetext",datetext);
             Intent intent = new Intent();
