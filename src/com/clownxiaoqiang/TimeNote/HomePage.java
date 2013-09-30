@@ -35,7 +35,7 @@ public class HomePage extends Activity {
     private Spinner myspinner;
     private Button savebutton,counttimebutton,canclebutton;
     private EditText tagEditText;
-    private static final String[] Spinner_Text = {"学习", "工作", "睡觉", "娱乐"};
+    private static final String[] Spinner_Text = {"学习", "工作", "休息", "娱乐"};
     private ArrayAdapter<String> adapter;
     private SQlManager sQlManager, dataQuery;
     private String minute_time;

@@ -201,10 +201,9 @@ public class SQlManager {
 
     }
 
-    private void updatenote(String note, String event_id, String date) {
+    public void updatenote(String note, String date) {
         ContentValues values = new ContentValues();
-        String event_name = Judge(event_id);
-        values.put(event_name, note);
+        values.put("note", note);
         String whereClause = "date=?";
         String[] whereArgs = {String.valueOf(date)};
         sqLiteDatabase.update("today", values, whereClause, whereArgs);

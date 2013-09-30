@@ -4,14 +4,13 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:id="@+id/mylayout"
-              android:background="@android:color/white"
-        >
+              android:background="@android:color/white">
     <LinearLayout
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:orientation="horizontal"
+
             android:background="@drawable/bottom_bg"
-            android:layout_weight="2"
             >
         <TextView
                 android:layout_height="fill_parent"
@@ -20,29 +19,30 @@
                 />
         <TextView
                 android:id="@+id/mytextview"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_width="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="7"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
                 android:textSize="25sp"
                 android:gravity="center"
                 android:textColor="@android:color/white"
                 android:text="@string/homepage"/>
         <Spinner
                 android:id="@+id/myspinner"
+                android:background="@drawable/save_btn"
                 android:layout_width="0dp"
                 android:layout_weight="2"
-                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
                 />
     </LinearLayout>
     <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:paddingTop="5dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
             android:paddingBottom="5dp"
             android:background="@color/background_gray"
-            android:layout_weight="2"
             android:orientation="horizontal">
         <TextView
                 android:layout_weight="1"
@@ -59,6 +59,7 @@
                 android:textColor="@android:color/black"
                 android:cursorVisible="true"
                 android:textCursorDrawable="@null"
+                android:singleLine="true"
                 android:hint="添加标签"/>
         <TextView
                 android:layout_weight="1"
@@ -74,38 +75,43 @@
 
     <LinearLayout
             android:id="@+id/mylinearlayout"
+            android:background="@color/background_gray"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            ></LinearLayout>
+    <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@color/background_gray"
-            android:layout_weight="1">
-    </LinearLayout>
-    <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="2"
             android:orientation="horizontal"
+            android:layout_weight="2"
             >
-    <Button
-            android:id="@+id/CountTimeButton"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="倒计时"/>
-    <Button
-            android:id="@+id/savebutton"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:textColor="@android:color/black"
-            android:text="@string/save_text"
-            android:layout_weight="1"/>
-    <Button
-            android:id="@+id/CancleButton"
-            android:layout_height="fill_parent"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="取消"
-            />
-        </LinearLayout>
+        <Button
+                android:id="@+id/savebutton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/home_save_btn"/>
+        <Button
+                android:id="@+id/CountTimeButton"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/savebutton"
+                android:background="@drawable/run_btn"/>
+
+        <Button
+                android:id="@+id/CancleButton"
+                android:layout_height="36dp"
+                android:layout_width="36dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/savebutton"
+                android:background="@drawable/pause_btn"
+                />
+    </RelativeLayout>
 
 
 </LinearLayout>

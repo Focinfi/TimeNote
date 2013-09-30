@@ -34,7 +34,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textColor="@android:color/black"/>
     </LinearLayout>
     <LinearLayout
@@ -47,17 +47,15 @@
                 android:layout_weight="1"/>
         <Button
                 android:id="@+id/addNote"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:background="@drawable/add_note_bt"/>
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/write_btn"/>
     </LinearLayout>
 
     <LinearLayout
             android:id="@+id/todayCircleView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginRight="5dp"
             android:layout_weight="5">
     </LinearLayout>
     <LinearLayout
@@ -77,12 +75,13 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:background="@color/work_color"/>
+                    android:background="@color/work_color_dark"/>
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="center"
+                    android:textColor="#232323"
                     android:text="工作"/>
         </LinearLayout>
         <LinearLayout
@@ -97,12 +96,13 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:background="@color/study_color"/>
+                    android:background="@color/study_color_dark"/>
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="center"
+                    android:textColor="#232323"
                     android:text="学习"/>
         </LinearLayout>
         <LinearLayout
@@ -117,12 +117,13 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:background="@color/play_color"/>
+                    android:background="@color/play_color_dark"/>
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="center"
+                    android:textColor="#232323"
                     android:text="娱乐"/>
         </LinearLayout>
         <LinearLayout
@@ -137,12 +138,13 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:background="@color/sleep_color"/>
+                    android:background="@color/sleep_color_dark"/>
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="center"
+                    android:textColor="#232323"
                     android:text="休息"/>
         </LinearLayout>
 

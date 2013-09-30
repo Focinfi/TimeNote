@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background_gray">#ededed</color>
-    <color name="work_color">#448aca</color>
-    <color name="study_color">#13b5b1</color>
-    <color name="play_color">#ec6941</color>
-    <color name="sleep_color">#facd89</color>
+    <color name="work_color">#CCFF00</color>
+    <color name="study_color">#FF0033</color>
+    <color name="play_color">#FFFF33</color>
+    <color name="sleep_color">#66CCCC</color>
+    <color name="play_color_dark">#fed100</color>
+    <color name="work_color_dark">#99cc00</color>
+    <color name="sleep_color_dark">#0066cc</color>
+    <color name="study_color_dark">#ff6666</color>
 </resources>

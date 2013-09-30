@@ -24,8 +24,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
                 <TextView
-                        android:id="@+id/workTimeView"
-                        android:background="#00ff00"
+                        android:id="@+id/studyTimeView"
+                        android:background="@color/study_color_dark"
                         android:layout_weight="1"
                         android:paddingLeft="5dp"
                         android:paddingTop="5dp"
@@ -34,8 +34,8 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"/>
                 <TextView
-                        android:id="@+id/studyTimeView"
-                        android:background="#e60012"
+                        android:id="@+id/playTimeView"
+                        android:background="@color/play_color_dark"
                         android:layout_weight="1"
                         android:paddingLeft="5dp"
                         android:paddingTop="5dp"
@@ -43,6 +43,7 @@
                         android:textColor="@android:color/white"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"/>
+
             </LinearLayout>
             <LinearLayout
                     android:layout_weight="1"
@@ -50,8 +51,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
                 <TextView
-                        android:id="@+id/playTimeView"
-                        android:background="#00a1e9"
+                        android:id="@+id/workTimeView"
+                        android:background="@color/work_color_dark"
                         android:layout_weight="1"
                         android:paddingLeft="5dp"
                         android:paddingTop="5dp"
@@ -61,7 +62,7 @@
                         android:layout_height="wrap_content"/>
                 <TextView
                         android:id="@+id/sleepTimeView"
-                        android:background="#ff00ff"
+                        android:background="@color/sleep_color_dark"
                         android:layout_weight="1"
                         android:paddingLeft="5dp"
                         android:paddingTop="5dp"
