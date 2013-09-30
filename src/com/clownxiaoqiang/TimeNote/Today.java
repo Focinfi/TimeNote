@@ -84,6 +84,7 @@ public class Today extends Activity {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M月d日");
                     Date date_S = new Date(System.currentTimeMillis());
                     date_month = simpleDateFormat.format(date_S);
+                    Log.d("t_date",date_x);
                     intent.putExtra("date", date_x);
                     intent.putExtra("date_month", date_month);
                     startActivity(intent);

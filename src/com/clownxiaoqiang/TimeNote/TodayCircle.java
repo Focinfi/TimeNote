@@ -91,25 +91,29 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
     }
 
     public void DrawWorkCircle(int startAngle, int endAngle) {
-        workPaint.setARGB(255, 68, 138, 202);
+//        workPaint.setARGB(255, 204, 255, 0);
+        workPaint.setARGB(255, 153, 204, 0);
         canvas.drawArc(rectf, startAngle, endAngle, true, workPaint);
         super.onDraw(canvas);
     }
 
     public void DrawStudyCircle(int startAngle, int endAngle) {
-        studyPaint.setARGB(255, 19, 181, 177);
+//        studyPaint.setARGB(255, 255, 0, 51);
+        studyPaint.setARGB(255, 255, 102, 102);
         canvas.drawArc(rectf, startAngle, endAngle, true, studyPaint);
         super.onDraw(canvas);
     }
 
     public void DrawPlayCircle(int startAngle, int endAngle) {
-        playPaint.setARGB(255, 236, 105, 65);
+//        playPaint.setARGB(255, 255, 255, 51);
+        playPaint.setARGB(255, 254, 209, 0);
         canvas.drawArc(rectf, startAngle, endAngle, true, playPaint);
         super.onDraw(canvas);
     }
 
     public void DrawSleepCircle(int startAngle, int endAngle) {
-        sleepPaint.setARGB(255, 250, 205, 137);
+//        sleepPaint.setARGB(255, 102, 204, 204);
+        sleepPaint.setARGB(255, 0, 102, 204);
         canvas.drawArc(rectf, startAngle, endAngle, true, sleepPaint);
         super.onDraw(canvas);
     }
@@ -146,55 +150,55 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
             long startTime = System.currentTimeMillis();
 
             /** 在这里加上线程安全锁 **/
-            try{
-            synchronized (surfaceHolder) {
-                /** 拿到当前画布 然后锁定 **/
-                canvas = surfaceHolder.lockCanvas();
-                canvas.drawARGB(255, 237, 237, 237);
+            try {
+                synchronized (surfaceHolder) {
+                    /** 拿到当前画布 然后锁定 **/
+                    canvas = surfaceHolder.lockCanvas();
+                    canvas.drawARGB(255, 237, 237, 237);
 
-                DrawGreyCircle();
+                    DrawGreyCircle();
 
-                if (angle <= workTime + studyTime + playTime + sleepTime) {
-                    DrawSleepCircle(0, angle);
-                } else {
-                    DrawSleepCircle(0, workTime + studyTime + playTime + sleepTime);
+                    if (angle <= workTime + studyTime + playTime + sleepTime) {
+                        DrawSleepCircle(0, angle);
+                    } else {
+                        DrawSleepCircle(0, workTime + studyTime + playTime + sleepTime);
+                    }
+
+                    if (angle <= workTime + studyTime + playTime) {
+                        DrawPlayCircle(0, angle);
+                    } else {
+                        DrawPlayCircle(0, workTime + studyTime + playTime);
+                    }
+                    if (angle <= workTime + studyTime) {
+                        DrawStudyCircle(0, angle);
+                    } else {
+                        DrawStudyCircle(0, workTime + studyTime);
+                    }
+                    if (angle <= workTime) {
+                        DrawWorkCircle(0, angle);
+                    } else {
+                        DrawWorkCircle(0, workTime);
+                    }
+                    angle = angle + 4;
+
+
+                    /** 绘制结束后解锁显示在屏幕上 **/
+                    surfaceHolder.unlockCanvasAndPost(canvas);
                 }
 
-                if (angle <= workTime + studyTime + playTime) {
-                    DrawPlayCircle(0, angle);
-                } else {
-                    DrawPlayCircle(0, workTime + studyTime + playTime);
+                /** 取得更新游戏结束的时间 **/
+                long endTime = System.currentTimeMillis();
+
+                /** 计算出游戏一次更新的毫秒数 **/
+                int diffTime = (int) (endTime - startTime);
+
+                /** 确保每次更新时间为50帧 **/
+                while (diffTime <= 50) {
+                    diffTime = (int) (System.currentTimeMillis() - startTime);
+                    /** 线程等待 **/
+                    Thread.yield();
                 }
-                if (angle <= workTime + studyTime) {
-                    DrawStudyCircle(0, angle);
-                } else {
-                    DrawStudyCircle(0, workTime + studyTime);
-                }
-                if (angle <= workTime) {
-                    DrawWorkCircle(0, angle);
-                } else {
-                    DrawWorkCircle(0, workTime);
-                }
-                angle = angle + 4;
-
-
-                /** 绘制结束后解锁显示在屏幕上 **/
-                surfaceHolder.unlockCanvasAndPost(canvas);
-            }
-
-            /** 取得更新游戏结束的时间 **/
-            long endTime = System.currentTimeMillis();
-
-            /** 计算出游戏一次更新的毫秒数 **/
-            int diffTime = (int) (endTime - startTime);
-
-            /** 确保每次更新时间为50帧 **/
-            while (diffTime <= 50) {
-                diffTime = (int) (System.currentTimeMillis() - startTime);
-                /** 线程等待 **/
-                Thread.yield();
-            }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 

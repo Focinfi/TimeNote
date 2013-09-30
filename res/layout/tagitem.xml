@@ -33,6 +33,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="13sp"
                 />
-            </RelativeLayout>
+    </RelativeLayout>
 
 </LinearLayout>

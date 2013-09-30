@@ -13,5 +13,5 @@
     <string name="toast">输入标签为空。。。</string>
     <string name="title_1">看一看</string>
     <string name="edit_text">编辑</string>
-    <string name="back_text">后退</string>
+    <string name="back_text">返回</string>
 </resources>
