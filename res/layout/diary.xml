@@ -34,7 +34,7 @@
                 android:background="@drawable/item_time_line_bg"
                 android:id="@+id/diaryListView"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:scrollbars="none"/>

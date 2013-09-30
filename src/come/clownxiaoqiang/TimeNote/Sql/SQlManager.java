@@ -202,6 +202,7 @@ public class SQlManager {
     }
 
     public void updatenote(String note, String date) {
+        sqLiteDatabase = sQliteTwo.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("note", note);
         String whereClause = "date=?";

@@ -78,9 +78,11 @@ public class HomePage extends Activity {
         counttimebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Iscounting == false){
-                    drawCircle.TimeCount();
-                    Iscounting = true ;
+                if(Iscounting == false ){
+                    if ((drawCircle.getSecond()!=0)||(drawCircle.getMinuteTime()!=0)){
+                        drawCircle.TimeCount();
+                        Iscounting = true ;
+                    }
                 }
             }
         });
@@ -89,8 +91,10 @@ public class HomePage extends Activity {
         canclebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawCircle.TimeCountCancle();
-                Iscounting = false;
+                if(Iscounting){
+                    drawCircle.TimeCountCancle();
+                    Iscounting = false;
+                }
             }
         });
         savebutton = (Button) findViewById(R.id.savebutton);

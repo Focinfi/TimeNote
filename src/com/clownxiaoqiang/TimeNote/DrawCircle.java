@@ -32,6 +32,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     private float angle = 0;
     private float baseRadius;//低园半径
     private float middleRadius;//中园半径
+
     private float innerBlankRadius;//中间空白园半径
     private CountTime countTime;
     private Paint w_paint, b_paint, r_paint, t_paint, p_paint;
@@ -202,10 +203,6 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public void Clear (){
-        canvas.drawARGB(255,237,237,237);
-    }
-
     private int CountTime(float angle) {
         int time = (int) (angle * Average_Time);
         MinuteTime = time;
@@ -367,6 +364,10 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
 
     public int getMinuteTime() {
         return MinuteTime;
+    }
+
+    public long getSecond() {
+        return Second;
     }
 
 
