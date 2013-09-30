@@ -54,12 +54,14 @@ public class HomePage extends Activity {
         super.onCreate(savedInstanceState);
         //这个是布局添加
         setContentView(R.layout.homepage);
+        Log.d("HomePage","Create");
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         Screen_x = displayMetrics.widthPixels;
         Screen_y = displayMetrics.heightPixels;
         drawCircle = new DrawCircle(this, Screen_x, Screen_y);
+        drawCircle.setZOrderOnTop(true);
         linearLayout = (LinearLayout) findViewById(R.id.mylinearlayout);
         linearLayout.addView(drawCircle);
 
@@ -107,12 +109,10 @@ public class HomePage extends Activity {
                 SimpleDateFormat weekFormat = new SimpleDateFormat("E");
                 date_week = weekFormat.format(date_S);
 
-                Log.d("h_date", date_month + "--" + date_week);
 
                 dataQuery = new SQlManager(HomePage.this);
                 arrayList = new ArrayList<Map<String, Object>>();
                 arrayList = dataQuery.GetTimeToDrawPicture(date_x);
-                Log.d("arraylist", arrayList.toString());
                 if (arrayList.isEmpty()) {
                     workTime = 0;
                     studyTime = 0;
@@ -124,7 +124,6 @@ public class HomePage extends Activity {
                     playTime = Integer.parseInt((String) arrayList.get(0).get((Object) "play_time"));
                     sleepTime = Integer.parseInt((String) arrayList.get(0).get((Object) "sleep_time"));
                     totalTime = workTime + studyTime + playTime + sleepTime + Integer.parseInt(minute_time);
-                    Log.d("arraylist", workTime + " " + studyTime + " " + playTime + " " + sleepTime + " " +Integer.parseInt(minute_time)+" "+ totalTime);
 
                 }
                 if (totalTime > 1440) {
@@ -135,7 +134,6 @@ public class HomePage extends Activity {
                     sQlManager = new SQlManager(HomePage.this);
                     sQlManager.Addnote(date, tag, time, event_id, minute_time, date_month, date_week);
                     Toast.makeText(HomePage.this, "保存成功", Toast.LENGTH_SHORT).show();
-                    Log.d("message", date + tag + time + event_id);
                 }
             }
         });
@@ -143,27 +141,28 @@ public class HomePage extends Activity {
 
 
     public void onPause() {
-        super.onPause();
-        Log.d("zhuangtai", "pause");
+        Log.d("HomePage","pause");
         if(IsDestroyButton == false){
             //drawCircle.getCanvas().drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-            drawCircle.setVisibility(View.GONE);
-            drawCircle.Clear();
+            linearLayout.removeView(drawCircle);
         }
+        super.onPause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();    //To change body of overridden methods use File | Settings | File Templates.
-        Log.d("zhuangtai","destroy");
+        Log.d("HomePage","destroy");
     }
 
     public void onResume() {
-        super.onResume();
+        Log.d("HomePage","resume");
         if (logo > 0) {
-            drawCircle.setVisibility(View.VISIBLE);
+            linearLayout.addView(drawCircle);
+            drawCircle.setZOrderOnTop(true);
         }
         logo++;
+        super.onResume();
 
     }
      public static Handler cHandler = new Handler() {

@@ -143,9 +143,7 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
 
     @Override
     public void run() {
-        Log.d("today_run", "run");
         while (mIsRunning) {
-            Log.d("today_run", "ok");
             /** 取得更新游戏之前的时间 **/
             long startTime = System.currentTimeMillis();
 
