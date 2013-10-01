@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+import com.clownxiaoqiang.TimeNote.Util.TimeNoteUtil;
 import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
 
 import java.text.SimpleDateFormat;
@@ -41,7 +42,7 @@ public class HomePage extends Activity {
     private String minute_time;
     private int logo;
     private static boolean Iscounting = false;
-    private boolean IsDestroyButton = false;
+    private TimeNoteUtil timeNoteUtil;
     final static int Count =2;
     //要储存的数据
     private String tag, date, time, event_id, date_month, date_week;
@@ -146,10 +147,8 @@ public class HomePage extends Activity {
 
     public void onPause() {
         Log.d("HomePage","pause");
-        if(IsDestroyButton == false){
             //drawCircle.getCanvas().drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
             linearLayout.removeView(drawCircle);
-        }
         super.onPause();
     }
 
@@ -202,24 +201,9 @@ public class HomePage extends Activity {
     public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
         {
             if (keyCode == event.KEYCODE_BACK) {
-                new AlertDialog.Builder(this)
-                        .setTitle("提示：")
-                        .setMessage("是否退出？")
-                        .setNegativeButton("取消",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                })
-                        .setPositiveButton("确定",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-                                        IsDestroyButton = true ;
-                                        finish();
-                                    }
-                                }).show();
-                return true;
+                    timeNoteUtil = new TimeNoteUtil(HomePage.this);
+                    timeNoteUtil.DialogBuild();
+                    return true;
             } else {
                 return super.onKeyDown(keyCode, event);
             }

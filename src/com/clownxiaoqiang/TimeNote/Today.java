@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.clownxiaoqiang.TimeNote.Util.TimeNoteUtil;
 import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
 
 import java.text.SimpleDateFormat;
@@ -38,6 +40,7 @@ public class Today extends Activity {
     private SQlManager sQlManager;
     private ArrayList<Map<String, Object>> arrayList;
     private String date_x, date_month;
+    private TimeNoteUtil timeNoteUtil;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,5 +133,16 @@ public class Today extends Activity {
         super.onRestart();
         Log.d("restart_today", "run_today");
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == event.KEYCODE_BACK) {
+            timeNoteUtil = new TimeNoteUtil(Today.this);
+            timeNoteUtil.DialogBuild();
+            return true;
+        }else{
+            return super.onKeyDown(keyCode, event);    //To change body of overridden methods use File | Settings | File Templates.
+        }
     }
 }

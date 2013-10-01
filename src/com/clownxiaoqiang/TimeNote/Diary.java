@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.clownxiaoqiang.TimeNote.Util.TimeNoteUtil;
 import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
 
 import java.text.SimpleDateFormat;
@@ -27,6 +29,7 @@ public class Diary extends Activity {
     private SQlManager sQlManager;
     private ArrayList<Map<String, Object>> arrayList;
     private DiaryAdapter timeLineAdapter;
+    private TimeNoteUtil timeNoteUtil;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -161,6 +164,17 @@ public class Diary extends Activity {
             intent.putExtra("datetext",datetext);
             intent.setClass(Diary.this,TagDetail.class);
             Diary.this.startActivity(intent);
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == event.KEYCODE_BACK) {
+            timeNoteUtil = new TimeNoteUtil(Diary.this);
+            timeNoteUtil.DialogBuild();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
         }
     }
 }
