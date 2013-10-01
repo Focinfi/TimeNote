@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <EditText
+            android:id="@+id/edittext"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:textSize="15sp"
+            android:textColor="#3f4040"
+            android:cursorVisible="true"
+            android:textCursorDrawable="@null"
+            android:background="@drawable/write_diary_bg"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            />
+
+</LinearLayout>

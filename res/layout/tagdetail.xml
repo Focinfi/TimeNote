@@ -59,14 +59,11 @@
         <ScrollView
                 android:layout_width="fill_parent"
                 android:layout_height="250dp"
-                >
-            <TextView
-                    android:paddingTop="10dp"
-                    android:id="@+id/diarytextview"
+                android:layout_weight="1">
+            <FrameLayout
+                    android:id="@+id/tagdetailfragment"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:textSize="15sp"
-                    android:textColor="#3f4040"
                     />
         </ScrollView>
     </LinearLayout>
