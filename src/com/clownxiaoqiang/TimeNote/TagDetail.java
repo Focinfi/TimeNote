@@ -1,6 +1,9 @@
 package com.clownxiaoqiang.TimeNote;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.*;
+import com.clownxiaoqiang.TimeNote.fragment.EditTextFragment;
+import com.clownxiaoqiang.TimeNote.fragment.TextViewFragment;
 import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
 
 import java.util.ArrayList;
@@ -27,10 +32,13 @@ public class TagDetail extends Activity {
     private Button backbutton,editbutton;
     private ArrayList<Map<String,Object>> arrayList,arrayList_note;
     private SQlManager sQlManager;
-    private TextView dairytextview;
     private ListView tagdetailListView;
     private TagAdapter tagAdapter;
     private String date_to_search,notetext;
+    private FragmentTransaction fragmentTransaction,fragmentTransaction_e;
+    private FragmentManager fragmentManager,fragmentManager_e;
+    private TextViewFragment textViewFragment;
+    private EditTextFragment editTextFragment;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +48,6 @@ public class TagDetail extends Activity {
         backbutton = (Button)findViewById(R.id.back);
         editbutton = (Button)findViewById(R.id.edit);
         tagdetailListView = (ListView)findViewById(R.id.tagdetailListView);
-        dairytextview = (TextView)findViewById(R.id.diarytextview);
 
         Intent intent = getIntent();
         date_to_search = intent.getStringExtra("datetext");
@@ -53,7 +60,11 @@ public class TagDetail extends Activity {
         Log.d("arraylist",arrayList.toString());
         arrayList_note = sQlManager.query(date_to_search);
         notetext = arrayList_note.get(0).get((Object)"note").toString();
-        dairytextview.setText(notetext);
+
+        editTextFragment = new EditTextFragment(notetext,TagDetail.this);
+        textViewFragment = new TextViewFragment(notetext,TagDetail.this);
+
+        initFragment(fragmentManager,fragmentTransaction,textViewFragment);
 
         tagAdapter = new TagAdapter(TagDetail.this);
         tagdetailListView.setAdapter(tagAdapter);
@@ -68,11 +79,17 @@ public class TagDetail extends Activity {
         editbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                initFragment(fragmentManager_e,fragmentTransaction_e,editTextFragment);
             }
         });
 
     }
+        private void initFragment(FragmentManager fm,FragmentTransaction ft,Fragment fragment){
+            fm = getFragmentManager();
+            ft = fm.beginTransaction();
+            ft.replace(R.id.tagdetailfragment,fragment);
+            ft.commit();
+        }
 
         private final class TagDetailHolder {
                 public TextView totaltagid;

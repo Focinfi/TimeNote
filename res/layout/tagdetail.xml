@@ -57,12 +57,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1">
-            <TextView
-                    android:id="@+id/diarytextview"
+            <FrameLayout
+                    android:id="@+id/tagdetailfragment"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:textSize="13sp"
-                    android:textColor="@android:color/black"
                     />
         </ScrollView>
     </LinearLayout>

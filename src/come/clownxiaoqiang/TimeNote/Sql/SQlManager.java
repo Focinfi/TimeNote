@@ -75,7 +75,6 @@ public class SQlManager {
     public ArrayList<Map<String, Object>> query(String date) {
         sqLiteDatabase = sQliteTwo.getWritableDatabase();
         ArrayList<Map<String, Object>> records = new ArrayList<Map<String, Object>>();
-        if (sqLiteDatabase == null){
         Cursor cursor = sqLiteDatabase.rawQuery("select * from today where date like ?", new String[]{"%" + date + "%"});
         while (cursor.moveToNext()) {
             Map<String, Object> item = new HashMap<String, Object>();
@@ -91,10 +90,7 @@ public class SQlManager {
             Log.d("item", item.toString());
         }
 
-            cursor.close();
-            return records;
-        }
-        Toast.makeText(context,"还没有记录",Toast.LENGTH_SHORT).show();
+        cursor.close();
         return records;
     }
 
