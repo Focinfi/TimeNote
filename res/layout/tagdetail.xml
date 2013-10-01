@@ -4,7 +4,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@android:color/white"
+              android:background="@color/background_gray"
         >
     <RelativeLayout
             android:layout_width="fill_parent"
@@ -46,23 +46,27 @@
     <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
             android:orientation="vertical"
             >
         <ListView
                 android:id="@+id/tagdetailListView"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"/>
+                android:layout_height="300dp"
+                />
         <ScrollView
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1">
+                android:layout_height="250dp"
+                >
             <TextView
+                    android:paddingTop="10dp"
                     android:id="@+id/diarytextview"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:textSize="13sp"
-                    android:textColor="@android:color/black"
+                    android:textSize="15sp"
+                    android:textColor="#3f4040"
                     />
         </ScrollView>
     </LinearLayout>

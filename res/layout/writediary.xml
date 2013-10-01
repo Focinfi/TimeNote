@@ -42,7 +42,7 @@
             android:paddingTop="10dp"/>
     <EditText
             android:id="@+id/diaryEditText"
-            android:background="@android:color/white"
+            android:background="@drawable/write_diary_bg"
             android:layout_width="fill_parent"
             android:gravity="top"
             android:layout_height="300dp"

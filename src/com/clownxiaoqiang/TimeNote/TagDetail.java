@@ -3,6 +3,7 @@ package com.clownxiaoqiang.TimeNote;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,7 +53,7 @@ public class TagDetail extends Activity {
         arrayList = sQlManager.queryTag(date_to_search);
         Log.d("arraylist",arrayList.toString());
         arrayList_note = sQlManager.query(date_to_search);
-        notetext = arrayList_note.get(0).get((Object)"note").toString();
+        notetext = "笔记："+arrayList_note.get(0).get((Object)"note").toString();
         dairytextview.setText(notetext);
 
         tagAdapter = new TagAdapter(TagDetail.this);
@@ -75,6 +76,7 @@ public class TagDetail extends Activity {
     }
 
         private final class TagDetailHolder {
+            public TextView tagItemLeftView;
                 public TextView totaltagid;
                 public TextView tagid;
                 public TextView time;
@@ -104,16 +106,15 @@ public class TagDetail extends Activity {
 
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
-                    position = arrayList.size() - 1 - position; //倒置数组顺序
                     TagDetailHolder holder = null;
                     if (convertView == null) {
 
                         holder = new TagDetailHolder();
 
                         convertView = TagInflater.inflate(R.layout.tagitem, null);
-                        holder.totaltagid = (TextView) convertView.findViewById(R.id.totaltagid);
                         holder.tagid = (TextView) convertView.findViewById(R.id.tagid);
                         holder.time = (TextView) convertView.findViewById(R.id.time);
+                        holder.tagItemLeftView = (TextView)convertView.findViewById(R.id.tagItemLeftView);
                         convertView.setTag(holder);
 
                     } else {
@@ -123,10 +124,11 @@ public class TagDetail extends Activity {
                     String time = arrayList.get(position).get((Object) "time").toString();
                     String tag = arrayList.get(position).get((Object) "tag").toString();
                     String totaltagname = JudgeMent(arrayList.get(position).get("event_id").toString());
-
+                    tag = totaltagname +"   "+ tag;
                     holder.time.setText(time);
                     holder.tagid.setText(tag);
-                    holder.totaltagid.setText(totaltagname);
+
+                    holder.tagItemLeftView.setBackgroundColor(Color.parseColor(JudgeColor(arrayList.get(position).get("event_id").toString())));
 
                     return convertView;  //To change body of implemented methods use File | Settings | File Templates.
                 }
@@ -138,9 +140,22 @@ public class TagDetail extends Activity {
         } else if (event_id.equals("1")) {
             return "工作";
         } else if (event_id.equals("2")) {
-            return "睡觉";
+            return "休息";
         } else if (event_id.equals("3")) {
             return "娱乐";
+        }
+        return "";
+    }
+    private String JudgeColor(String event_id) {
+        Log.d("event_id", event_id);
+        if (event_id.equals("0")) {
+            return "#ff6666";
+        } else if (event_id.equals("1")) {
+            return "#99cc00";
+        } else if (event_id.equals("2")) {
+            return "#0066cc";
+        } else if (event_id.equals("3")) {
+            return "#ff6666";
         }
         return "";
     }
