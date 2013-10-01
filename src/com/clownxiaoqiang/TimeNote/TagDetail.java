@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,25 +30,27 @@ import java.util.Map;
  */
 public class TagDetail extends Activity {
 
-    private Button backbutton,editbutton;
-    private ArrayList<Map<String,Object>> arrayList,arrayList_note;
-    private SQlManager sQlManager;
+    private Button backbutton, editbutton;
+    private ArrayList<Map<String, Object>> arrayList, arrayList_note;
+    private SQlManager sQlManager, updateManager;
     private ListView tagdetailListView;
     private TagAdapter tagAdapter;
-    private String date_to_search,notetext;
-    private FragmentTransaction fragmentTransaction,fragmentTransaction_e;
-    private FragmentManager fragmentManager,fragmentManager_e;
+    private String date_to_search, notetext;
+    private FragmentTransaction fragmentTransaction, fragmentTransaction_e;
+    private FragmentManager fragmentManager, fragmentManager_e;
     private TextViewFragment textViewFragment;
     private EditTextFragment editTextFragment;
+    private boolean editStatus;
+    private String date, diary;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.tagdetail);
 
-        backbutton = (Button)findViewById(R.id.back);
-        editbutton = (Button)findViewById(R.id.edit);
-        tagdetailListView = (ListView)findViewById(R.id.tagdetailListView);
+        backbutton = (Button) findViewById(R.id.back);
+        editbutton = (Button) findViewById(R.id.edit);
+        tagdetailListView = (ListView) findViewById(R.id.tagdetailListView);
 
         Intent intent = getIntent();
         date_to_search = intent.getStringExtra("datetext");
@@ -57,17 +60,20 @@ public class TagDetail extends Activity {
 
         sQlManager = new SQlManager(TagDetail.this);
         arrayList = sQlManager.queryTag(date_to_search);
-        Log.d("arraylist",arrayList.toString());
+        Log.d("arraylist", arrayList.toString());
         arrayList_note = sQlManager.query(date_to_search);
-        notetext = arrayList_note.get(0).get((Object)"note").toString();
 
-        editTextFragment = new EditTextFragment(notetext,TagDetail.this);
-        textViewFragment = new TextViewFragment(notetext,TagDetail.this);
+        notetext = "笔记：" + arrayList_note.get(0).get((Object) "note").toString();
 
-        initFragment(fragmentManager,fragmentTransaction,textViewFragment);
+        editTextFragment = new EditTextFragment(notetext, TagDetail.this);
+        textViewFragment = new TextViewFragment(notetext, TagDetail.this);
+
+        initFragment(fragmentManager, fragmentTransaction, textViewFragment);
 
         tagAdapter = new TagAdapter(TagDetail.this);
         tagdetailListView.setAdapter(tagAdapter);
+
+        editStatus = false;
 
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,75 +85,102 @@ public class TagDetail extends Activity {
         editbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                initFragment(fragmentManager_e,fragmentTransaction_e,editTextFragment);
+                if (!editStatus) {
+                    editbutton.setText("保存");
+
+                    initFragment(fragmentManager_e, fragmentTransaction_e, editTextFragment);
+                    editStatus = true;
+                } else {
+                    editbutton.setText("编辑");
+                    Intent intent1 = getIntent();
+                    date = intent1.getStringExtra("date");
+
+                    diary = editTextFragment.getText();
+                    updateManager = new SQlManager(TagDetail.this);
+                    updateManager.updatenote(diary, date);
+//                    fragmentTransaction_e.remove(textViewFragment);
+
+                    initFragment(fragmentManager_e, fragmentTransaction_e, editTextFragment);
+
+                    Toast.makeText(TagDetail.this, "修改成功", Toast.LENGTH_SHORT).show();
+
+                    editStatus = false;
+                }
+
+
             }
         });
 
     }
-        private void initFragment(FragmentManager fm,FragmentTransaction ft,Fragment fragment){
-            fm = getFragmentManager();
-            ft = fm.beginTransaction();
-            ft.replace(R.id.tagdetailfragment,fragment);
-            ft.commit();
+
+    private void initFragment(FragmentManager fm, FragmentTransaction ft, Fragment fragment) {
+        editTextFragment = new EditTextFragment(notetext, TagDetail.this);
+        textViewFragment = new TextViewFragment(notetext, TagDetail.this);
+        fm = getFragmentManager();
+        ft = fm.beginTransaction();
+        ft.replace(R.id.tagdetailfragment, fragment);
+        ft.commit();
+    }
+
+    private final class TagDetailHolder {
+        public TextView tagItemLeftView;
+        public TextView totaltagid;
+        public TextView tagid;
+        public TextView time;
+    }
+
+    private class TagAdapter extends BaseAdapter {
+        private LayoutInflater TagInflater;
+
+        public TagAdapter(Context context) {
+            this.TagInflater = LayoutInflater.from(context);
         }
 
-        private final class TagDetailHolder {
-                public TextView totaltagid;
-                public TextView tagid;
-                public TextView time;
+        @Override
+        public int getCount() {
+            return arrayList.size();  //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return arrayList.get(position);  //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            TagDetailHolder holder = null;
+            if (convertView == null) {
+
+                holder = new TagDetailHolder();
+
+                convertView = TagInflater.inflate(R.layout.tagitem, null);
+                holder.tagid = (TextView) convertView.findViewById(R.id.tagid);
+                holder.time = (TextView) convertView.findViewById(R.id.time);
+                holder.tagItemLeftView = (TextView) convertView.findViewById(R.id.tagItemLeftView);
+                convertView.setTag(holder);
+
+            } else {
+
+                holder = (TagDetailHolder) convertView.getTag();
             }
+            String time = arrayList.get(position).get((Object) "time").toString();
+            String tag = arrayList.get(position).get((Object) "tag").toString();
+            String totaltagname = JudgeMent(arrayList.get(position).get("event_id").toString());
+            tag = totaltagname + "   " + tag;
+            holder.time.setText(time);
+            holder.tagid.setText(tag);
 
-        private class TagAdapter extends BaseAdapter {
-                private LayoutInflater TagInflater;
+            holder.tagItemLeftView.setBackgroundColor(Color.parseColor(JudgeColor(arrayList.get(position).get("event_id").toString())));
 
-                public TagAdapter(Context context) {
-                    this.TagInflater = LayoutInflater.from(context);
-                }
+            return convertView;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+    }
 
-                @Override
-                public int getCount() {
-                    return arrayList.size();  //To change body of implemented methods use File | Settings | File Templates.
-                }
-
-                @Override
-                public Object getItem(int position) {
-                    return arrayList.get(position);  //To change body of implemented methods use File | Settings | File Templates.
-                }
-
-                @Override
-                public long getItemId(int position) {
-                    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-                }
-
-                @Override
-                public View getView(int position, View convertView, ViewGroup parent) {
-                    position = arrayList.size() - 1 - position; //倒置数组顺序
-                    TagDetailHolder holder = null;
-                    if (convertView == null) {
-
-                        holder = new TagDetailHolder();
-
-                        convertView = TagInflater.inflate(R.layout.tagitem, null);
-                        holder.totaltagid = (TextView) convertView.findViewById(R.id.totaltagid);
-                        holder.tagid = (TextView) convertView.findViewById(R.id.tagid);
-                        holder.time = (TextView) convertView.findViewById(R.id.time);
-                        convertView.setTag(holder);
-
-                    } else {
-
-                        holder = (TagDetailHolder) convertView.getTag();
-                    }
-                    String time = arrayList.get(position).get((Object) "time").toString();
-                    String tag = arrayList.get(position).get((Object) "tag").toString();
-                    String totaltagname = JudgeMent(arrayList.get(position).get("event_id").toString());
-
-                    holder.time.setText(time);
-                    holder.tagid.setText(tag);
-                    holder.totaltagid.setText(totaltagname);
-
-                    return convertView;  //To change body of implemented methods use File | Settings | File Templates.
-                }
-            }
     private String JudgeMent(String event_id) {
         Log.d("event_id", event_id);
         if (event_id.equals("0")) {
@@ -155,9 +188,23 @@ public class TagDetail extends Activity {
         } else if (event_id.equals("1")) {
             return "工作";
         } else if (event_id.equals("2")) {
-            return "睡觉";
+            return "休息";
         } else if (event_id.equals("3")) {
             return "娱乐";
+        }
+        return "";
+    }
+
+    private String JudgeColor(String event_id) {
+        Log.d("event_id", event_id);
+        if (event_id.equals("0")) {
+            return "#ff6666";
+        } else if (event_id.equals("1")) {
+            return "#99cc00";
+        } else if (event_id.equals("2")) {
+            return "#0066cc";
+        } else if (event_id.equals("3")) {
+            return "#ff6666";
         }
         return "";
     }

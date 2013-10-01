@@ -12,6 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: z
@@ -24,8 +27,9 @@ public class DiaryWrite extends Activity {
     private TextView titleTextView;
     private EditText noteEditText;
     private Button addNote;
-    private SQlManager updateManager;
+    private SQlManager noteManager,updateManager;
     private Button backButton;
+    private ArrayList<Map<String,Object>> noteArrayList;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,8 @@ public class DiaryWrite extends Activity {
         noteEditText = (EditText) this.findViewById(R.id.diaryEditText);
         Intent intent = getIntent();
         title = intent.getStringExtra("date_month") + "的笔记";
+        date = intent.getStringExtra("date");
+
         titleTextView.setText(title);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +52,14 @@ public class DiaryWrite extends Activity {
                 DiaryWrite.this.finish();
             }
         });
+        noteManager = new SQlManager(DiaryWrite.this);
+        noteArrayList = new ArrayList<Map<String, Object>>();
+        noteArrayList = noteManager.query(date);
+
+
+        diary = noteArrayList.get(0).get((Object) "note").toString();
+
+        noteEditText.setText(diary);
 
         addNote.setOnClickListener(new View.OnClickListener() {
             @Override
