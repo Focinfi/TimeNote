@@ -38,32 +38,31 @@ public class Diary extends Activity {
         String date_x = simpleDateFormat.format(date_S);
         sQlManager = new SQlManager(Diary.this);
         arrayList = new ArrayList<Map<String, Object>>();
-
         arrayList = sQlManager.query("");
-
-//        timeLineAdapter = new SimpleAdapter(Diary.this, arrayList, R.layout.item_time_line,
-//                new String[]{"work_time", "study_time", "play_time", "sleep_time", "note", "date_month", "date_week"},
-//                new int[]{R.id.workTimeView, R.id.studyTimeView, R.id.playTimeView, R.id.sleepTimeView, R.id.diaryNoteTextView, R.id.dateMonthTextView, R.id.dateWeekTextView});
-        timeLineAdapter = new DiaryAdapter(Diary.this);
-        diaryListView.setAdapter(timeLineAdapter);
-        diaryListView.setOnItemClickListener(new diaryItemClickListener());
+        if (arrayList != null){
+            timeLineAdapter = new DiaryAdapter(Diary.this);
+            diaryListView.setAdapter(timeLineAdapter);
+            diaryListView.setOnItemClickListener(new diaryItemClickListener());
+        }
     }
 
     public void onResume(){
         super.onResume();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        Date date_S = new Date(System.currentTimeMillis());
-        String date_x = simpleDateFormat.format(date_S);
-        sQlManager = new SQlManager(Diary.this);
-        arrayList = new ArrayList<Map<String, Object>>();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            Date date_S = new Date(System.currentTimeMillis());
+            String date_x = simpleDateFormat.format(date_S);
+            sQlManager = new SQlManager(Diary.this);
+            arrayList = new ArrayList<Map<String, Object>>();
 
-        arrayList = sQlManager.query("");
-        Log.d("d_all", arrayList.toString());
+            arrayList = sQlManager.query("");
+            Log.d("d_all", arrayList.toString());
+        if(arrayList != null){
 
 //        timeLineAdapter = new SimpleAdapter(Diary.this, arrayList, R.layout.item_time_line,
 //                new String[]{"work_time", "study_time", "play_time", "sleep_time", "note", "date_month", "date_week"},
 //                new int[]{R.id.workTimeView, R.id.studyTimeView, R.id.playTimeView, R.id.sleepTimeView, R.id.diaryNoteTextView, R.id.dateMonthTextView, R.id.dateWeekTextView});
-        timeLineAdapter.notifyDataSetChanged();
+            timeLineAdapter.notifyDataSetChanged();
+        }
     }
 
     public final class DiaryViewHolder {
