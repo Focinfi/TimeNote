@@ -153,13 +153,13 @@ public class Diary extends Activity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            int trueposition = arrayList.size() - 1 - position;
-            HashMap<String, Object> hashMap = (HashMap<String, Object>) parent.getItemAtPosition(trueposition);
+            int truePosition = arrayList.size() - 1 - position;
+            HashMap<String, Object> hashMap = (HashMap<String, Object>) parent.getItemAtPosition(truePosition);
             String datetext = (String) hashMap.get("date");
             Log.d("datetext", datetext);
             Intent intent = new Intent();
             intent.putExtra("datetext", datetext);
-            intent.putExtra("date", date_x);
+            intent.putExtra("date", arrayList.get(truePosition).get((Object) "date").toString());
             intent.setClass(Diary.this, TagDetail.class);
             Diary.this.startActivity(intent);
         }

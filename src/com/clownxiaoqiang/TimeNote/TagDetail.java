@@ -96,7 +96,18 @@ public class TagDetail extends Activity {
                     diary = editTextFragment.getText();
                     updateManager = new SQlManager(TagDetail.this);
                     updateManager.updatenote(diary, date);
-//                    fragmentTransaction_e.remove(textViewFragment);
+                    sQlManager = new SQlManager(TagDetail.this);
+                    arrayList = sQlManager.queryTag(date_to_search);
+                    Log.d("arraylist", arrayList.toString());
+                    arrayList_note = sQlManager.query(date_to_search);
+
+                    notetext = "笔记：" + arrayList_note.get(0).get((Object) "note").toString();
+
+                    editTextFragment = new EditTextFragment(notetext, TagDetail.this);
+                    textViewFragment = new TextViewFragment(notetext, TagDetail.this);
+
+                    initFragment(fragmentManager, fragmentTransaction, textViewFragment);
+
                     Toast.makeText(TagDetail.this, "修改成功", Toast.LENGTH_SHORT).show();
 
                     editStatus = false;
@@ -109,8 +120,6 @@ public class TagDetail extends Activity {
     }
 
     private void initFragment(FragmentManager fm, FragmentTransaction ft, Fragment fragment) {
-        editTextFragment = new EditTextFragment(notetext, TagDetail.this);
-        textViewFragment = new TextViewFragment(notetext, TagDetail.this);
         fm = getFragmentManager();
         ft = fm.beginTransaction();
         ft.replace(R.id.tagdetailfragment, fragment);
@@ -199,7 +208,7 @@ public class TagDetail extends Activity {
         } else if (event_id.equals("2")) {
             return "#0066cc";
         } else if (event_id.equals("3")) {
-            return "#ff6666";
+            return "#fed100";
         }
         return "";
     }

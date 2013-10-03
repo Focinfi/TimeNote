@@ -34,11 +34,18 @@ public class EditTextFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
         editText = (EditText) activity.findViewById(R.id.edittext);
+        Log.d("edittext", note);
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
         editText.setText(note);
     }
 
     public String getText() {
         editText = (EditText) activity.findViewById(R.id.edittext);
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
         String diary = editText.getText().toString();
         int diaryLength = diary.length();
         diary = diary.substring(3, diaryLength);
