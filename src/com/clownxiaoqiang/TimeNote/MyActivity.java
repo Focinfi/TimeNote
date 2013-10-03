@@ -1,17 +1,11 @@
 package com.clownxiaoqiang.TimeNote;
 
-import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TabHost;
 
@@ -38,7 +32,7 @@ public class MyActivity extends TabActivity implements CompoundButton.OnCheckedC
         this.homepage_intent = new Intent(MyActivity.this,HomePage.class);
         this.today_intent =new Intent(MyActivity.this,Today.class);
         this.diary_intent =new Intent(MyActivity.this,Diary.class);
-        this.blank_intent =new Intent(MyActivity.this,blank.class);
+        this.blank_intent =new Intent(MyActivity.this,FindPage.class);
 
         ((RadioButton)findViewById(R.id.radio_button0)).setOnCheckedChangeListener(this);
         ((RadioButton)findViewById(R.id.radio_button1)).setOnCheckedChangeListener(this);
@@ -59,7 +53,7 @@ public class MyActivity extends TabActivity implements CompoundButton.OnCheckedC
                 R.string.see_diary, R.drawable.diary_page,
                 this.diary_intent));
 
-        localtabhost.addTab(buildTabSpec("about",
+        localtabhost.addTab(buildTabSpec("find_page",
                 R.string.about, R.drawable.diary_page, blank_intent));
     }
 
@@ -79,7 +73,7 @@ public class MyActivity extends TabActivity implements CompoundButton.OnCheckedC
             }else if(compoundButton.getId()==R.id.radio_button2){
                 this.tabHost.setCurrentTabByTag("write");
             }else if(compoundButton.getId()==R.id.radio_button3){
-                this.tabHost.setCurrentTabByTag("about");
+                this.tabHost.setCurrentTabByTag("find_page");
             }
         }
     }

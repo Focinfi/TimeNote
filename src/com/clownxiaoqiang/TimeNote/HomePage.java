@@ -33,7 +33,7 @@ public class HomePage extends Activity {
     private DrawCircle drawCircle;
     private LinearLayout linearLayout;
     private Spinner myspinner;
-    private Button savebutton,counttimebutton,canclebutton;
+    private Button savebutton, counttimebutton, canclebutton;
     private EditText tagEditText;
     private static final String[] Spinner_Text = {"学习", "工作", "休息", "娱乐"};
     private ArrayAdapter<String> adapter;
@@ -42,7 +42,7 @@ public class HomePage extends Activity {
     private int logo;
     private static boolean Iscounting = false;
     private boolean IsDestroyButton = false;
-    final static int Count =2;
+    final static int Count = 2;
     //要储存的数据
     private String tag, date, time, event_id, date_month, date_week;
     //要查询的数据
@@ -54,7 +54,7 @@ public class HomePage extends Activity {
         super.onCreate(savedInstanceState);
         //这个是布局添加
         setContentView(R.layout.homepage);
-        Log.d("HomePage","Create");
+        Log.d("HomePage", "Create");
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -74,24 +74,24 @@ public class HomePage extends Activity {
         myspinner.setSelection(0);
         myspinner.setOnItemSelectedListener(new ItemSelectedListener());
 
-        counttimebutton = (Button)findViewById(R.id.CountTimeButton);
+        counttimebutton = (Button) findViewById(R.id.CountTimeButton);
         counttimebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Iscounting == false ){
-                    if ((drawCircle.getSecond()!=0)||(drawCircle.getMinuteTime()!=0)){
+                if (Iscounting == false) {
+                    if ((drawCircle.getSecond() != 0) || (drawCircle.getMinuteTime() != 0)) {
                         drawCircle.TimeCount();
-                        Iscounting = true ;
+                        Iscounting = true;
                     }
                 }
             }
         });
 
-        canclebutton = (Button)findViewById(R.id.CancleButton);
+        canclebutton = (Button) findViewById(R.id.CancleButton);
         canclebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Iscounting){
+                if (Iscounting) {
                     drawCircle.TimeCountCancle();
                     Iscounting = false;
                 }
@@ -134,7 +134,10 @@ public class HomePage extends Activity {
                     Toast.makeText(HomePage.this, "已经超过24小时了", Toast.LENGTH_SHORT).show();
                 } else if (tag.isEmpty()) {
                     Toast.makeText(HomePage.this, "还没添加标签", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if(minute_time.contentEquals("0")) {
+                    Toast.makeText(HomePage.this, "还没有旋转时间", Toast.LENGTH_SHORT).show();
+                }
+                else{
                     sQlManager = new SQlManager(HomePage.this);
                     sQlManager.Addnote(date, tag, time, event_id, minute_time, date_month, date_week);
                     Toast.makeText(HomePage.this, "保存成功", Toast.LENGTH_SHORT).show();
@@ -145,8 +148,8 @@ public class HomePage extends Activity {
 
 
     public void onPause() {
-        Log.d("HomePage","pause");
-        if(IsDestroyButton == false){
+        Log.d("HomePage", "pause");
+        if (IsDestroyButton == false) {
             //drawCircle.getCanvas().drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
             linearLayout.removeView(drawCircle);
         }
@@ -156,11 +159,11 @@ public class HomePage extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();    //To change body of overridden methods use File | Settings | File Templates.
-        Log.d("HomePage","destroy");
+        Log.d("HomePage", "destroy");
     }
 
     public void onResume() {
-        Log.d("HomePage","resume");
+        Log.d("HomePage", "resume");
         if (logo > 0) {
             linearLayout.addView(drawCircle);
             drawCircle.setZOrderOnTop(true);
@@ -169,9 +172,10 @@ public class HomePage extends Activity {
         super.onResume();
 
     }
-     public static Handler cHandler = new Handler() {
+
+    public static Handler cHandler = new Handler() {
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case Count:
                     Iscounting = msg.getData().getBoolean("changeIscounting");
                     break;
@@ -199,6 +203,7 @@ public class HomePage extends Activity {
             //To change body of implemented methods use File | Settings | File Templates.
         }
     }
+
     public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
         {
             if (keyCode == event.KEYCODE_BACK) {
@@ -215,7 +220,7 @@ public class HomePage extends Activity {
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int whichButton) {
-                                        IsDestroyButton = true ;
+                                        IsDestroyButton = true;
                                         finish();
                                     }
                                 }).show();

@@ -49,7 +49,7 @@
             <RadioButton
                     android:id="@+id/radio_button3"
                     android:layout_marginTop="2dp"
-                    android:drawableTop="@drawable/diary_page"
+                    android:drawableTop="@drawable/find_page_bg"
                     android:text="@string/about"
                     style="@style/main_tab_bottom"/>"
         </RadioGroup>
