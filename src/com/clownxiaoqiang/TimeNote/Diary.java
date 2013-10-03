@@ -30,6 +30,7 @@ public class Diary extends Activity {
     private ArrayList<Map<String, Object>> arrayList;
     private DiaryAdapter timeLineAdapter;
     private TimeNoteUtil timeNoteUtil;
+    private String date_x;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -38,32 +39,28 @@ public class Diary extends Activity {
         diaryListView = (ListView) this.findViewById(R.id.diaryListView);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         Date date_S = new Date(System.currentTimeMillis());
-        String date_x = simpleDateFormat.format(date_S);
+        date_x = simpleDateFormat.format(date_S);
         sQlManager = new SQlManager(Diary.this);
         arrayList = new ArrayList<Map<String, Object>>();
         arrayList = sQlManager.query("");
-        if (arrayList != null){
+        if (arrayList != null) {
             timeLineAdapter = new DiaryAdapter(Diary.this);
             diaryListView.setAdapter(timeLineAdapter);
             diaryListView.setOnItemClickListener(new diaryItemClickListener());
         }
     }
 
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-            Date date_S = new Date(System.currentTimeMillis());
-            String date_x = simpleDateFormat.format(date_S);
-            sQlManager = new SQlManager(Diary.this);
-            arrayList = new ArrayList<Map<String, Object>>();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        Date date_S = new Date(System.currentTimeMillis());
+        String date_x = simpleDateFormat.format(date_S);
+        sQlManager = new SQlManager(Diary.this);
+        arrayList = new ArrayList<Map<String, Object>>();
 
-            arrayList = sQlManager.query("");
-            Log.d("d_all", arrayList.toString());
-        if(arrayList != null){
+        arrayList = sQlManager.query("");
 
-//        timeLineAdapter = new SimpleAdapter(Diary.this, arrayList, R.layout.item_time_line,
-//                new String[]{"work_time", "study_time", "play_time", "sleep_time", "note", "date_month", "date_week"},
-//                new int[]{R.id.workTimeView, R.id.studyTimeView, R.id.playTimeView, R.id.sleepTimeView, R.id.diaryNoteTextView, R.id.dateMonthTextView, R.id.dateWeekTextView});
+        if (arrayList != null) {
             timeLineAdapter.notifyDataSetChanged();
         }
     }
@@ -152,17 +149,18 @@ public class Diary extends Activity {
 
     }
 
-    class diaryItemClickListener implements AdapterView.OnItemClickListener{
+    class diaryItemClickListener implements AdapterView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             int trueposition = arrayList.size() - 1 - position;
-            HashMap<String,Object> hashMap = (HashMap<String, Object>) parent.getItemAtPosition(trueposition);
+            HashMap<String, Object> hashMap = (HashMap<String, Object>) parent.getItemAtPosition(trueposition);
             String datetext = (String) hashMap.get("date");
-            Log.d("datetext",datetext);
+            Log.d("datetext", datetext);
             Intent intent = new Intent();
-            intent.putExtra("datetext",datetext);
-            intent.setClass(Diary.this,TagDetail.class);
+            intent.putExtra("datetext", datetext);
+            intent.putExtra("date", date_x);
+            intent.setClass(Diary.this, TagDetail.class);
             Diary.this.startActivity(intent);
         }
     }

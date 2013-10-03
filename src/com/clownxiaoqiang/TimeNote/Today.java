@@ -45,7 +45,6 @@ public class Today extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.today);
-        Log.d("Today","Create");
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         Date date_S = new Date(System.currentTimeMillis());
@@ -98,13 +97,11 @@ public class Today extends Activity {
     }
 
     public void onPause() {
-        Log.d("Today","pause");
         super.onPause();
         Layout.removeView(todayCircle);
     }
 
     public void onResume() {
-        Log.d("Today","resume");
         super.onResume();
         if (logo > 0) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -131,7 +128,6 @@ public class Today extends Activity {
 
     public void onRestart() {
         super.onRestart();
-        Log.d("restart_today", "run_today");
 
     }
 

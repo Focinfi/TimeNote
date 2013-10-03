@@ -24,17 +24,25 @@ public class EditTextFragment extends Fragment {
     private EditText editText;
     private Activity activity;
 
-    public EditTextFragment(String note,Context context) {
+    public EditTextFragment(String note, Context context) {
         this.note = note;
         activity = (Activity) context;
+        editText = (EditText) activity.findViewById(R.id.edittext);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
-        editText = (EditText)activity.findViewById(R.id.edittext);
-        Log.d("edittext",note);
+        editText = (EditText) activity.findViewById(R.id.edittext);
         editText.setText(note);
+    }
+
+    public String getText() {
+        editText = (EditText) activity.findViewById(R.id.edittext);
+        String diary = editText.getText().toString();
+        int diaryLength = diary.length();
+        diary = diary.substring(3, diaryLength);
+        return diary;
     }
 
     @Override

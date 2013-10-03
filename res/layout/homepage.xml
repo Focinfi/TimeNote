@@ -89,24 +89,24 @@
             >
         <Button
                 android:id="@+id/savebutton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/home_save_btn"/>
         <Button
                 android:id="@+id/CountTimeButton"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/savebutton"
                 android:background="@drawable/run_btn"/>
 
         <Button
                 android:id="@+id/CancleButton"
-                android:layout_height="36dp"
-                android:layout_width="36dp"
+                android:layout_height="48dp"
+                android:layout_width="48dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/savebutton"
                 android:background="@drawable/pause_btn"

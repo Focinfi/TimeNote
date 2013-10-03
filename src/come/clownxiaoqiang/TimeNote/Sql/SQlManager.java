@@ -129,30 +129,16 @@ public class SQlManager {
         return true;
     }
 
-  /*  public String querynote(String date){
-        String notetext = "";
-        sqLiteDatabase = sQliteTwo.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from today where date like ?",new String[]{"%"+date+"%"});
-        while (cursor.moveToNext()){
-            notetext = cursor.getString(cursor.getColumnIndex("note"));
-        }
-        Log.d("notetext",notetext);
-        return notetext;
-    }*/
-
     public String queryTime(String event_id, String date, String newTime) {
         sqLiteDatabase = sQliteTwo.getWritableDatabase();
         String TotalTime = null;
         String event_name = null;
         event_name = Judge(event_id);
-        Log.d("mg", event_id + event_name);
 
         Cursor cursor = sqLiteDatabase.rawQuery("select * from today where date like ?", new String[]{date});
         while (cursor.moveToNext()) {
             TotalTime = cursor.getString(cursor.getColumnIndex(event_name));
         }
-        Log.d("TotalTime", newTime);
-        Log.d("TotalTime", TotalTime);
 
         TotalTime = (Integer.parseInt(TotalTime) + Integer.parseInt(newTime)) + "";
         cursor.close();
@@ -174,7 +160,6 @@ public class SQlManager {
     }
 
     private void JudgeMent(String event_id, String date, String time, String date_month, String date_week) {
-        Log.d("event_id", event_id);
         if (event_id.equals("0")) {
             Addtoday(date, "0", time, "0", "0", "没有记录啊", date_month, date_week);
         } else if (event_id.equals("1")) {

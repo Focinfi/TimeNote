@@ -55,7 +55,6 @@ public class HomePage extends Activity {
         super.onCreate(savedInstanceState);
         //这个是布局添加
         setContentView(R.layout.homepage);
-        Log.d("HomePage","Create");
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -146,8 +145,6 @@ public class HomePage extends Activity {
 
 
     public void onPause() {
-        Log.d("HomePage","pause");
-            //drawCircle.getCanvas().drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
             linearLayout.removeView(drawCircle);
         super.onPause();
     }
@@ -155,11 +152,9 @@ public class HomePage extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();    //To change body of overridden methods use File | Settings | File Templates.
-        Log.d("HomePage","destroy");
     }
 
     public void onResume() {
-        Log.d("HomePage","resume");
         if (logo > 0) {
             linearLayout.addView(drawCircle);
             drawCircle.setZOrderOnTop(true);
@@ -188,7 +183,6 @@ public class HomePage extends Activity {
 
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            Log.d("click", "id--->" + l);
             event_id = l + "";
             date = simpleDateFormat.format(date_S);
         }
