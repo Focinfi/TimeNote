@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -21,20 +22,22 @@ import android.widget.Toast;
 public class FindPage extends Activity {
     private Button aboutButton,shareButton,collectionButton,uploadButton,settingButton;
     private Dialog aboutDialog;
-    private RelativeLayout aboutRelativeLayout;
+    private RelativeLayout aboutRelativeLayout,shareRelativeLayout,collectionRelativeLayout,uploadRelativeLayout,
+                            settingRelativeLayout;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.find_page);
+
         aboutRelativeLayout = (RelativeLayout) this.findViewById(R.id.aboutRelativeLayout);
-        shareButton = (Button)this.findViewById(R.id.shareButton);
-        collectionButton = (Button)this.findViewById(R.id.collectionButton);
-        uploadButton = (Button)this.findViewById(R.id.uploadButton);
-        settingButton = (Button)this.findViewById(R.id.settingButton);
+        shareRelativeLayout=(RelativeLayout)this.findViewById(R.id.shareRelativeLayout);
+        collectionRelativeLayout=(RelativeLayout)this.findViewById(R.id.collectionRelativeLayout);
+        uploadRelativeLayout=(RelativeLayout)this.findViewById(R.id.uploadRelativeLayout);
+        settingRelativeLayout=(RelativeLayout)this.findViewById(R.id.settingRelativeLayout);
 
 
-        aboutButton = (Button) this.findViewById(R.id.findPageAboutButton);
-        aboutButton.setOnClickListener(new View.OnClickListener() {
+        aboutRelativeLayout = (RelativeLayout) this.findViewById(R.id.aboutRelativeLayout);
+        aboutRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -48,31 +51,55 @@ public class FindPage extends Activity {
                     public void run() {
                         aboutRelativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     }
-                }, 500);
+                }, 300);
             }
         });
-        shareButton.setOnClickListener(new View.OnClickListener() {
+        shareRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                shareRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
                 Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        shareRelativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    }
+                }, 300);
             }
         });
-        collectionButton.setOnClickListener(new View.OnClickListener() {
+        collectionRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                collectionRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
                 Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        collectionRelativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    }
+                }, 300);
             }
         });
-        uploadButton.setOnClickListener(new View.OnClickListener() {
+        uploadRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                uploadRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
                 Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        uploadRelativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    }
+                }, 300);
             }
         });
-        settingButton.setOnClickListener(new View.OnClickListener() {
+        settingRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                settingRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
                 Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        settingRelativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    }
+                }, 300);
             }
         });
 
