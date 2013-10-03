@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/background_gray"
+              android:padding="10dp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            >
+        <TextView
+                android:background="@drawable/icon_time_note01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="15dp"
+                android:textSize="25sp"
+                android:gravity="center_vertical"
+                android:textColor="#353535"
+                android:text="Time Note"/>
+    </LinearLayout>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#353535"
+            android:text="@string/time_note_about"
+            />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="#353535"
+            android:text="@string/developer_bout"
+            />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="#353535"
+            android:text="@string/connection_about"/>
+</LinearLayout>
