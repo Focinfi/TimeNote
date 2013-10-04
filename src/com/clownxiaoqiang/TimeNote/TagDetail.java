@@ -111,7 +111,6 @@ public class TagDetail extends Activity {
 
                     initFragment(fragmentManager, fragmentTransaction, textViewFragment);
 
-                    Toast.makeText(TagDetail.this, "修改成功", Toast.LENGTH_SHORT).show();
 
                     editStatus = false;
                 }
