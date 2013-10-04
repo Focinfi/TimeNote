@@ -6,7 +6,6 @@
               android:layout_height="match_parent">
     <EditText
             android:id="@+id/edittext"
-            android:layout_marginTop="10dp"
             android:padding="5dp"
             android:textSize="15sp"
             android:textColor="#3f4040"

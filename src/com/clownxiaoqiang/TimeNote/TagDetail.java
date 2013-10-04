@@ -70,6 +70,9 @@ public class TagDetail extends Activity {
                     Intent intent1 = getIntent();
                     date = intent1.getStringExtra("date");
                     diary = editTextFragment.getText();
+                    if (diary.isEmpty()) {
+                        diary = "还没有写笔记";
+                    }
                     updateManager = new SQlManager(TagDetail.this);
                     updateManager.updatenote(diary, date);
                     sQlManager = new SQlManager(TagDetail.this);
@@ -77,7 +80,7 @@ public class TagDetail extends Activity {
                     Log.d("arraylist", arrayList.toString());
                     arrayList_note = sQlManager.query(date_to_search);
 
-                    notetext = "笔记：" + arrayList_note.get(0).get((Object) "note").toString();
+                    notetext = arrayList_note.get(0).get((Object) "note").toString();
 
                     editTextFragment = new EditTextFragment(notetext, TagDetail.this);
                     textViewFragment = new TextViewFragment(notetext, TagDetail.this);
@@ -94,7 +97,7 @@ public class TagDetail extends Activity {
 
     }
 
-    private void init(){
+    private void init() {
         backbutton = (Button) findViewById(R.id.back);
         editbutton = (Button) findViewById(R.id.edit);
         tagdetailListView = (ListView) findViewById(R.id.tagdetailListView);
@@ -109,7 +112,7 @@ public class TagDetail extends Activity {
         arrayList = sQlManager.queryTag(date_to_search);
         arrayList_note = sQlManager.query(date_to_search);
 
-        notetext = "笔记：" + arrayList_note.get(0).get((Object) "note").toString();
+        notetext = arrayList_note.get(0).get((Object) "note").toString();
 
         editTextFragment = new EditTextFragment(notetext, TagDetail.this);
         textViewFragment = new TextViewFragment(notetext, TagDetail.this);
@@ -121,6 +124,7 @@ public class TagDetail extends Activity {
 
         editStatus = false;
     }
+
     //初始化
     private void initFragment(FragmentManager fm, FragmentTransaction ft, Fragment fragment) {
         fm = getFragmentManager();

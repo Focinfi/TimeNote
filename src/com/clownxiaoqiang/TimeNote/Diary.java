@@ -117,7 +117,7 @@ public class Diary extends Activity {
             String study_time = "学习   " + ChangeTime(Integer.parseInt(arrayList.get(position).get((Object) "study_time").toString()));
             String play_time = "娱乐   " + ChangeTime(Integer.parseInt(arrayList.get(position).get((Object) "play_time").toString()));
             String sleep_time = "休息   " + ChangeTime(Integer.parseInt(arrayList.get(position).get((Object) "sleep_time").toString()));
-            String note = "笔记：" + arrayList.get(position).get((Object) "note").toString();
+            String note = arrayList.get(position).get((Object) "note").toString();
             String date_month = arrayList.get(position).get((Object) "date_month").toString();
             String date_week = arrayList.get(position).get((Object) "date_week").toString();
 

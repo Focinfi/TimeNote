@@ -161,13 +161,13 @@ public class SQlManager {
 
     private void JudgeMent(String event_id, String date, String time, String date_month, String date_week) {
         if (event_id.equals("0")) {
-            Addtoday(date, "0", time, "0", "0", "没有记录啊", date_month, date_week);
+            Addtoday(date, "0", time, "0", "0", "还没有写笔记", date_month, date_week);
         } else if (event_id.equals("1")) {
-            Addtoday(date, time, "0", "0", "0", "没有记录啊", date_month, date_week);
+            Addtoday(date, time, "0", "0", "0", "还没有写笔记", date_month, date_week);
         } else if (event_id.equals("2")) {
-            Addtoday(date, "0", "0", time, "0", "没有记录啊", date_month, date_week);
+            Addtoday(date, "0", "0", time, "0", "还没有写笔记", date_month, date_week);
         } else if (event_id.equals("3")) {
-            Addtoday(date, "0", "0", "0", time, "没有记录啊", date_month, date_week);
+            Addtoday(date, "0", "0", "0", time, "还没有写笔记", date_month, date_week);
         }
     }
 

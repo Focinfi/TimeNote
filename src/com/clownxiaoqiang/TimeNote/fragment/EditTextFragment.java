@@ -23,10 +23,11 @@ import com.clownxiaoqiang.TimeNote.R;
  */
 public class EditTextFragment extends Fragment {
 
-    private String note,diary;
+    private String note, diary;
     private EditText editText;
     private Activity activity;
-    private int diaryLength,EditEnd,EditStart;;
+    private int diaryLength, EditEnd, EditStart;
+    ;
 
     public EditTextFragment(String note, Context context) {
         this.note = note;
@@ -40,40 +41,37 @@ public class EditTextFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
         initEditText();
         editText.setText(note);
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                EditEnd = editText.getSelectionEnd();
-                EditStart = editText.getSelectionStart();
-                //   editText.removeTextChangedListener(this);
-                if (calculateLength(editable.toString()) <= 2) {
-                    Log.d("edittext", editText.getText().toString());
-                    editText.setEnabled(false);
-                    editText.setText(editText.getText().toString() + "：");
-                    editText.setEnabled(true);
-                    editText.setSelection(editText.length());
-                    Toast.makeText(activity,"别删除我。。。。",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        editText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+//                //To change body of implemented methods use File | Settings | File Templates.
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+//                //To change body of implemented methods use File | Settings | File Templates.
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                EditEnd = editText.getSelectionEnd();
+//                EditStart = editText.getSelectionStart();
+//                //   editText.removeTextChangedListener(this);
+//                if (calculateLength(editable.toString()) <= 2) {
+//                    Log.d("edittext", editText.getText().toString());
+//                    editText.setEnabled(false);
+//                    editText.setText(editText.getText().toString() + "：");
+//                    editText.setEnabled(true);
+//                    editText.setSelection(editText.length());
+//                    Toast.makeText(activity, "别删除我。。。。", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
     }
 
     public String getText() {
         initEditText();
         diary = editText.getText().toString();
-        diaryLength = diary.length();
-        diary = diary.substring(3, diaryLength);
-
         return diary;
     }
 
@@ -95,7 +93,7 @@ public class EditTextFragment extends Fragment {
         return inflater.inflate(R.layout.edittextfragment, container, false);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    private void initEditText(){
+    private void initEditText() {
         editText = (EditText) activity.findViewById(R.id.edittext);
         editText.setFocusable(true);
         editText.setFocusableInTouchMode(true);
