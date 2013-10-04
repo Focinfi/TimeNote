@@ -47,13 +47,8 @@ public class EditTextFragment extends Fragment {
         editText.requestFocus();
         String diary = editText.getText().toString();
         int diaryLength = diary.length();
-        if (diaryLength >= 3) {
-            String headString = diary.substring(0, 3);
-            Log.d("head_s", headString);
-            if (headString.contentEquals("笔记：")||headString.contentEquals("笔记:")) {
-                diary = diary.substring(3, diaryLength);
-            }
-        }
+        diary = diary.substring(3, diaryLength);
+
         return diary;
     }
 

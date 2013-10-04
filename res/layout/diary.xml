@@ -33,7 +33,7 @@
             >
         <ListView
                 android:id="@+id/diaryListView"
-                android:footerDividersEnabled="false"
+                android:divider="#8fc41f"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:scrollbars="none"/>
