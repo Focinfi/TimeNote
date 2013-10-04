@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 /**
  * Created with IntelliJ IDEA.
- * User: z
+ * Author: Dai Zhi Qiang
  * Date: 13-10-1
  * Time: 上午10:43
  * To change this template use File | Settings | File Templates.
@@ -28,6 +28,6 @@ public class MyTextView extends TextView {
 
     @Override
     public boolean isFocused() {
-        return true;    //To change body of overridden methods use File | Settings | File Templates.
+        return true;
     }
 }

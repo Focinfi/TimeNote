@@ -15,16 +15,15 @@ import android.view.SurfaceView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.LogRecord;
 
 /**
  * Created with IntelliJ IDEA.
- * User: z
+ * Author: Dai Zhi Qiang
  * Date: 13-9-19
  * Time: 上午10:57
  * To change this template use File | Settings | File Templates.
  */
-public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, Runnable {
+public class RotateTimeCircle extends SurfaceView implements SurfaceHolder.Callback, Runnable {
 
     private float Center_x, Center_y;
     private float Touch_x, Touch_y;
@@ -51,15 +50,15 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
 
 
 
-    public DrawCircle(Context context) {
+    public RotateTimeCircle(Context context) {
         super(context);
     }
 
-    public DrawCircle(Context context, AttributeSet attrs) {
+    public RotateTimeCircle(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public DrawCircle(Context context, float center_x, float center_y) {
+    public RotateTimeCircle(Context context, float center_x, float center_y) {
         super(context);
         this.context = context;
         //获取焦点
@@ -129,16 +128,16 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
             case MotionEvent.ACTION_UP:
                 break;
         }
-        return true;    //To change body of overridden methods use File | Settings | File Templates.
+        return true;
     }
 
-    protected void Draw() {
+    protected void DrawOutCircle() {
         b_paint.setARGB(255, 7, 220, 208);
         RectF rectf = new RectF(Center_x - baseRadius, (float) 0, Center_x + baseRadius, baseRadius * 2);
         canvas.drawArc(rectf, 0, angle, true, b_paint);
     }
 
-    protected void DrawinnerCircle() {
+    protected void DrawInnerCircle() {
         r_paint.setARGB(255, 210, 245, 47);
         RectF rectF = new RectF(Center_x - middleRadius, baseRadius - middleRadius,
                 Center_x + middleRadius, baseRadius + middleRadius);
@@ -172,7 +171,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
-        /**开始游戏主循环线程**/
+        /**开始绘图主循环线程**/
         mIsRunning = true;
         new Thread(this).start();
     }
@@ -273,35 +272,35 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         Log.d("TAG", "in Thread");
         while (mIsRunning) {
 
-            /** 取得更新游戏之前的时间 **/
+            //取得更新之前的时间
             long startTime = System.currentTimeMillis();
 
             try{
-            /** 在这里加上线程安全锁 **/
+            //在这里加上线程安全锁
             synchronized (surfaceHolder) {
-                /** 拿到当前画布 然后锁定 **/
+                //拿到当前画布 然后锁定
                 canvas = surfaceHolder.lockCanvas();
                 canvas.drawARGB(255, 237, 237, 237);
                 DrawPreyCircle();
-                Draw();
-                DrawinnerCircle();
+                DrawOutCircle();
+                DrawInnerCircle();
                 DrawWhiteCircle();
                 DrawText();
                 DrawTextSecond();
-                /** 绘制结束后解锁显示在屏幕上 **/
+                //绘制结束后解锁显示在屏幕上
                 surfaceHolder.unlockCanvasAndPost(canvas);
             }
 
-            /** 取得更新游戏结束的时间 **/
+            //取得更新结束的时间
             long endTime = System.currentTimeMillis();
 
-            /** 计算出游戏一次更新的毫秒数 **/
+            //计算出更新一次的毫秒数
             int diffTime = (int) (endTime - startTime);
 
-            /** 确保每次更新时间为50帧 **/
+            //确保每次更新时间为50帧
             while (diffTime <= 50) {
                 diffTime = (int) (System.currentTimeMillis() - startTime);
-                /** 线程等待 **/
+                //线程等待
                 Thread.yield();
             }
             }catch (Exception e){
@@ -314,7 +313,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         countTime = new CountTime((MinuteTime*60+Integer.parseInt(SecondString))*1000,1000);
         countTime.start();
     }
-    public void TimeCountCancle(){
+    public void TimeCountCancel(){
         countTime.cancel();
     }
 
@@ -356,7 +355,7 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         public void onTick(long l) {
             Log.d("counttime","ChangeTime----->"+l);
             SendMessage(l);
-            //To change body of implemented methods use File | Settings | File Templates.
+
         }
 
         @Override
@@ -365,11 +364,11 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
             MediaPlayer mediaPlayer =new MediaPlayer().create(context, R.raw.alarm);
             mediaPlayer.start();
             SendMessage();
-            //To change body of implemented methods use File | Settings | File Templates.
+
         }
         private void SendMessage(long l){
             Message message = new Message();
-            message.what = DrawCircle.Msg;
+            message.what = RotateTimeCircle.Msg;
             Bundle bundle = new Bundle();
             bundle.putLong("Changetime",l);
             message.setData(bundle);
@@ -378,11 +377,11 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
 
         private void SendMessage(){
             Message message = new Message();
-            message.what = HomePage.Count;
+            message.what = RotateTimeActivity.Count;
             Bundle bundle = new Bundle();
             bundle.putBoolean("changeIscounting", false);
             message.setData(bundle);
-            HomePage.cHandler.sendMessage(message);
+            RotateTimeActivity.cHandler.sendMessage(message);
         }
     }
 }

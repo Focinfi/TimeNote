@@ -11,12 +11,12 @@ import android.view.SurfaceView;
 
 /**
  * Created with IntelliJ IDEA.
- * User: focinfi
+ * Author: Wang Tao
  * Date: 13-9-22
  * Time: 下午7:48
  * To change this template use File | Settings | File Templates.
  */
-public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, Runnable {
+public class TodayTimeCircle extends SurfaceView implements SurfaceHolder.Callback, Runnable {
     private int workTime;
     private int studyTime;
     private int sleepTime;
@@ -37,15 +37,15 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
     RectF rectf;
     private boolean mIsRunning = false;
 
-    public TodayCircle(Context context) {
+    public TodayTimeCircle(Context context) {
         super(context);
     }
 
-    public TodayCircle(Context context, AttributeSet attrs) {
+    public TodayTimeCircle(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public TodayCircle(Context context, float center_x, float center_y, int work_time, int study_time, int play_time, int sleep_time) {
+    public TodayTimeCircle(Context context, float center_x, float center_y, int work_time, int study_time, int play_time, int sleep_time) {
 
         super(context);
         this.context = context;

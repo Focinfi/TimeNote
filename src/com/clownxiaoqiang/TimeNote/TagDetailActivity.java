@@ -23,19 +23,19 @@ import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
- * User: z
+ * Author: Dai Zhi Qiang
  * Date: 13-9-28
  * Time: 下午7:08
  * To change this template use File | Settings | File Templates.
  */
-public class TagDetail extends Activity {
+public class TagDetailActivity extends Activity {
 
-    private Button backbutton, editbutton;
+    private Button backButton, editButton;
     private ArrayList<Map<String, Object>> arrayList, arrayList_note;
     private SQlManager sQlManager, updateManager;
-    private ListView tagdetailListView;
+    private ListView tagDetailListView;
     private TagAdapter tagAdapter;
-    private String date_to_search, notetext;
+    private String date_to_search, noteText;
     private FragmentTransaction fragmentTransaction, fragmentTransaction_e;
     private FragmentManager fragmentManager, fragmentManager_e;
     private TextViewFragment textViewFragment;
@@ -50,40 +50,40 @@ public class TagDetail extends Activity {
 
         init();
 
-        backbutton.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TagDetail.this.finish();
+                TagDetailActivity.this.finish();
             }
         });
 
-        editbutton.setOnClickListener(new View.OnClickListener() {
+        editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!editStatus) {
-                    editbutton.setText("保存");
+                    editButton.setText("保存");
                     initFragment(fragmentManager_e, fragmentTransaction_e, editTextFragment);
                     editStatus = true;
                 } else {
                     initFragment(fragmentManager, fragmentTransaction, textViewFragment);
-                    editbutton.setText("编辑");
+                    editButton.setText("编辑");
                     Intent intent1 = getIntent();
                     date = intent1.getStringExtra("date");
                     diary = editTextFragment.getText();
                     if (diary.isEmpty()) {
                         diary = "还没有写笔记";
                     }
-                    updateManager = new SQlManager(TagDetail.this);
+                    updateManager = new SQlManager(TagDetailActivity.this);
                     updateManager.updatenote(diary, date);
-                    sQlManager = new SQlManager(TagDetail.this);
+                    sQlManager = new SQlManager(TagDetailActivity.this);
                     arrayList = sQlManager.queryTag(date_to_search);
                     Log.d("arraylist", arrayList.toString());
                     arrayList_note = sQlManager.query(date_to_search);
 
-                    notetext = arrayList_note.get(0).get((Object) "note").toString();
+                    noteText = arrayList_note.get(0).get((Object) "note").toString();
 
-                    editTextFragment = new EditTextFragment(notetext, TagDetail.this);
-                    textViewFragment = new TextViewFragment(notetext, TagDetail.this);
+                    editTextFragment = new EditTextFragment(noteText, TagDetailActivity.this);
+                    textViewFragment = new TextViewFragment(noteText, TagDetailActivity.this);
 
                     initFragment(fragmentManager, fragmentTransaction, textViewFragment);
 
@@ -98,29 +98,29 @@ public class TagDetail extends Activity {
     }
 
     private void init() {
-        backbutton = (Button) findViewById(R.id.back);
-        editbutton = (Button) findViewById(R.id.edit);
-        tagdetailListView = (ListView) findViewById(R.id.tagdetailListView);
+        backButton = (Button) findViewById(R.id.back);
+        editButton = (Button) findViewById(R.id.edit);
+        tagDetailListView = (ListView) findViewById(R.id.tagdetailListView);
 
         Intent intent = getIntent();
-        date_to_search = intent.getStringExtra("datetext");
+        date_to_search = intent.getStringExtra("dateText");
 
         arrayList = new ArrayList<Map<String, Object>>();
         arrayList_note = new ArrayList<Map<String, Object>>();
 
-        sQlManager = new SQlManager(TagDetail.this);
+        sQlManager = new SQlManager(TagDetailActivity.this);
         arrayList = sQlManager.queryTag(date_to_search);
         arrayList_note = sQlManager.query(date_to_search);
 
-        notetext = arrayList_note.get(0).get((Object) "note").toString();
+        noteText = arrayList_note.get(0).get((Object) "note").toString();
 
-        editTextFragment = new EditTextFragment(notetext, TagDetail.this);
-        textViewFragment = new TextViewFragment(notetext, TagDetail.this);
+        editTextFragment = new EditTextFragment(noteText, TagDetailActivity.this);
+        textViewFragment = new TextViewFragment(noteText, TagDetailActivity.this);
 
         initFragment(fragmentManager, fragmentTransaction, textViewFragment);
 
-        tagAdapter = new TagAdapter(TagDetail.this);
-        tagdetailListView.setAdapter(tagAdapter);
+        tagAdapter = new TagAdapter(TagDetailActivity.this);
+        tagDetailListView.setAdapter(tagAdapter);
 
         editStatus = false;
     }
@@ -135,31 +135,30 @@ public class TagDetail extends Activity {
 
     private final class TagDetailHolder {
         public TextView tagItemLeftView;
-        public TextView totaltagid;
-        public TextView tagid;
+        public TextView tagId;
         public TextView time;
     }
 
     private class TagAdapter extends BaseAdapter {
-        private LayoutInflater TagInflater;
+        private LayoutInflater tagInflater;
 
         public TagAdapter(Context context) {
-            this.TagInflater = LayoutInflater.from(context);
+            this.tagInflater = LayoutInflater.from(context);
         }
 
         @Override
         public int getCount() {
-            return arrayList.size();  //To change body of implemented methods use File | Settings | File Templates.
+            return arrayList.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return arrayList.get(position);  //To change body of implemented methods use File | Settings | File Templates.
+            return arrayList.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            return 0;  //To change body of implemented methods use File | Settings | File Templates.
+            return 0;
         }
 
         @Override
@@ -169,8 +168,8 @@ public class TagDetail extends Activity {
 
                 holder = new TagDetailHolder();
 
-                convertView = TagInflater.inflate(R.layout.tagitem, null);
-                holder.tagid = (TextView) convertView.findViewById(R.id.tagid);
+                convertView = tagInflater.inflate(R.layout.tagitem, null);
+                holder.tagId = (TextView) convertView.findViewById(R.id.tagid);
                 holder.time = (TextView) convertView.findViewById(R.id.time);
                 holder.tagItemLeftView = (TextView) convertView.findViewById(R.id.tagItemLeftView);
                 convertView.setTag(holder);
@@ -181,18 +180,19 @@ public class TagDetail extends Activity {
             }
             String time = arrayList.get(position).get((Object) "time").toString();
             String tag = arrayList.get(position).get((Object) "tag").toString();
-            String totaltagname = JudgeMent(arrayList.get(position).get("event_id").toString());
-            tag = totaltagname + "   " + tag;
+            String totalTagName = JudgeEvent(arrayList.get(position).get("event_id").toString());
+            tag = totalTagName + "   " + tag;  //组合tag
             holder.time.setText(time);
-            holder.tagid.setText(tag);
-
+            holder.tagId.setText(tag);
+            //对应不同分组的设置不同颜色背景
             holder.tagItemLeftView.setBackgroundColor(Color.parseColor(JudgeColor(arrayList.get(position).get("event_id").toString())));
 
-            return convertView;  //To change body of implemented methods use File | Settings | File Templates.
+            return convertView;
         }
     }
 
-    private String JudgeMent(String event_id) {
+    //返回分组名称
+    private String JudgeEvent(String event_id) {
         Log.d("event_id", event_id);
         if (event_id.equals("0")) {
             return "学习";
@@ -206,6 +206,7 @@ public class TagDetail extends Activity {
         return "";
     }
 
+    //返回相应分组背景颜色
     private String JudgeColor(String event_id) {
         Log.d("event_id", event_id);
         if (event_id.equals("0")) {

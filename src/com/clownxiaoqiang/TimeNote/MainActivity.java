@@ -11,12 +11,12 @@ import android.widget.TabHost;
 
 /**
  * Created with IntelliJ IDEA.
- * User: z
+ * Author: Dai Zhi Qiang
  * Date: 13-9-19
  * Time: 下午12:12
  * To change this template use File | Settings | File Templates.
  */
-public class MyActivity extends TabActivity implements CompoundButton.OnCheckedChangeListener {
+public class MainActivity extends TabActivity implements CompoundButton.OnCheckedChangeListener {
     private TabHost tabHost ;
     private Intent homepage_intent;
     private Intent today_intent;
@@ -29,10 +29,10 @@ public class MyActivity extends TabActivity implements CompoundButton.OnCheckedC
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
 
-        this.homepage_intent = new Intent(MyActivity.this,HomePage.class);
-        this.today_intent =new Intent(MyActivity.this,Today.class);
-        this.diary_intent =new Intent(MyActivity.this,Diary.class);
-        this.blank_intent =new Intent(MyActivity.this,FindPage.class);
+        this.homepage_intent = new Intent(MainActivity.this,RotateTimeActivity.class);
+        this.today_intent =new Intent(MainActivity.this,TodayTimeActivity.class);
+        this.diary_intent =new Intent(MainActivity.this,TimeLineActivity.class);
+        this.blank_intent =new Intent(MainActivity.this,MoreFunActivity.class);
 
         ((RadioButton)findViewById(R.id.radio_button0)).setOnCheckedChangeListener(this);
         ((RadioButton)findViewById(R.id.radio_button1)).setOnCheckedChangeListener(this);
@@ -41,20 +41,20 @@ public class MyActivity extends TabActivity implements CompoundButton.OnCheckedC
 
         this.tabHost = getTabHost();
 
-        TabHost localtabhost = this.tabHost;
+        TabHost localTabHost = this.tabHost;
 
-        localtabhost.addTab(buildTabSpec("homepage", R.string.homepage,
-                R.drawable.home_page_icon, this.homepage_intent));
+        localTabHost.addTab(buildTabSpec("homepage", R.string.homepage,
+                R.drawable.icon_home_page, this.homepage_intent));
 
-        localtabhost.addTab(buildTabSpec("see", R.string.see,
-                R.drawable.today_page_icon, this.today_intent));
+        localTabHost.addTab(buildTabSpec("see", R.string.see,
+                R.drawable.icon_today_page, this.today_intent));
 
-        localtabhost.addTab(buildTabSpec("write",
-                R.string.see_diary, R.drawable.diary_page,
+        localTabHost.addTab(buildTabSpec("write",
+                R.string.see_diary, R.drawable.icon_diary_page,
                 this.diary_intent));
 
-        localtabhost.addTab(buildTabSpec("find_page",
-                R.string.about, R.drawable.diary_page, blank_intent));
+        localTabHost.addTab(buildTabSpec("find_page",
+                R.string.about, R.drawable.icon_diary_page, blank_intent));
     }
 
     private TabHost.TabSpec buildTabSpec(String tag, int name, int icon,

@@ -17,12 +17,12 @@ import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
- * User: z
+ * Author: Wang Tao
  * Date: 13-9-21
  * Time: 下午8:19
  * To change this template use File | Settings | File Templates.
  */
-public class DiaryWrite extends Activity {
+public class DiaryWriteActivity extends Activity {
     private String title, date, diary;
     private TextView titleTextView;
     private EditText noteEditText;
@@ -49,15 +49,16 @@ public class DiaryWrite extends Activity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DiaryWrite.this.finish();
+                DiaryWriteActivity.this.finish();
             }
-        });
-        noteManager = new SQlManager(DiaryWrite.this);
+        }); //返回按钮的实现
+
+        noteManager = new SQlManager(DiaryWriteActivity.this);
         noteArrayList = new ArrayList<Map<String, Object>>();
         noteArrayList = noteManager.query(date);
 
 
-        diary = noteArrayList.get(0).get((Object) "note").toString();
+        diary = noteArrayList.get(0).get((Object) "note").toString(); //拿到当天的笔记
 
         noteEditText.setText(diary);
 
@@ -68,12 +69,12 @@ public class DiaryWrite extends Activity {
                 Intent intent = getIntent();
                 date = intent.getStringExtra("date");
                 if (diary.isEmpty()) {
-                    Toast.makeText(DiaryWrite.this, "还没有写笔记啊", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DiaryWriteActivity.this, "还没有写笔记啊", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d("d_d", diary + "-->" + date);
-                    updateManager = new SQlManager(DiaryWrite.this);
-                    updateManager.updatenote(diary, date);
-                    Toast.makeText(DiaryWrite.this,"保存成功",Toast.LENGTH_SHORT).show();
+                    updateManager = new SQlManager(DiaryWriteActivity.this);
+                    updateManager.updatenote(diary, date);               //更新数据库笔记数据
+                    Toast.makeText(DiaryWriteActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
                 }
 
             }

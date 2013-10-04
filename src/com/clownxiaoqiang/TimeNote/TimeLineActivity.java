@@ -1,7 +1,6 @@
 package com.clownxiaoqiang.TimeNote;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,12 +18,12 @@ import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
- * User: z
+ * Author: Wang Tao
  * Date: 13-9-20
- * Time: ����7:50
+ * Time: 7:50
  * To change this template use File | Settings | File Templates.
  */
-public class Diary extends Activity {
+public class TimeLineActivity extends Activity {
     private ListView diaryListView;
     private SQlManager sQlManager;
     private ArrayList<Map<String, Object>> arrayList;
@@ -37,11 +36,11 @@ public class Diary extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.diary);
         diaryListView = (ListView) this.findViewById(R.id.diaryListView);
-        sQlManager = new SQlManager(Diary.this);
+        sQlManager = new SQlManager(TimeLineActivity.this);
         arrayList = new ArrayList<Map<String, Object>>();
         arrayList = sQlManager.query("");
         if (arrayList != null) {
-            timeLineAdapter = new DiaryAdapter(Diary.this);
+            timeLineAdapter = new DiaryAdapter(TimeLineActivity.this);
             diaryListView.setAdapter(timeLineAdapter);
             diaryListView.setOnItemClickListener(new diaryItemClickListener());
         }
@@ -49,13 +48,12 @@ public class Diary extends Activity {
 
     public void onResume() {
         super.onResume();
-        sQlManager = new SQlManager(Diary.this);
+        sQlManager = new SQlManager(TimeLineActivity.this);
         arrayList = new ArrayList<Map<String, Object>>();
-
         arrayList = sQlManager.query("");
 
         if (arrayList != null) {
-            timeLineAdapter.notifyDataSetChanged();
+            timeLineAdapter.notifyDataSetChanged(); //数据库数据发生改变，重新适配
         }
     }
 
@@ -70,25 +68,25 @@ public class Diary extends Activity {
     }
 
     public class DiaryAdapter extends BaseAdapter {
-        private LayoutInflater diaryInflater;
+        private LayoutInflater layoutInflater;
 
         public DiaryAdapter(Context context) {
-            this.diaryInflater = LayoutInflater.from(context);
+            this.layoutInflater = LayoutInflater.from(context);
         }
 
         @Override
         public int getCount() {
-            return arrayList.size();  //To change body of implemented methods use File | Settings | File Templates.
+            return arrayList.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return arrayList.get(position);  //To change body of implemented methods use File | Settings | File Templates.
+            return arrayList.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            return 0;  //To change body of implemented methods use File | Settings | File Templates.
+            return 0;
         }
 
         @Override
@@ -99,7 +97,7 @@ public class Diary extends Activity {
 
                 holder = new DiaryViewHolder();
 
-                convertView = diaryInflater.inflate(R.layout.item_time_line, null);
+                convertView = layoutInflater.inflate(R.layout.item_time_line, null);
                 holder.workTimeTextView = (TextView) convertView.findViewById(R.id.workTimeView);
                 holder.studyTimeTextView = (TextView) convertView.findViewById(R.id.studyTimeView);
                 holder.playTimeTextView = (TextView) convertView.findViewById(R.id.playTimeView);
@@ -129,12 +127,12 @@ public class Diary extends Activity {
             holder.dateMonthTextView.setText(date_month);
             holder.dateWeekTextView.setText(date_week);
 
-            return convertView;  //To change body of implemented methods use File | Settings | File Templates.
+            return convertView;
         }
 
         private String ChangeTime(int minute) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH : mm");
-            Date date = new Date(0, 0, 0, 0, minute);
+            Date date = new Date(0, 0, 0, 0, minute);                           //函数已被废弃，正在寻找新的函数
             String s = simpleDateFormat.format(date);
             return s;
 
@@ -147,22 +145,22 @@ public class Diary extends Activity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            int truePosition = arrayList.size() - 1 - position;
+            int truePosition = arrayList.size() - 1 - position;     //倒置输出数据库数据
             HashMap<String, Object> hashMap = (HashMap<String, Object>) parent.getItemAtPosition(truePosition);
-            String datetext = (String) hashMap.get("date");
-            Log.d("datetext", datetext);
+            String dateText = (String) hashMap.get("date");
+            Log.d("dateText", dateText);
             Intent intent = new Intent();
-            intent.putExtra("datetext", datetext);
+            intent.putExtra("dateText", dateText);
             intent.putExtra("date", arrayList.get(truePosition).get((Object) "date").toString());
-            intent.setClass(Diary.this, TagDetail.class);
-            Diary.this.startActivity(intent);
+            intent.setClass(TimeLineActivity.this, TagDetailActivity.class);
+            TimeLineActivity.this.startActivity(intent);
         }
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == event.KEYCODE_BACK) {
-            timeNoteUtil = new TimeNoteUtil(Diary.this);
+            timeNoteUtil = new TimeNoteUtil(TimeLineActivity.this);
             timeNoteUtil.DialogBuild();
             return true;
         } else {

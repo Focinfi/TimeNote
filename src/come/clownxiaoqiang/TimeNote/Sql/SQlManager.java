@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,14 +12,14 @@ import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
- * User: z
+ * Author: Dai Zhi Qiang
  * Date: 13-9-20
  * Time: 下午11:51
  * To change this template use File | Settings | File Templates.
  */
 public class SQlManager {
     private SQLiteNote sqLite;
-    private SQliteToday sQliteTwo;
+    private SQLiteToday sQliteTwo;
     private SQLiteDatabase sqLiteDatabase;
     private Context context;
 
@@ -28,7 +27,7 @@ public class SQlManager {
     public SQlManager(Context context) {
         super();
         this.context = context;
-        sQliteTwo = new SQliteToday(context);
+        sQliteTwo = new SQLiteToday(context);
         sqLite = new SQLiteNote(context);
         sqLiteDatabase = sQliteTwo.getWritableDatabase();
         sqLiteDatabase = sqLite.getWritableDatabase();

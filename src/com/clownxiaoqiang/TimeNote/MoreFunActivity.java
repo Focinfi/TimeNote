@@ -2,42 +2,37 @@ package com.clownxiaoqiang.TimeNote;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.clownxiaoqiang.TimeNote.Util.TimeNoteUtil;
 
 /**
  * Created with IntelliJ IDEA.
- * User: z
+ * Author: Wang Tao
  * Date: 13-9-20
- * Time: ����7:50
+ * Time: 7:50
  * To change this template use File | Settings | File Templates.
  */
-public class FindPage extends Activity {
-    private Button aboutButton,shareButton,collectionButton,uploadButton,settingButton;
+public class MoreFunActivity extends Activity {
     private Dialog aboutDialog;
     private TimeNoteUtil timeNoteUtil;
-    private RelativeLayout aboutRelativeLayout,shareRelativeLayout,collectionRelativeLayout,uploadRelativeLayout,
-                            settingRelativeLayout;
+    private RelativeLayout aboutRelativeLayout, shareRelativeLayout, collectionRelativeLayout, uploadRelativeLayout,
+            settingRelativeLayout;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.find_page);
 
-        timeNoteUtil = new TimeNoteUtil(FindPage.this);
+        timeNoteUtil = new TimeNoteUtil(MoreFunActivity.this);
         aboutRelativeLayout = (RelativeLayout) this.findViewById(R.id.aboutRelativeLayout);
-        shareRelativeLayout=(RelativeLayout)this.findViewById(R.id.shareRelativeLayout);
-        collectionRelativeLayout=(RelativeLayout)this.findViewById(R.id.collectionRelativeLayout);
-        uploadRelativeLayout=(RelativeLayout)this.findViewById(R.id.uploadRelativeLayout);
-        settingRelativeLayout=(RelativeLayout)this.findViewById(R.id.settingRelativeLayout);
+        shareRelativeLayout = (RelativeLayout) this.findViewById(R.id.shareRelativeLayout);
+        collectionRelativeLayout = (RelativeLayout) this.findViewById(R.id.collectionRelativeLayout);
+        uploadRelativeLayout = (RelativeLayout) this.findViewById(R.id.uploadRelativeLayout);
+        settingRelativeLayout = (RelativeLayout) this.findViewById(R.id.settingRelativeLayout);
 
 
         aboutRelativeLayout = (RelativeLayout) this.findViewById(R.id.aboutRelativeLayout);
@@ -47,7 +42,7 @@ public class FindPage extends Activity {
 
                 aboutRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
 
-                aboutDialog = new Dialog(FindPage.this);
+                aboutDialog = new Dialog(MoreFunActivity.this);
                 aboutDialog.setTitle("关于");
                 aboutDialog.setContentView(R.layout.about_page);
                 aboutDialog.show();
@@ -58,7 +53,7 @@ public class FindPage extends Activity {
             @Override
             public void onClick(View v) {
                 shareRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
-                Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MoreFunActivity.this, "正在开发。。。", Toast.LENGTH_SHORT).show();
                 timeNoteUtil.HandlerDelayed(shareRelativeLayout);
             }
         });
@@ -66,7 +61,7 @@ public class FindPage extends Activity {
             @Override
             public void onClick(View v) {
                 collectionRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
-                Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MoreFunActivity.this, "正在开发。。。", Toast.LENGTH_SHORT).show();
                 timeNoteUtil.HandlerDelayed(collectionRelativeLayout);
             }
         });
@@ -74,19 +69,15 @@ public class FindPage extends Activity {
             @Override
             public void onClick(View v) {
                 uploadRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
-                Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
-                new Handler().postDelayed(new Runnable() {
-                    public void run() {
-                        uploadRelativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                    }
-                }, 300);
+                Toast.makeText(MoreFunActivity.this, "正在开发。。。", Toast.LENGTH_SHORT).show();
+                timeNoteUtil.HandlerDelayed(uploadRelativeLayout);
             }
         });
         settingRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 settingRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
-                Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MoreFunActivity.this, "正在开发。。。", Toast.LENGTH_SHORT).show();
                 timeNoteUtil.HandlerDelayed(settingRelativeLayout);
             }
         });

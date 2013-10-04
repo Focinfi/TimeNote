@@ -7,17 +7,16 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Handler;
 import android.widget.RelativeLayout;
-import com.clownxiaoqiang.TimeNote.HomePage;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
- * User: z
+ * Author: Dai Zhi Qiang
  * Date: 13-10-1
  * Time: 下午1:22
- * To change this template use File | Settings | File Templates.
+ * 工具类
  */
 public class TimeNoteUtil {
 

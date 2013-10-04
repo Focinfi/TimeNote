@@ -12,10 +12,10 @@ import com.clownxiaoqiang.TimeNote.R;
 
 /**
  * Created with IntelliJ IDEA.
- * User: z
+ * Author: Dai Zhi Qiang
  * Date: 13-10-1
  * Time: 上午11:16
- * To change this template use File | Settings | File Templates.
+ * 显示笔记Fragment
  */
 public class TextViewFragment extends Fragment {
 
@@ -31,13 +31,13 @@ public class TextViewFragment extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
+        super.onActivityCreated(savedInstanceState);
         textView = (TextView)activity.findViewById(R.id.diarytextview);
         textView.setText(note);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.textviewfragment, container, false);    //To change body of overridden methods use File | Settings | File Templates.
+        return inflater.inflate(R.layout.textviewfragment, container, false);
     }
 }

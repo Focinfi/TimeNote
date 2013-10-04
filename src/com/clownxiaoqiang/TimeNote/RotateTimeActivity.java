@@ -1,16 +1,10 @@
 package com.clownxiaoqiang.TimeNote;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.PixelFormat;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.clownxiaoqiang.TimeNote.Util.TimeNoteUtil;
@@ -23,15 +17,15 @@ import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
- * User: z
+ * Author: Dai Zhi Qiang
  * Date: 13-9-20
  * Time: afternoon 7:49
  * To change this template use File | Settings | File Templates.
  */
-public class HomePage extends Activity {
+public class RotateTimeActivity extends Activity {
 
     private int Screen_x, Screen_y;
-    private DrawCircle drawCircle;
+    private RotateTimeCircle rotateTimeCircle;
     private LinearLayout linearLayout;
     private Spinner myspinner;
     private Button savebutton, counttimebutton, canclebutton;
@@ -69,15 +63,15 @@ public class HomePage extends Activity {
     }
 
     private void init(){
-        timeNoteUtil = new TimeNoteUtil(HomePage.this);
+        timeNoteUtil = new TimeNoteUtil(RotateTimeActivity.this);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         Screen_x = displayMetrics.widthPixels;
         Screen_y = displayMetrics.heightPixels;
-        drawCircle = new DrawCircle(this, Screen_x, Screen_y);
-        drawCircle.setZOrderOnTop(true);
+        rotateTimeCircle = new RotateTimeCircle(this, Screen_x, Screen_y);
+        rotateTimeCircle.setZOrderOnTop(true);
         linearLayout = (LinearLayout) findViewById(R.id.mylinearlayout);
-        linearLayout.addView(drawCircle);
+        linearLayout.addView(rotateTimeCircle);
         tagEditText = (EditText) this.findViewById(R.id.tagEditText);
     }
 
@@ -96,8 +90,8 @@ public class HomePage extends Activity {
             @Override
             public void onClick(View view) {
                 if (Iscounting == false) {
-                    if ((drawCircle.getSecond() != 0) || (drawCircle.getMinuteTime() != 0)) {
-                        drawCircle.TimeCount();
+                    if ((rotateTimeCircle.getSecond() != 0) || (rotateTimeCircle.getMinuteTime() != 0)) {
+                        rotateTimeCircle.TimeCount();
                         Iscounting = true;
                     }
                 }
@@ -110,8 +104,8 @@ public class HomePage extends Activity {
         savebutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 tag = tagEditText.getText().toString();
-                time = drawCircle.getTime();
-                minute_time = drawCircle.getMinuteTime() + "";
+                time = rotateTimeCircle.getTime();
+                minute_time = rotateTimeCircle.getMinuteTime() + "";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
                 Date date_S = new Date(System.currentTimeMillis());
                 String date_x = simpleDateFormat.format(date_S);
@@ -122,7 +116,7 @@ public class HomePage extends Activity {
                 SimpleDateFormat weekFormat = new SimpleDateFormat("E");
                 date_week = weekFormat.format(date_S);
 
-                dataQuery = new SQlManager(HomePage.this);
+                dataQuery = new SQlManager(RotateTimeActivity.this);
                 arrayList = new ArrayList<Map<String, Object>>();
                 arrayList = dataQuery.GetTimeToDrawPicture(date_x);
                 if (arrayList.isEmpty()) {
@@ -139,16 +133,16 @@ public class HomePage extends Activity {
 
                 }
                 if (totalTime > 1440) {
-                    Toast.makeText(HomePage.this, "已经超过24小时了", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RotateTimeActivity.this, "已经超过24小时了", Toast.LENGTH_SHORT).show();
                 } else if (tag.isEmpty()) {
-                    Toast.makeText(HomePage.this, "还没添加标签", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RotateTimeActivity.this, "还没添加标签", Toast.LENGTH_SHORT).show();
                 } else if(minute_time.contentEquals("0")) {
-                    Toast.makeText(HomePage.this, "还没有旋转时间", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RotateTimeActivity.this, "还没有旋转时间", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    sQlManager = new SQlManager(HomePage.this);
+                    sQlManager = new SQlManager(RotateTimeActivity.this);
                     sQlManager.Addnote(date, tag, time, event_id, minute_time, date_month, date_week);
-                    Toast.makeText(HomePage.this, "保存成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RotateTimeActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -160,7 +154,7 @@ public class HomePage extends Activity {
             @Override
             public void onClick(View view) {
                 if (Iscounting) {
-                    drawCircle.TimeCountCancle();
+                    rotateTimeCircle.TimeCountCancel();
                     Iscounting = false;
                 }
             }
@@ -169,14 +163,14 @@ public class HomePage extends Activity {
 
 
     public void onPause() {
-            linearLayout.removeView(drawCircle);
+            linearLayout.removeView(rotateTimeCircle);
         super.onPause();
     }
 
     public void onResume() {
         if (logo > 0) {
-            linearLayout.addView(drawCircle);
-            drawCircle.setZOrderOnTop(true);
+            linearLayout.addView(rotateTimeCircle);
+            rotateTimeCircle.setZOrderOnTop(true);
         }
         logo++;
         super.onResume();
