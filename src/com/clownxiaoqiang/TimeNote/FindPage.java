@@ -7,10 +7,12 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import com.clownxiaoqiang.TimeNote.Util.TimeNoteUtil;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,6 +24,7 @@ import android.widget.Toast;
 public class FindPage extends Activity {
     private Button aboutButton,shareButton,collectionButton,uploadButton,settingButton;
     private Dialog aboutDialog;
+    private TimeNoteUtil timeNoteUtil;
     private RelativeLayout aboutRelativeLayout,shareRelativeLayout,collectionRelativeLayout,uploadRelativeLayout,
                             settingRelativeLayout;
 
@@ -29,6 +32,7 @@ public class FindPage extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.find_page);
 
+        timeNoteUtil = new TimeNoteUtil(FindPage.this);
         aboutRelativeLayout = (RelativeLayout) this.findViewById(R.id.aboutRelativeLayout);
         shareRelativeLayout=(RelativeLayout)this.findViewById(R.id.shareRelativeLayout);
         collectionRelativeLayout=(RelativeLayout)this.findViewById(R.id.collectionRelativeLayout);
@@ -47,11 +51,7 @@ public class FindPage extends Activity {
                 aboutDialog.setTitle("关于");
                 aboutDialog.setContentView(R.layout.about_page);
                 aboutDialog.show();
-                new Handler().postDelayed(new Runnable() {
-                    public void run() {
-                        aboutRelativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                    }
-                }, 300);
+                timeNoteUtil.HandlerDelayed(aboutRelativeLayout);
             }
         });
         shareRelativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -59,11 +59,7 @@ public class FindPage extends Activity {
             public void onClick(View v) {
                 shareRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
                 Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
-                new Handler().postDelayed(new Runnable() {
-                    public void run() {
-                        shareRelativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                    }
-                }, 300);
+                timeNoteUtil.HandlerDelayed(shareRelativeLayout);
             }
         });
         collectionRelativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -71,11 +67,7 @@ public class FindPage extends Activity {
             public void onClick(View v) {
                 collectionRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
                 Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
-                new Handler().postDelayed(new Runnable() {
-                    public void run() {
-                        collectionRelativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                    }
-                }, 300);
+                timeNoteUtil.HandlerDelayed(collectionRelativeLayout);
             }
         });
         uploadRelativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -95,13 +87,18 @@ public class FindPage extends Activity {
             public void onClick(View v) {
                 settingRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
                 Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
-                new Handler().postDelayed(new Runnable() {
-                    public void run() {
-                        settingRelativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                    }
-                }, 300);
+                timeNoteUtil.HandlerDelayed(settingRelativeLayout);
             }
         });
 
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == event.KEYCODE_BACK) {
+            timeNoteUtil.DialogBuild();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 }

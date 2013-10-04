@@ -64,7 +64,6 @@ public class MyActivity extends TabActivity implements CompoundButton.OnCheckedC
     }
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        //To change body of implemented methods use File | Settings | File Templates.
         if(b){
             if(compoundButton.getId()==R.id.radio_button0){
                 this.tabHost.setCurrentTabByTag("homepage");

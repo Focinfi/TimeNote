@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+import com.clownxiaoqiang.TimeNote.Util.TimeNoteUtil;
 import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
 
 import java.text.SimpleDateFormat;
@@ -41,6 +42,7 @@ public class HomePage extends Activity {
     private String minute_time;
     private int logo;
     private static boolean Iscounting = false;
+    private TimeNoteUtil timeNoteUtil;
     private boolean IsDestroyButton = false;
     final static int Count = 2;
     //要储存的数据
@@ -54,8 +56,20 @@ public class HomePage extends Activity {
         super.onCreate(savedInstanceState);
         //这个是布局添加
         setContentView(R.layout.homepage);
-        Log.d("HomePage", "Create");
+        //初始化
+        init();
+        //Spinner的初始化操作
+        initSpinner();
+        //counttimebutton的初始化和onClick操作
+        initCountTimeButton();
+        //cancletimebutton的初始化和onClick操作
+        initCancleButton();
+        //savebutton的初始化和onClick操作
+        initSaveButton();
+    }
 
+    private void init(){
+        timeNoteUtil = new TimeNoteUtil(HomePage.this);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         Screen_x = displayMetrics.widthPixels;
@@ -64,16 +78,19 @@ public class HomePage extends Activity {
         drawCircle.setZOrderOnTop(true);
         linearLayout = (LinearLayout) findViewById(R.id.mylinearlayout);
         linearLayout.addView(drawCircle);
-
         tagEditText = (EditText) this.findViewById(R.id.tagEditText);
+    }
 
+    private void initSpinner(){
         myspinner = (Spinner) findViewById(R.id.myspinner);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Spinner_Text);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         myspinner.setAdapter(adapter);
         myspinner.setSelection(0);
         myspinner.setOnItemSelectedListener(new ItemSelectedListener());
+    }
 
+    private void initCountTimeButton(){
         counttimebutton = (Button) findViewById(R.id.CountTimeButton);
         counttimebutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,17 +103,9 @@ public class HomePage extends Activity {
                 }
             }
         });
+    }
 
-        canclebutton = (Button) findViewById(R.id.CancleButton);
-        canclebutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Iscounting) {
-                    drawCircle.TimeCountCancle();
-                    Iscounting = false;
-                }
-            }
-        });
+    private void initSaveButton(){
         savebutton = (Button) findViewById(R.id.savebutton);
         savebutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -112,7 +121,6 @@ public class HomePage extends Activity {
 
                 SimpleDateFormat weekFormat = new SimpleDateFormat("E");
                 date_week = weekFormat.format(date_S);
-
 
                 dataQuery = new SQlManager(HomePage.this);
                 arrayList = new ArrayList<Map<String, Object>>();
@@ -146,24 +154,26 @@ public class HomePage extends Activity {
         });
     }
 
+    private void initCancleButton(){
+        canclebutton = (Button) findViewById(R.id.CancleButton);
+        canclebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Iscounting) {
+                    drawCircle.TimeCountCancle();
+                    Iscounting = false;
+                }
+            }
+        });
+    }
+
 
     public void onPause() {
-        Log.d("HomePage", "pause");
-        if (IsDestroyButton == false) {
-            //drawCircle.getCanvas().drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
             linearLayout.removeView(drawCircle);
-        }
         super.onPause();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();    //To change body of overridden methods use File | Settings | File Templates.
-        Log.d("HomePage", "destroy");
-    }
-
     public void onResume() {
-        Log.d("HomePage", "resume");
         if (logo > 0) {
             linearLayout.addView(drawCircle);
             drawCircle.setZOrderOnTop(true);
@@ -188,14 +198,10 @@ public class HomePage extends Activity {
 
     class ItemSelectedListener implements AdapterView.OnItemSelectedListener {
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        Date date_S = new Date(System.currentTimeMillis());
-
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            Log.d("click", "id--->" + l);
             event_id = l + "";
-            date = simpleDateFormat.format(date_S);
+            date = timeNoteUtil.CurrentTime();
         }
 
         @Override
@@ -207,24 +213,8 @@ public class HomePage extends Activity {
     public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
         {
             if (keyCode == event.KEYCODE_BACK) {
-                new AlertDialog.Builder(this)
-                        .setTitle("提示：")
-                        .setMessage("是否退出？")
-                        .setNegativeButton("取消",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                })
-                        .setPositiveButton("确定",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-                                        IsDestroyButton = true;
-                                        finish();
-                                    }
-                                }).show();
-                return true;
+                    timeNoteUtil.DialogBuild();
+                    return true;
             } else {
                 return super.onKeyDown(keyCode, event);
             }

@@ -59,10 +59,6 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         super(context, attrs);
     }
 
-    public Canvas getCanvas() {
-        return canvas;
-    }
-
     public DrawCircle(Context context, float center_x, float center_y) {
         super(context);
         this.context = context;
@@ -100,26 +96,20 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
 
         Center_y = baseRadius;
 
-
-        //Log.d("TAG","初始化完成");
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        //   Log.d("TAG","进入onTouchEvent");
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                //   Log.d("TAG","action down");
+
                 Touch_x = event.getX();
                 Touch_y = event.getY();
-                //    Log.d("TAG", "Touch_x--->" + Touch_x + "Touch_y--->" + Touch_y);
+
                 change_x = Touch_x;
                 change_y = Touch_y;
-                Log.d("TAG", angle + "");
-                Log.d("TAG_3", "change_x--->" + change_x + "change_y" + change_y);
                 break;
             case MotionEvent.ACTION_MOVE:
-                Log.d("TAG", "action move");
                 Move_x = event.getX();
                 Move_y = event.getY();
                 try {
@@ -135,10 +125,8 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
                     angle = 0;
                     break;
                 }
-                Log.d("TAG_angle", "" + angle);
                 break;
             case MotionEvent.ACTION_UP:
-                Log.d("TAG", "action up");
                 break;
         }
         return true;    //To change body of overridden methods use File | Settings | File Templates.
@@ -147,7 +135,6 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     protected void Draw() {
         b_paint.setARGB(255, 7, 220, 208);
         RectF rectf = new RectF(Center_x - baseRadius, (float) 0, Center_x + baseRadius, baseRadius * 2);
-        // Log.d("Test","upangle-->"+upangle+"angle--->"+angle);
         canvas.drawArc(rectf, 0, angle, true, b_paint);
     }
 
@@ -187,7 +174,6 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     public void surfaceCreated(SurfaceHolder holder) {
         /**开始游戏主循环线程**/
         mIsRunning = true;
-        Log.d("TAG", "surfaceCreated");
         new Thread(this).start();
     }
 
@@ -199,8 +185,6 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
         mIsRunning = false;
-        Log.d("TAG", "destroy");
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     private int CountTime(float angle) {
@@ -268,8 +252,6 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
             A_angle = (float) Math.acos(((x3 - x1) * (x2 - x1) + (y3 - y1) * (y2 - y1)) /
                     ((Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))) *
                             (Math.sqrt((Math.pow(x3 - x1, 2) + Math.pow(y3 - y1, 2))))));
-            Log.d("Angle", "Angle--->" + A_angle * Average_Angle);
-            Log.d("TAG_1", "change_x--->" + change_x + "change_y--->" + change_y + "x3--->" + x3 + "y3--->" + y3);
 
             switch (GetDirection(x1, y1, change_x, change_y, x3, y3)) {
                 case 0:
@@ -329,7 +311,6 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
     }
 
     public void TimeCount (){
-        Log.d("counttime","MinuteTime---->"+MinuteTime);
         countTime = new CountTime((MinuteTime*60+Integer.parseInt(SecondString))*1000,1000);
         countTime.start();
     }
@@ -343,7 +324,6 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
                 case Msg:
                     Second = msg.getData().getLong("Changetime")/1000;
                     angle =(float)((msg.getData().getLong("Changetime")/1000)*Average_CountTime);
-                    Log.d("counttime","angle---->"+angle);
                     break;
                 default:
                     break;
@@ -351,11 +331,6 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         }
 
     };
-
-
-    public void setTime(String time) {
-        Time = time;
-    }
 
     public String getTime() {
 

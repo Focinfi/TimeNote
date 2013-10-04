@@ -21,7 +21,6 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
     private int studyTime;
     private int sleepTime;
     private int playTime;
-    private int totalTime;
     private int startAngle;
     private int endAngle;
     private int angle;
@@ -86,33 +85,27 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
         endAngle = 0;
         angle = 1;
 
-        Log.d("today", "run");
-
     }
 
     public void DrawWorkCircle(int startAngle, int endAngle) {
-//        workPaint.setARGB(255, 204, 255, 0);
         workPaint.setARGB(255, 153, 204, 0);
         canvas.drawArc(rectf, startAngle, endAngle, true, workPaint);
         super.onDraw(canvas);
     }
 
     public void DrawStudyCircle(int startAngle, int endAngle) {
-//        studyPaint.setARGB(255, 255, 0, 51);
         studyPaint.setARGB(255, 255, 102, 102);
         canvas.drawArc(rectf, startAngle, endAngle, true, studyPaint);
         super.onDraw(canvas);
     }
 
     public void DrawPlayCircle(int startAngle, int endAngle) {
-//        playPaint.setARGB(255, 255, 255, 51);
         playPaint.setARGB(255, 254, 209, 0);
         canvas.drawArc(rectf, startAngle, endAngle, true, playPaint);
         super.onDraw(canvas);
     }
 
     public void DrawSleepCircle(int startAngle, int endAngle) {
-//        sleepPaint.setARGB(255, 102, 204, 204);
         sleepPaint.setARGB(255, 0, 102, 204);
         canvas.drawArc(rectf, startAngle, endAngle, true, sleepPaint);
         super.onDraw(canvas);

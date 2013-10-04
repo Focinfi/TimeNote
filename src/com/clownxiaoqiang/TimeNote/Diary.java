@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.clownxiaoqiang.TimeNote.Util.TimeNoteUtil;
 import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
 
 import java.text.SimpleDateFormat;
@@ -27,6 +29,7 @@ public class Diary extends Activity {
     private SQlManager sQlManager;
     private ArrayList<Map<String, Object>> arrayList;
     private DiaryAdapter timeLineAdapter;
+    private TimeNoteUtil timeNoteUtil;
     private String date_x;
 
 
@@ -34,9 +37,6 @@ public class Diary extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.diary);
         diaryListView = (ListView) this.findViewById(R.id.diaryListView);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        Date date_S = new Date(System.currentTimeMillis());
-        date_x = simpleDateFormat.format(date_S);
         sQlManager = new SQlManager(Diary.this);
         arrayList = new ArrayList<Map<String, Object>>();
         arrayList = sQlManager.query("");
@@ -49,19 +49,12 @@ public class Diary extends Activity {
 
     public void onResume() {
         super.onResume();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        Date date_S = new Date(System.currentTimeMillis());
-        String date_x = simpleDateFormat.format(date_S);
         sQlManager = new SQlManager(Diary.this);
         arrayList = new ArrayList<Map<String, Object>>();
 
         arrayList = sQlManager.query("");
-        Log.d("d_all", arrayList.toString());
-        if (arrayList != null) {
 
-//        timeLineAdapter = new SimpleAdapter(Diary.this, arrayList, R.layout.item_time_line,
-//                new String[]{"work_time", "study_time", "play_time", "sleep_time", "note", "date_month", "date_week"},
-//                new int[]{R.id.workTimeView, R.id.studyTimeView, R.id.playTimeView, R.id.sleepTimeView, R.id.diaryNoteTextView, R.id.dateMonthTextView, R.id.dateWeekTextView});
+        if (arrayList != null) {
             timeLineAdapter.notifyDataSetChanged();
         }
     }
@@ -163,6 +156,17 @@ public class Diary extends Activity {
             intent.putExtra("date", arrayList.get(truePosition).get((Object) "date").toString());
             intent.setClass(Diary.this, TagDetail.class);
             Diary.this.startActivity(intent);
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == event.KEYCODE_BACK) {
+            timeNoteUtil = new TimeNoteUtil(Diary.this);
+            timeNoteUtil.DialogBuild();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
         }
     }
 }
