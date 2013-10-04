@@ -56,7 +56,20 @@ public class HomePage extends Activity {
         super.onCreate(savedInstanceState);
         //这个是布局添加
         setContentView(R.layout.homepage);
+        //初始化
+        init();
+        //Spinner的初始化操作
+        initSpinner();
+        //counttimebutton的初始化和onClick操作
+        initCountTimeButton();
+        //cancletimebutton的初始化和onClick操作
+        initCancleButton();
+        //savebutton的初始化和onClick操作
+        initSaveButton();
+    }
 
+    private void init(){
+        timeNoteUtil = new TimeNoteUtil(HomePage.this);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         Screen_x = displayMetrics.widthPixels;
@@ -65,16 +78,19 @@ public class HomePage extends Activity {
         drawCircle.setZOrderOnTop(true);
         linearLayout = (LinearLayout) findViewById(R.id.mylinearlayout);
         linearLayout.addView(drawCircle);
-
         tagEditText = (EditText) this.findViewById(R.id.tagEditText);
+    }
 
+    private void initSpinner(){
         myspinner = (Spinner) findViewById(R.id.myspinner);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Spinner_Text);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         myspinner.setAdapter(adapter);
         myspinner.setSelection(0);
         myspinner.setOnItemSelectedListener(new ItemSelectedListener());
+    }
 
+    private void initCountTimeButton(){
         counttimebutton = (Button) findViewById(R.id.CountTimeButton);
         counttimebutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,17 +103,9 @@ public class HomePage extends Activity {
                 }
             }
         });
+    }
 
-        canclebutton = (Button) findViewById(R.id.CancleButton);
-        canclebutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Iscounting) {
-                    drawCircle.TimeCountCancle();
-                    Iscounting = false;
-                }
-            }
-        });
+    private void initSaveButton(){
         savebutton = (Button) findViewById(R.id.savebutton);
         savebutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -113,7 +121,6 @@ public class HomePage extends Activity {
 
                 SimpleDateFormat weekFormat = new SimpleDateFormat("E");
                 date_week = weekFormat.format(date_S);
-
 
                 dataQuery = new SQlManager(HomePage.this);
                 arrayList = new ArrayList<Map<String, Object>>();
@@ -147,15 +154,23 @@ public class HomePage extends Activity {
         });
     }
 
+    private void initCancleButton(){
+        canclebutton = (Button) findViewById(R.id.CancleButton);
+        canclebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Iscounting) {
+                    drawCircle.TimeCountCancle();
+                    Iscounting = false;
+                }
+            }
+        });
+    }
+
 
     public void onPause() {
             linearLayout.removeView(drawCircle);
         super.onPause();
-    }
-
-
-    protected void onDestroy() {
-        super.onDestroy();    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     public void onResume() {
@@ -183,13 +198,10 @@ public class HomePage extends Activity {
 
     class ItemSelectedListener implements AdapterView.OnItemSelectedListener {
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        Date date_S = new Date(System.currentTimeMillis());
-
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             event_id = l + "";
-            date = simpleDateFormat.format(date_S);
+            date = timeNoteUtil.CurrentTime();
         }
 
         @Override
@@ -201,7 +213,6 @@ public class HomePage extends Activity {
     public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
         {
             if (keyCode == event.KEYCODE_BACK) {
-                    timeNoteUtil = new TimeNoteUtil(HomePage.this);
                     timeNoteUtil.DialogBuild();
                     return true;
             } else {

@@ -20,9 +20,10 @@ import com.clownxiaoqiang.TimeNote.R;
  */
 public class EditTextFragment extends Fragment {
 
-    private String note;
+    private String note,diary;
     private EditText editText;
     private Activity activity;
+    private int diaryLength;
 
     public EditTextFragment(String note, Context context) {
         this.note = note;
@@ -33,21 +34,14 @@ public class EditTextFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
-        editText = (EditText) activity.findViewById(R.id.edittext);
-        Log.d("edittext", note);
-        editText.setFocusable(true);
-        editText.setFocusableInTouchMode(true);
-        editText.requestFocus();
+        initEditText();
         editText.setText(note);
     }
 
     public String getText() {
-        editText = (EditText) activity.findViewById(R.id.edittext);
-        editText.setFocusable(true);
-        editText.setFocusableInTouchMode(true);
-        editText.requestFocus();
-        String diary = editText.getText().toString();
-        int diaryLength = diary.length();
+        initEditText();
+        diary = editText.getText().toString();
+        diaryLength = diary.length();
         diary = diary.substring(3, diaryLength);
         return diary;
     }
@@ -55,5 +49,12 @@ public class EditTextFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.edittextfragment, container, false);    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    private void initEditText(){
+        editText = (EditText) activity.findViewById(R.id.edittext);
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
     }
 }

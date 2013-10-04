@@ -59,10 +59,6 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         super(context, attrs);
     }
 
-    public Canvas getCanvas() {
-        return canvas;
-    }
-
     public DrawCircle(Context context, float center_x, float center_y) {
         super(context);
         this.context = context;
@@ -335,11 +331,6 @@ public class DrawCircle extends SurfaceView implements SurfaceHolder.Callback, R
         }
 
     };
-
-
-    public void setTime(String time) {
-        Time = time;
-    }
 
     public String getTime() {
 

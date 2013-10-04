@@ -21,7 +21,6 @@ public class TodayCircle extends SurfaceView implements SurfaceHolder.Callback, 
     private int studyTime;
     private int sleepTime;
     private int playTime;
-    private int totalTime;
     private int startAngle;
     private int endAngle;
     private int angle;

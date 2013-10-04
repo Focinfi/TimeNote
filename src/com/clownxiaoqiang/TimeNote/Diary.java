@@ -37,9 +37,6 @@ public class Diary extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.diary);
         diaryListView = (ListView) this.findViewById(R.id.diaryListView);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        Date date_S = new Date(System.currentTimeMillis());
-        date_x = simpleDateFormat.format(date_S);
         sQlManager = new SQlManager(Diary.this);
         arrayList = new ArrayList<Map<String, Object>>();
         arrayList = sQlManager.query("");
@@ -52,9 +49,6 @@ public class Diary extends Activity {
 
     public void onResume() {
         super.onResume();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        Date date_S = new Date(System.currentTimeMillis());
-        String date_x = simpleDateFormat.format(date_S);
         sQlManager = new SQlManager(Diary.this);
         arrayList = new ArrayList<Map<String, Object>>();
 

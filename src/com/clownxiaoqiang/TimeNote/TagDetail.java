@@ -48,31 +48,7 @@ public class TagDetail extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.tagdetail);
 
-        backbutton = (Button) findViewById(R.id.back);
-        editbutton = (Button) findViewById(R.id.edit);
-        tagdetailListView = (ListView) findViewById(R.id.tagdetailListView);
-
-        Intent intent = getIntent();
-        date_to_search = intent.getStringExtra("datetext");
-
-        arrayList = new ArrayList<Map<String, Object>>();
-        arrayList_note = new ArrayList<Map<String, Object>>();
-
-        sQlManager = new SQlManager(TagDetail.this);
-        arrayList = sQlManager.queryTag(date_to_search);
-        arrayList_note = sQlManager.query(date_to_search);
-
-        notetext = "笔记：" + arrayList_note.get(0).get((Object) "note").toString();
-
-        editTextFragment = new EditTextFragment(notetext, TagDetail.this);
-        textViewFragment = new TextViewFragment(notetext, TagDetail.this);
-
-        initFragment(fragmentManager, fragmentTransaction, textViewFragment);
-
-        tagAdapter = new TagAdapter(TagDetail.this);
-        tagdetailListView.setAdapter(tagAdapter);
-
-        editStatus = false;
+        init();
 
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +95,34 @@ public class TagDetail extends Activity {
 
     }
 
+    private void init(){
+        backbutton = (Button) findViewById(R.id.back);
+        editbutton = (Button) findViewById(R.id.edit);
+        tagdetailListView = (ListView) findViewById(R.id.tagdetailListView);
+
+        Intent intent = getIntent();
+        date_to_search = intent.getStringExtra("datetext");
+
+        arrayList = new ArrayList<Map<String, Object>>();
+        arrayList_note = new ArrayList<Map<String, Object>>();
+
+        sQlManager = new SQlManager(TagDetail.this);
+        arrayList = sQlManager.queryTag(date_to_search);
+        arrayList_note = sQlManager.query(date_to_search);
+
+        notetext = "笔记：" + arrayList_note.get(0).get((Object) "note").toString();
+
+        editTextFragment = new EditTextFragment(notetext, TagDetail.this);
+        textViewFragment = new TextViewFragment(notetext, TagDetail.this);
+
+        initFragment(fragmentManager, fragmentTransaction, textViewFragment);
+
+        tagAdapter = new TagAdapter(TagDetail.this);
+        tagdetailListView.setAdapter(tagAdapter);
+
+        editStatus = false;
+    }
+    //初始化
     private void initFragment(FragmentManager fm, FragmentTransaction ft, Fragment fragment) {
         fm = getFragmentManager();
         ft = fm.beginTransaction();

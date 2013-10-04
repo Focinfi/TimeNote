@@ -10,6 +10,7 @@ import android.widget.TextView;
  * Date: 13-10-1
  * Time: 上午10:43
  * To change this template use File | Settings | File Templates.
+ * 自定TextView使跑马灯效果一直获取，返回焦点为true
  */
 public class MyTextView extends TextView {
 

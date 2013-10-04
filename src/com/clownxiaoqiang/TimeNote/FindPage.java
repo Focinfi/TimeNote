@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -23,21 +24,24 @@ import com.clownxiaoqiang.TimeNote.Util.TimeNoteUtil;
 public class FindPage extends Activity {
     private Button aboutButton,shareButton,collectionButton,uploadButton,settingButton;
     private Dialog aboutDialog;
-    private RelativeLayout aboutRelativeLayout;
     private TimeNoteUtil timeNoteUtil;
+    private RelativeLayout aboutRelativeLayout,shareRelativeLayout,collectionRelativeLayout,uploadRelativeLayout,
+                            settingRelativeLayout;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.find_page);
+
+        timeNoteUtil = new TimeNoteUtil(FindPage.this);
         aboutRelativeLayout = (RelativeLayout) this.findViewById(R.id.aboutRelativeLayout);
-        shareButton = (Button)this.findViewById(R.id.shareButton);
-        collectionButton = (Button)this.findViewById(R.id.collectionButton);
-        uploadButton = (Button)this.findViewById(R.id.uploadButton);
-        settingButton = (Button)this.findViewById(R.id.settingButton);
+        shareRelativeLayout=(RelativeLayout)this.findViewById(R.id.shareRelativeLayout);
+        collectionRelativeLayout=(RelativeLayout)this.findViewById(R.id.collectionRelativeLayout);
+        uploadRelativeLayout=(RelativeLayout)this.findViewById(R.id.uploadRelativeLayout);
+        settingRelativeLayout=(RelativeLayout)this.findViewById(R.id.settingRelativeLayout);
 
 
-        aboutButton = (Button) this.findViewById(R.id.findPageAboutButton);
-        aboutButton.setOnClickListener(new View.OnClickListener() {
+        aboutRelativeLayout = (RelativeLayout) this.findViewById(R.id.aboutRelativeLayout);
+        aboutRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -47,35 +51,43 @@ public class FindPage extends Activity {
                 aboutDialog.setTitle("关于");
                 aboutDialog.setContentView(R.layout.about_page);
                 aboutDialog.show();
+                timeNoteUtil.HandlerDelayed(aboutRelativeLayout);
+            }
+        });
+        shareRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
+                Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
+                timeNoteUtil.HandlerDelayed(shareRelativeLayout);
+            }
+        });
+        collectionRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                collectionRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
+                Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
+                timeNoteUtil.HandlerDelayed(collectionRelativeLayout);
+            }
+        });
+        uploadRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
+                Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
-                        aboutRelativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                        uploadRelativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     }
-                }, 500);
+                }, 300);
             }
         });
-        shareButton.setOnClickListener(new View.OnClickListener() {
+        settingRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                settingRelativeLayout.setBackgroundColor(Color.parseColor("#CCFF00"));
                 Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
-            }
-        });
-        collectionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
-            }
-        });
-        uploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
-            }
-        });
-        settingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(FindPage.this, "正在开发。。。",Toast.LENGTH_SHORT).show();
+                timeNoteUtil.HandlerDelayed(settingRelativeLayout);
             }
         });
 
@@ -83,7 +95,6 @@ public class FindPage extends Activity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == event.KEYCODE_BACK) {
-            timeNoteUtil = new TimeNoteUtil(FindPage.this);
             timeNoteUtil.DialogBuild();
             return true;
         } else {
