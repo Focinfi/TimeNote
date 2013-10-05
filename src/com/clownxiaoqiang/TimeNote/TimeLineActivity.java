@@ -21,7 +21,7 @@ import java.util.*;
  * Author: Wang Tao
  * Date: 13-9-20
  * Time: 7:50
- * To change this template use File | Settings | File Templates.
+ * 时间轴类
  */
 public class TimeLineActivity extends Activity {
     private ListView diaryListView;
@@ -38,7 +38,7 @@ public class TimeLineActivity extends Activity {
         diaryListView = (ListView) this.findViewById(R.id.diaryListView);
         sQlManager = new SQlManager(TimeLineActivity.this);
         arrayList = new ArrayList<Map<String, Object>>();
-        arrayList = sQlManager.query("");
+        arrayList = sQlManager.Query("");
         if (arrayList != null) {
             timeLineAdapter = new DiaryAdapter(TimeLineActivity.this);
             diaryListView.setAdapter(timeLineAdapter);
@@ -50,7 +50,7 @@ public class TimeLineActivity extends Activity {
         super.onResume();
         sQlManager = new SQlManager(TimeLineActivity.this);
         arrayList = new ArrayList<Map<String, Object>>();
-        arrayList = sQlManager.query("");
+        arrayList = sQlManager.Query("");
 
         if (arrayList != null) {
             timeLineAdapter.notifyDataSetChanged(); //数据库数据发生改变，重新适配

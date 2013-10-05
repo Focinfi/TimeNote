@@ -15,7 +15,7 @@ import com.clownxiaoqiang.TimeNote.Util.TimeNoteUtil;
  * Author: Wang Tao
  * Date: 13-9-20
  * Time: 7:50
- * To change this template use File | Settings | File Templates.
+ * 更多 类
  */
 public class MoreFunActivity extends Activity {
     private Dialog aboutDialog;
@@ -25,7 +25,7 @@ public class MoreFunActivity extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.find_page);
+        setContentView(R.layout.more_page);
 
         timeNoteUtil = new TimeNoteUtil(MoreFunActivity.this);
         aboutRelativeLayout = (RelativeLayout) this.findViewById(R.id.aboutRelativeLayout);

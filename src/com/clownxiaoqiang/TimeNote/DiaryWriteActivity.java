@@ -20,7 +20,7 @@ import java.util.Map;
  * Author: Wang Tao
  * Date: 13-9-21
  * Time: 下午8:19
- * To change this template use File | Settings | File Templates.
+ * 写日记类
  */
 public class DiaryWriteActivity extends Activity {
     private String title, date, diary;
@@ -34,7 +34,7 @@ public class DiaryWriteActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.writediary);
+        setContentView(R.layout.write_diary);
 
         titleTextView = (TextView) this.findViewById(R.id.writeDiaryTitleTextView);
         addNote = (Button) this.findViewById(R.id.saveNote);
@@ -55,7 +55,7 @@ public class DiaryWriteActivity extends Activity {
 
         noteManager = new SQlManager(DiaryWriteActivity.this);
         noteArrayList = new ArrayList<Map<String, Object>>();
-        noteArrayList = noteManager.query(date);
+        noteArrayList = noteManager.Query(date);
 
 
         diary = noteArrayList.get(0).get((Object) "note").toString(); //拿到当天的笔记
@@ -73,7 +73,7 @@ public class DiaryWriteActivity extends Activity {
                 } else {
                     Log.d("d_d", diary + "-->" + date);
                     updateManager = new SQlManager(DiaryWriteActivity.this);
-                    updateManager.updatenote(diary, date);               //更新数据库笔记数据
+                    updateManager.UpdateNote(diary, date);               //更新数据库笔记数据
                     Toast.makeText(DiaryWriteActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
                 }
 

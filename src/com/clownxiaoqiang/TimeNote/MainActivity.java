@@ -14,7 +14,7 @@ import android.widget.TabHost;
  * Author: Dai Zhi Qiang
  * Date: 13-9-19
  * Time: 下午12:12
- * To change this template use File | Settings | File Templates.
+ * TableHost类
  */
 public class MainActivity extends TabActivity implements CompoundButton.OnCheckedChangeListener {
     private TabHost tabHost ;
@@ -53,7 +53,7 @@ public class MainActivity extends TabActivity implements CompoundButton.OnChecke
                 R.string.see_diary, R.drawable.icon_diary_page,
                 this.diary_intent));
 
-        localTabHost.addTab(buildTabSpec("find_page",
+        localTabHost.addTab(buildTabSpec("more_page",
                 R.string.about, R.drawable.icon_diary_page, blank_intent));
     }
 
@@ -72,7 +72,7 @@ public class MainActivity extends TabActivity implements CompoundButton.OnChecke
             }else if(compoundButton.getId()==R.id.radio_button2){
                 this.tabHost.setCurrentTabByTag("write");
             }else if(compoundButton.getId()==R.id.radio_button3){
-                this.tabHost.setCurrentTabByTag("find_page");
+                this.tabHost.setCurrentTabByTag("more_page");
             }
         }
     }

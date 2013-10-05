@@ -14,15 +14,13 @@ import android.view.SurfaceView;
  * Author: Wang Tao
  * Date: 13-9-22
  * Time: 下午7:48
- * To change this template use File | Settings | File Templates.
+ * 饼状图类
  */
 public class TodayTimeCircle extends SurfaceView implements SurfaceHolder.Callback, Runnable {
     private int workTime;
     private int studyTime;
     private int sleepTime;
     private int playTime;
-    private int startAngle;
-    private int endAngle;
     private int angle;
     private float Center_x, Center_y;
     private float radius;
@@ -74,15 +72,14 @@ public class TodayTimeCircle extends SurfaceView implements SurfaceHolder.Callba
         Center_y = (float) (center_y * 0.4);
 
         radius = Center_x * 4 / 5;
-
+        //初始化四个分组的时间
         this.workTime = work_time;
         this.studyTime = study_time;
         this.playTime = play_time;
         this.sleepTime = sleep_time;
-
+        //画弧的巨星
         rectf = new RectF(Center_x - radius, (float) 0, Center_x + radius, radius * 2);
-        startAngle = 0;
-        endAngle = 0;
+
         angle = 1;
 
     }
@@ -126,7 +123,7 @@ public class TodayTimeCircle extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        //To change body of implemented methods use File | Settings | File Templates.
+
     }
 
     @Override
@@ -137,18 +134,18 @@ public class TodayTimeCircle extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void run() {
         while (mIsRunning) {
-            /** 取得更新游戏之前的时间 **/
+            // 取得更新前的时间
             long startTime = System.currentTimeMillis();
 
-            /** 在这里加上线程安全锁 **/
+            // 在这里加上线程安全锁
             try {
                 synchronized (surfaceHolder) {
-                    /** 拿到当前画布 然后锁定 **/
+                    // 拿到当前画布 然后锁定
                     canvas = surfaceHolder.lockCanvas();
                     canvas.drawARGB(255, 237, 237, 237);
-
+                    // 绘出底色园
                     DrawGreyCircle();
-
+                    //按照work,study,play,sleep的顺序绘出饼状图
                     if (angle <= workTime + studyTime + playTime + sleepTime) {
                         DrawSleepCircle(0, angle);
                     } else {
@@ -173,20 +170,20 @@ public class TodayTimeCircle extends SurfaceView implements SurfaceHolder.Callba
                     angle = angle + 4;
 
 
-                    /** 绘制结束后解锁显示在屏幕上 **/
+                    // 绘制结束后解锁显示在屏幕上
                     surfaceHolder.unlockCanvasAndPost(canvas);
                 }
 
-                /** 取得更新游戏结束的时间 **/
+                // 取得更新结束的时间
                 long endTime = System.currentTimeMillis();
 
-                /** 计算出游戏一次更新的毫秒数 **/
+                // 计算出更新一次的毫秒数
                 int diffTime = (int) (endTime - startTime);
 
-                /** 确保每次更新时间为50帧 **/
+                // 确保每次更新时间为50帧
                 while (diffTime <= 50) {
                     diffTime = (int) (System.currentTimeMillis() - startTime);
-                    /** 线程等待 **/
+                    // 线程等待
                     Thread.yield();
                 }
             } catch (Exception e) {

@@ -20,7 +20,7 @@ import java.util.Map;
  * Author: Dai Zhi Qiang
  * Date: 13-9-20
  * Time: afternoon 7:49
- * To change this template use File | Settings | File Templates.
+ * 旋转时间类
  */
 public class RotateTimeActivity extends Activity {
 
@@ -141,7 +141,7 @@ public class RotateTimeActivity extends Activity {
                 }
                 else{
                     sQlManager = new SQlManager(RotateTimeActivity.this);
-                    sQlManager.Addnote(date, tag, time, event_id, minute_time, date_month, date_week);
+                    sQlManager.AddNote(date, tag, time, event_id, minute_time, date_month, date_week);
                     Toast.makeText(RotateTimeActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -200,7 +200,7 @@ public class RotateTimeActivity extends Activity {
 
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
-            //To change body of implemented methods use File | Settings | File Templates.
+
         }
     }
 

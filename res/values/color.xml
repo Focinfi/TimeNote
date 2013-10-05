@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background_gray">#ededed</color>
+    <color name="font_black">#353535</color>
     <color name="work_color">#CCFF00</color>
     <color name="study_color">#FF0033</color>
     <color name="play_color">#FFFF33</color>

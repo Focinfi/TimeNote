@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Author: Dai Zhi Qiang
  * Date: 13-9-24
  * Time: 下午4:34
- * To change this template use File | Settings | File Templates.
+ * Today表类
  */
 public class SQLiteToday extends SQLiteOpenHelper {
     //表名为today

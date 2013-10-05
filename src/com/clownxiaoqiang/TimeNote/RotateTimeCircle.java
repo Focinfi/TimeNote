@@ -21,7 +21,7 @@ import java.util.Date;
  * Author: Dai Zhi Qiang
  * Date: 13-9-19
  * Time: 上午10:57
- * To change this template use File | Settings | File Templates.
+ * 绘制旋转时间类
  */
 public class RotateTimeCircle extends SurfaceView implements SurfaceHolder.Callback, Runnable {
 

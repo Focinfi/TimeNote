@@ -26,7 +26,7 @@ import java.util.Map;
  * Author: Dai Zhi Qiang
  * Date: 13-9-28
  * Time: 下午7:08
- * To change this template use File | Settings | File Templates.
+ * 每日详细时间列表类
  */
 public class TagDetailActivity extends Activity {
 
@@ -46,7 +46,7 @@ public class TagDetailActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.tagdetail);
+        setContentView(R.layout.tag_detail);
 
         init();
 
@@ -74,11 +74,11 @@ public class TagDetailActivity extends Activity {
                         diary = "还没有写笔记";
                     }
                     updateManager = new SQlManager(TagDetailActivity.this);
-                    updateManager.updatenote(diary, date);
+                    updateManager.UpdateNote(diary, date);
                     sQlManager = new SQlManager(TagDetailActivity.this);
-                    arrayList = sQlManager.queryTag(date_to_search);
+                    arrayList = sQlManager.QueryTag(date_to_search);
                     Log.d("arraylist", arrayList.toString());
-                    arrayList_note = sQlManager.query(date_to_search);
+                    arrayList_note = sQlManager.Query(date_to_search);
 
                     noteText = arrayList_note.get(0).get((Object) "note").toString();
 
@@ -109,8 +109,8 @@ public class TagDetailActivity extends Activity {
         arrayList_note = new ArrayList<Map<String, Object>>();
 
         sQlManager = new SQlManager(TagDetailActivity.this);
-        arrayList = sQlManager.queryTag(date_to_search);
-        arrayList_note = sQlManager.query(date_to_search);
+        arrayList = sQlManager.QueryTag(date_to_search);
+        arrayList_note = sQlManager.Query(date_to_search);
 
         noteText = arrayList_note.get(0).get((Object) "note").toString();
 
@@ -168,7 +168,7 @@ public class TagDetailActivity extends Activity {
 
                 holder = new TagDetailHolder();
 
-                convertView = tagInflater.inflate(R.layout.tagitem, null);
+                convertView = tagInflater.inflate(R.layout.item_tag, null);
                 holder.tagId = (TextView) convertView.findViewById(R.id.tagid);
                 holder.time = (TextView) convertView.findViewById(R.id.time);
                 holder.tagItemLeftView = (TextView) convertView.findViewById(R.id.tagItemLeftView);

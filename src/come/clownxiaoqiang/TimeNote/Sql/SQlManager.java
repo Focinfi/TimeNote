@@ -15,7 +15,7 @@ import java.util.Map;
  * Author: Dai Zhi Qiang
  * Date: 13-9-20
  * Time: 下午11:51
- * To change this template use File | Settings | File Templates.
+ * 数据库操作类
  */
 public class SQlManager {
     private SQLiteNote sqLite;
@@ -33,7 +33,7 @@ public class SQlManager {
         sqLiteDatabase = sqLite.getWritableDatabase();
     }
 
-    public void Addtoday(String date, String work_time, String study_time, String sleep_time, String play_time, String note, String date_month, String date_week) {
+    public void AddToday(String date, String work_time, String study_time, String sleep_time, String play_time, String note, String date_month, String date_week) {
         try {
             sqLiteDatabase.execSQL("insert into today values(null,?,?,?,?,?,?,?,?)", new String[]{date, work_time, study_time, sleep_time, play_time, note, date_month, date_week});
         } catch (Exception e) {
@@ -42,13 +42,13 @@ public class SQlManager {
         }
     }
 
-    public void Addnote(String date, String tag, String time, String event_id, String minute_time, String date_month, String date_week) {
+    public void AddNote(String date, String tag, String time, String event_id, String minute_time, String date_month, String date_week) {
         try {
             sqLiteDatabase.execSQL("insert into note values(null,?,?,?,?,?,?,?)", new String[]{date, tag, time, event_id, minute_time, date_month, date_week});
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            update(date, event_id, minute_time, date_month, date_week);
+            Update(date, event_id, minute_time, date_month, date_week);
             //Toast.makeText(context,date+tag+time+event_id+"minute_time-->"+minute_time,Toast.LENGTH_LONG).show();
         }
     }
@@ -71,7 +71,7 @@ public class SQlManager {
         return arrayList;
     }
 
-    public ArrayList<Map<String, Object>> query(String date) {
+    public ArrayList<Map<String, Object>> Query(String date) {
         sqLiteDatabase = sQliteTwo.getWritableDatabase();
         ArrayList<Map<String, Object>> records = new ArrayList<Map<String, Object>>();
         Cursor cursor = sqLiteDatabase.rawQuery("select * from today where date like ?", new String[]{"%" + date + "%"});
@@ -93,7 +93,7 @@ public class SQlManager {
         return records;
     }
 
-    public ArrayList<Map<String, Object>> queryTag(String date) {
+    public ArrayList<Map<String, Object>> QueryTag(String date) {
         sqLiteDatabase = sqLite.getWritableDatabase();
         ArrayList<Map<String, Object>> records = new ArrayList<Map<String, Object>>();
         Cursor cursor = sqLiteDatabase.rawQuery("select * from note where date like ?", new String[]{"%"+date+"%"});
@@ -108,7 +108,7 @@ public class SQlManager {
         return records;
     }
 
-    public boolean querydate(String date) {
+    public boolean QueryDate(String date) {
         sqLiteDatabase = sqLite.getWritableDatabase();
         sqLiteDatabase = sQliteTwo.getWritableDatabase();
         ArrayList<Map<String, Object>> records = new ArrayList<Map<String, Object>>();
@@ -128,7 +128,7 @@ public class SQlManager {
         return true;
     }
 
-    public String queryTime(String event_id, String date, String newTime) {
+    public String QueryTime(String event_id, String date, String newTime) {
         sqLiteDatabase = sQliteTwo.getWritableDatabase();
         String TotalTime = null;
         String event_name = null;
@@ -158,34 +158,36 @@ public class SQlManager {
         return event_name;
     }
 
-    private void JudgeMent(String event_id, String date, String time, String date_month, String date_week) {
+    private void JudgeEvent(String event_id, String date, String time, String date_month, String date_week) {
+        // 如果不存在该表，就新建一个
         if (event_id.equals("0")) {
-            Addtoday(date, "0", time, "0", "0", "还没有写笔记", date_month, date_week);
+            AddToday(date, "0", time, "0", "0", "还没有写笔记", date_month, date_week);
         } else if (event_id.equals("1")) {
-            Addtoday(date, time, "0", "0", "0", "还没有写笔记", date_month, date_week);
+            AddToday(date, time, "0", "0", "0", "还没有写笔记", date_month, date_week);
         } else if (event_id.equals("2")) {
-            Addtoday(date, "0", "0", time, "0", "还没有写笔记", date_month, date_week);
+            AddToday(date, "0", "0", time, "0", "还没有写笔记", date_month, date_week);
         } else if (event_id.equals("3")) {
-            Addtoday(date, "0", "0", "0", time, "还没有写笔记", date_month, date_week);
+            AddToday(date, "0", "0", "0", time, "还没有写笔记", date_month, date_week);
         }
     }
 
-    private void update(String date, String event_id, String newTime, String date_month, String date_week) {
-        if (querydate(date)) {
+    //更新
+    private void Update(String date, String event_id, String newTime, String date_month, String date_week) {
+        if (QueryDate(date)) {
             ContentValues values = new ContentValues();
             String event_name = Judge(event_id);
-            String update_key = queryTime(event_id, date, newTime);
+            String update_key = QueryTime(event_id, date, newTime);
             values.put(event_name, update_key);
             String whereClause = "date=?";
             String[] whereArgs = {String.valueOf(date)};
             sqLiteDatabase.update("today", values, whereClause, whereArgs);
         } else {
-            JudgeMent(event_id, date, newTime, date_month, date_week);
+            JudgeEvent(event_id, date, newTime, date_month, date_week);
         }
 
     }
 
-    public void updatenote(String note, String date) {
+    public void UpdateNote(String note, String date) {
         sqLiteDatabase = sQliteTwo.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("note", note);

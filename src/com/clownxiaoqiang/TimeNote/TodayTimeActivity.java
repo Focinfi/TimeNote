@@ -24,7 +24,7 @@ import java.util.Map;
  * Author: Wang Tao
  * Date: 13-9-20
  * Time: 7:49
- * To change this template use File | Settings | File Templates.
+ * 今日的时光类
  */
 public class TodayTimeActivity extends Activity {
     private String date;
@@ -54,7 +54,9 @@ public class TodayTimeActivity extends Activity {
         Layout = (LinearLayout) this.findViewById(R.id.todayCircleView);
         Layout.addView(todayTimeCircle);
 
-        date = timeNoteUtil.CurrentTime();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年M月d日");
+        Date date_S = new Date(System.currentTimeMillis());
+        date = simpleDateFormat.format(date_S);
         dateTextView.setText(date);
 
         addNote.setOnClickListener(new View.OnClickListener() {
