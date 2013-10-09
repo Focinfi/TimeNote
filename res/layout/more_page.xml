@@ -38,9 +38,11 @@
             <TextView
                     android:id="@+id/icon_share_view"
                     android:background="@drawable/icon_share"
-                    android:layout_margin="15dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -51,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/icon_share_view"
                     android:layout_centerVertical="true"
-                    android:textSize="25sp"
+                    android:textSize="23sp"
                     android:textColor="#353535"
                     android:text="分享"/>
             <TextView
@@ -72,8 +74,10 @@
                     android:id="@+id/icon_collection"
                     android:background="@drawable/icon_collection"
                     android:layout_centerVertical="true"
-                    android:layout_margin="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -84,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/icon_collection"
                     android:layout_centerVertical="true"
-                    android:textSize="25sp"
+                    android:textSize="23sp"
                     android:textColor="#353535"
                     android:text="收藏"/>
             <TextView
@@ -105,8 +109,10 @@
                     android:id="@+id/icon_upload"
                     android:background="@drawable/icon_upload"
                     android:layout_centerVertical="true"
-                    android:layout_margin="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -117,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/icon_upload"
                     android:layout_centerVertical="true"
-                    android:textSize="25sp"
+                    android:textSize="23sp"
                     android:textColor="#353535"
                     android:text="上传时间笔记"/>
             <TextView
@@ -138,8 +144,10 @@
                     android:id="@+id/icon_alarm"
                     android:background="@drawable/icon_alarm"
                     android:layout_centerVertical="true"
-                    android:layout_margin="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -150,7 +158,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/icon_alarm"
                     android:layout_centerVertical="true"
-                    android:textSize="25sp"
+                    android:textSize="23sp"
                     android:textColor="#353535"
                     android:text="设置提醒"/>
             <TextView
@@ -171,8 +179,10 @@
                     android:id="@+id/icon_about"
                     android:background="@drawable/icon_about"
                     android:layout_centerVertical="true"
-                    android:layout_margin="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -183,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/icon_about"
                     android:layout_centerVertical="true"
-                    android:textSize="25sp"
+                    android:textSize="23sp"
                     android:textColor="#353535"
                     android:text="关于"/>
             <TextView

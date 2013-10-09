@@ -134,11 +134,11 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:orientation="vertical"
-                android:paddingTop="5dp"
                 android:layout_weight="1">
             <TextView
                     android:background="@drawable/item_pressed"
                     android:layout_weight="1"
+                    android:layout_marginTop="5dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"/>
             <TextView
