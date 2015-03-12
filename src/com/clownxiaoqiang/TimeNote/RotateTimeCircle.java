@@ -42,12 +42,11 @@ public class RotateTimeCircle extends SurfaceView implements SurfaceHolder.Callb
     private float change_x, change_y;
     private static final double Average_Angle = 180 / Math.PI;
     private static final double Average_Time = 1;
-    private static final double Average_CountTime = 360.0/(6*60*60);
-    private String Time,SecondString;
+    private static final double Average_CountTime = 360.0 / (6 * 60 * 60);
+    private String Time, SecondString;
     private long Second;
     private int MinuteTime;
     final static int Msg = 1;
-
 
 
     public RotateTimeCircle(Context context) {
@@ -162,12 +161,12 @@ public class RotateTimeCircle extends SurfaceView implements SurfaceHolder.Callb
         canvas.drawText(Time, Center_x, baseRadius, t_paint);
     }
 
-    protected void DrawTextSecond(){
+    protected void DrawTextSecond() {
         t_paint.setColor(Color.BLACK);
-        t_paint.setTextSize(Center_x/8);
+        t_paint.setTextSize(Center_x / 8);
         t_paint.setTextAlign(Paint.Align.CENTER);
-        SecondString = ChangeSecond((int)Second % 60);
-        canvas.drawText(SecondString,Center_x,baseRadius+Center_x/4,t_paint);
+        SecondString = ChangeSecond((int) Second % 60);
+        canvas.drawText(SecondString, Center_x, baseRadius + Center_x / 4, t_paint);
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
@@ -192,18 +191,20 @@ public class RotateTimeCircle extends SurfaceView implements SurfaceHolder.Callb
         return time;
     }
 
-    private String ChangeSecond(int Second){
+    private String ChangeSecond(int Second) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ss");
-        Date date = new Date(0,0,0,0,0,Second);
+        Date date = new Date(0, 0, 0, 0, 0, Second);
         String s = simpleDateFormat.format(date);
         return s;
     }
+
     private String ChangeTime(int minute) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date(0, 0, 0, 0, minute);
         String s = simpleDateFormat.format(date);
         return s;
     }
+
     //判断手指滑动的方向，顺时针返回 1，逆时针返回 0，无法判断返回 2
     private int GetDirection(float x1, float y1, float x2, float y2, float x3, float y3) {
         Log.d("x2", "x2--->" + x2);
@@ -275,54 +276,55 @@ public class RotateTimeCircle extends SurfaceView implements SurfaceHolder.Callb
             //取得更新之前的时间
             long startTime = System.currentTimeMillis();
 
-            try{
-            //在这里加上线程安全锁
-            synchronized (surfaceHolder) {
-                //拿到当前画布 然后锁定
-                canvas = surfaceHolder.lockCanvas();
-                canvas.drawARGB(255, 237, 237, 237);
-                DrawPreyCircle();
-                DrawOutCircle();
-                DrawInnerCircle();
-                DrawWhiteCircle();
-                DrawText();
-                DrawTextSecond();
-                //绘制结束后解锁显示在屏幕上
-                surfaceHolder.unlockCanvasAndPost(canvas);
-            }
+            try {
+                //在这里加上线程安全锁
+                synchronized (surfaceHolder) {
+                    //拿到当前画布 然后锁定
+                    canvas = surfaceHolder.lockCanvas();
+                    canvas.drawARGB(255, 237, 237, 237);
+                    DrawPreyCircle();
+                    DrawOutCircle();
+                    DrawInnerCircle();
+                    DrawWhiteCircle();
+                    DrawText();
+                    DrawTextSecond();
+                    //绘制结束后解锁显示在屏幕上
+                    surfaceHolder.unlockCanvasAndPost(canvas);
+                }
 
-            //取得更新结束的时间
-            long endTime = System.currentTimeMillis();
+                //取得更新结束的时间
+                long endTime = System.currentTimeMillis();
 
-            //计算出更新一次的毫秒数
-            int diffTime = (int) (endTime - startTime);
+                //计算出更新一次的毫秒数
+                int diffTime = (int) (endTime - startTime);
 
-            //确保每次更新时间为50帧
-            while (diffTime <= 50) {
-                diffTime = (int) (System.currentTimeMillis() - startTime);
-                //线程等待
-                Thread.yield();
-            }
-            }catch (Exception e){
+                //确保每次更新时间为50帧
+                while (diffTime <= 50) {
+                    diffTime = (int) (System.currentTimeMillis() - startTime);
+                    //线程等待
+                    Thread.yield();
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void TimeCount (){
-        countTime = new CountTime((MinuteTime*60+Integer.parseInt(SecondString))*1000,1000);
+    public void TimeCount() {
+        countTime = new CountTime((MinuteTime * 60 + Integer.parseInt(SecondString)) * 1000, 1000);
         countTime.start();
     }
-    public void TimeCountCancel(){
+
+    public void TimeCountCancel() {
         countTime.cancel();
     }
 
     public Handler mHandler = new Handler() {
-        public void handleMessage(Message msg){
-            switch (msg.what){
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
                 case Msg:
-                    Second = msg.getData().getLong("Changetime")/1000;
-                    angle =(float)((msg.getData().getLong("Changetime")/1000)*Average_CountTime);
+                    Second = msg.getData().getLong("Changetime") / 1000;
+                    angle = (float) ((msg.getData().getLong("Changetime") / 1000) * Average_CountTime);
                     break;
                 default:
                     break;
@@ -345,7 +347,7 @@ public class RotateTimeCircle extends SurfaceView implements SurfaceHolder.Callb
     }
 
 
-    class CountTime extends CountDownTimer{
+    class CountTime extends CountDownTimer {
 
         public CountTime(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
@@ -353,7 +355,7 @@ public class RotateTimeCircle extends SurfaceView implements SurfaceHolder.Callb
 
         @Override
         public void onTick(long l) {
-            Log.d("counttime","ChangeTime----->"+l);
+            Log.d("counttime", "ChangeTime----->" + l);
             SendMessage(l);
 
         }
@@ -361,21 +363,22 @@ public class RotateTimeCircle extends SurfaceView implements SurfaceHolder.Callb
         @Override
         public void onFinish() {
             SendMessage(0);
-            MediaPlayer mediaPlayer =new MediaPlayer().create(context, R.raw.alarm);
+            MediaPlayer mediaPlayer = new MediaPlayer().create(context, R.raw.alarm);
             mediaPlayer.start();
             SendMessage();
 
         }
-        private void SendMessage(long l){
+
+        private void SendMessage(long l) {
             Message message = new Message();
             message.what = RotateTimeCircle.Msg;
             Bundle bundle = new Bundle();
-            bundle.putLong("Changetime",l);
+            bundle.putLong("Changetime", l);
             message.setData(bundle);
             mHandler.sendMessage(message);
         }
 
-        private void SendMessage(){
+        private void SendMessage() {
             Message message = new Message();
             message.what = RotateTimeActivity.Count;
             Bundle bundle = new Bundle();

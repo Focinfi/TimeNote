@@ -24,7 +24,7 @@ public class TextViewFragment extends Fragment {
     private Activity activity;
 
 
-    public TextViewFragment(String note,Context context) {
+    public TextViewFragment(String note, Context context) {
         this.note = note;
         activity = (Activity) context;
     }
@@ -32,7 +32,7 @@ public class TextViewFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        textView = (TextView)activity.findViewById(R.id.diarytextview);
+        textView = (TextView) activity.findViewById(R.id.diarytextview);
         textView.setText(note);
     }
 

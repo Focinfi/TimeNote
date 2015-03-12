@@ -82,9 +82,9 @@ public class SQlManager {
             item.put("sleep_time", cursor.getString(cursor.getColumnIndex("sleep_time")));
             item.put("play_time", cursor.getString(cursor.getColumnIndex("play_time")));
             item.put("note", cursor.getString(cursor.getColumnIndex("note")));
-            item.put("date_month",cursor.getString(cursor.getColumnIndex("date_month")));
-            item.put("date_week",cursor.getString(cursor.getColumnIndex("date_week")));
-            item.put("date",cursor.getString(cursor.getColumnIndex("date")));
+            item.put("date_month", cursor.getString(cursor.getColumnIndex("date_month")));
+            item.put("date_week", cursor.getString(cursor.getColumnIndex("date_week")));
+            item.put("date", cursor.getString(cursor.getColumnIndex("date")));
             records.add(item);
             Log.d("item", item.toString());
         }
@@ -96,12 +96,12 @@ public class SQlManager {
     public ArrayList<Map<String, Object>> QueryTag(String date) {
         sqLiteDatabase = sqLite.getWritableDatabase();
         ArrayList<Map<String, Object>> records = new ArrayList<Map<String, Object>>();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from note where date like ?", new String[]{"%"+date+"%"});
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from note where date like ?", new String[]{"%" + date + "%"});
         while (cursor.moveToNext()) {
             Map<String, Object> item = new HashMap<String, Object>();
             item.put("tag", cursor.getString(cursor.getColumnIndex("tag")));
             item.put("time", cursor.getString(cursor.getColumnIndex("time")));
-            item.put("event_id",cursor.getString(cursor.getColumnIndex("event_id")));
+            item.put("event_id", cursor.getString(cursor.getColumnIndex("event_id")));
             records.add(item);
         }
         cursor.close();

@@ -62,7 +62,7 @@ public class RotateTimeActivity extends Activity {
         initSaveButton();
     }
 
-    private void init(){
+    private void init() {
         timeNoteUtil = new TimeNoteUtil(RotateTimeActivity.this);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -75,7 +75,7 @@ public class RotateTimeActivity extends Activity {
         tagEditText = (EditText) this.findViewById(R.id.tagEditText);
     }
 
-    private void initSpinner(){
+    private void initSpinner() {
         myspinner = (Spinner) findViewById(R.id.myspinner);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Spinner_Text);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -84,7 +84,7 @@ public class RotateTimeActivity extends Activity {
         myspinner.setOnItemSelectedListener(new ItemSelectedListener());
     }
 
-    private void initCountTimeButton(){
+    private void initCountTimeButton() {
         counttimebutton = (Button) findViewById(R.id.CountTimeButton);
         counttimebutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +99,7 @@ public class RotateTimeActivity extends Activity {
         });
     }
 
-    private void initSaveButton(){
+    private void initSaveButton() {
         savebutton = (Button) findViewById(R.id.savebutton);
         savebutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -136,10 +136,9 @@ public class RotateTimeActivity extends Activity {
                     Toast.makeText(RotateTimeActivity.this, "已经超过24小时了", Toast.LENGTH_SHORT).show();
                 } else if (tag.isEmpty()) {
                     Toast.makeText(RotateTimeActivity.this, "还没添加标签", Toast.LENGTH_SHORT).show();
-                } else if(minute_time.contentEquals("0")) {
+                } else if (minute_time.contentEquals("0")) {
                     Toast.makeText(RotateTimeActivity.this, "还没有旋转时间", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     sQlManager = new SQlManager(RotateTimeActivity.this);
                     sQlManager.AddNote(date, tag, time, event_id, minute_time, date_month, date_week);
                     Toast.makeText(RotateTimeActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
@@ -148,7 +147,7 @@ public class RotateTimeActivity extends Activity {
         });
     }
 
-    private void initCancleButton(){
+    private void initCancleButton() {
         canclebutton = (Button) findViewById(R.id.CancleButton);
         canclebutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,7 +162,7 @@ public class RotateTimeActivity extends Activity {
 
 
     public void onPause() {
-            linearLayout.removeView(rotateTimeCircle);
+        linearLayout.removeView(rotateTimeCircle);
         super.onPause();
     }
 
@@ -207,8 +206,8 @@ public class RotateTimeActivity extends Activity {
     public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
         {
             if (keyCode == event.KEYCODE_BACK) {
-                    timeNoteUtil.DialogBuild();
-                    return true;
+                timeNoteUtil.DialogBuild();
+                return true;
             } else {
                 return super.onKeyDown(keyCode, event);
             }

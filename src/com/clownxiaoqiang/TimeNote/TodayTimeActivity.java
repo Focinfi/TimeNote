@@ -68,7 +68,7 @@ public class TodayTimeActivity extends Activity {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M月d日");
                     Date date_S = new Date(System.currentTimeMillis());
                     date_month = simpleDateFormat.format(date_S);
-                    Log.d("t_date",date_x);
+                    Log.d("t_date", date_x);
                     intent.putExtra("date", date_x);
                     intent.putExtra("date_month", date_month);
                     startActivity(intent);
@@ -77,13 +77,13 @@ public class TodayTimeActivity extends Activity {
         });
     }
 
-    private void init(){
+    private void init() {
         timeNoteUtil = new TimeNoteUtil(TodayTimeActivity.this);
         dateTextView = (TextView) this.findViewById(R.id.dateTextView);
         addNote = (Button) this.findViewById(R.id.addNote);
     }
 
-    private void GetData(){
+    private void GetData() {
         date_x = timeNoteUtil.CurrentTime();
         sQlManager = new SQlManager(TodayTimeActivity.this);
         arrayList = new ArrayList<Map<String, Object>>();
@@ -91,14 +91,14 @@ public class TodayTimeActivity extends Activity {
         if (arrayList.isEmpty()) {
             workTime = studyTime = playTime = sleepTime = 0;
         } else {
-            workTime = Integer.parseInt((String) arrayList.get(0).get((Object) "work_time"))/4;
-            studyTime = Integer.parseInt((String) arrayList.get(0).get((Object) "study_time"))/4;
-            playTime = Integer.parseInt((String) arrayList.get(0).get((Object) "play_time"))/4;
-            sleepTime = Integer.parseInt((String) arrayList.get(0).get((Object) "sleep_time"))/4;
+            workTime = Integer.parseInt((String) arrayList.get(0).get((Object) "work_time")) / 4;
+            studyTime = Integer.parseInt((String) arrayList.get(0).get((Object) "study_time")) / 4;
+            playTime = Integer.parseInt((String) arrayList.get(0).get((Object) "play_time")) / 4;
+            sleepTime = Integer.parseInt((String) arrayList.get(0).get((Object) "sleep_time")) / 4;
         }
     }
 
-    private void DrawTodayCircle(){
+    private void DrawTodayCircle() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         Screen_x = displayMetrics.widthPixels;
@@ -121,10 +121,10 @@ public class TodayTimeActivity extends Activity {
             if (arrayList.isEmpty()) {
                 workTime = studyTime = playTime = sleepTime = 0;
             } else {
-                workTime = Integer.parseInt((String) arrayList.get(0).get((Object) "work_time"))/4;
-                studyTime = Integer.parseInt((String) arrayList.get(0).get((Object) "study_time"))/4;
-                playTime = Integer.parseInt((String) arrayList.get(0).get((Object) "play_time"))/4;
-                sleepTime = Integer.parseInt((String) arrayList.get(0).get((Object) "sleep_time"))/4;
+                workTime = Integer.parseInt((String) arrayList.get(0).get((Object) "work_time")) / 4;
+                studyTime = Integer.parseInt((String) arrayList.get(0).get((Object) "study_time")) / 4;
+                playTime = Integer.parseInt((String) arrayList.get(0).get((Object) "play_time")) / 4;
+                sleepTime = Integer.parseInt((String) arrayList.get(0).get((Object) "sleep_time")) / 4;
 
             }
             todayTimeCircle = new TodayTimeCircle(this, Screen_x, Screen_y, workTime, studyTime, playTime, sleepTime);
@@ -140,7 +140,7 @@ public class TodayTimeActivity extends Activity {
         if (keyCode == event.KEYCODE_BACK) {
             timeNoteUtil.DialogBuild();
             return true;
-        }else{
+        } else {
             return super.onKeyDown(keyCode, event);    //To change body of overridden methods use File | Settings | File Templates.
         }
     }

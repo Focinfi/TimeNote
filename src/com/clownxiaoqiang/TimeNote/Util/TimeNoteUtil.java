@@ -22,13 +22,14 @@ public class TimeNoteUtil {
 
     private Context context;
     private Activity activity;
+
     public TimeNoteUtil(Context context) {
         this.context = context;
         activity = (Activity) context;
     }
 
     //这个为工具类下的Dialog函数
-    public void DialogBuild(){
+    public void DialogBuild() {
         new AlertDialog.Builder(context)
                 .setTitle("提示：")
                 .setMessage("是否退出？")
@@ -48,7 +49,7 @@ public class TimeNoteUtil {
     }
 
     //这个是点击效果函数
-    public void HandlerDelayed(final RelativeLayout relativeLayout){
+    public void HandlerDelayed(final RelativeLayout relativeLayout) {
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 relativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -57,13 +58,12 @@ public class TimeNoteUtil {
     }
 
     //时间转换
-    public String CurrentTime(){
+    public String CurrentTime() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         Date date_S = new Date(System.currentTimeMillis());
         String date_x = simpleDateFormat.format(date_S);
         return date_x;
     }
-
 
 
 }

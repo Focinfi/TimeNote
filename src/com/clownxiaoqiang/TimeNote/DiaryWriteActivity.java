@@ -27,9 +27,9 @@ public class DiaryWriteActivity extends Activity {
     private TextView titleTextView;
     private EditText noteEditText;
     private Button addNote;
-    private SQlManager noteManager,updateManager;
+    private SQlManager noteManager, updateManager;
     private Button backButton;
-    private ArrayList<Map<String,Object>> noteArrayList;
+    private ArrayList<Map<String, Object>> noteArrayList;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +74,7 @@ public class DiaryWriteActivity extends Activity {
                     Log.d("d_d", diary + "-->" + date);
                     updateManager = new SQlManager(DiaryWriteActivity.this);
                     updateManager.UpdateNote(diary, date);               //更新数据库笔记数据
-                    Toast.makeText(DiaryWriteActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DiaryWriteActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
                 }
 
             }

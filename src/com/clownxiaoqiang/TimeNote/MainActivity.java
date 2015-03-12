@@ -17,11 +17,12 @@ import android.widget.TabHost;
  * TableHost类
  */
 public class MainActivity extends TabActivity implements CompoundButton.OnCheckedChangeListener {
-    private TabHost tabHost ;
+    private TabHost tabHost;
     private Intent homepage_intent;
     private Intent today_intent;
     private Intent diary_intent;
     private Intent blank_intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
@@ -29,15 +30,15 @@ public class MainActivity extends TabActivity implements CompoundButton.OnChecke
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
 
-        this.homepage_intent = new Intent(MainActivity.this,RotateTimeActivity.class);
-        this.today_intent =new Intent(MainActivity.this,TodayTimeActivity.class);
-        this.diary_intent =new Intent(MainActivity.this,TimeLineActivity.class);
-        this.blank_intent =new Intent(MainActivity.this,MoreFunActivity.class);
+        this.homepage_intent = new Intent(MainActivity.this, RotateTimeActivity.class);
+        this.today_intent = new Intent(MainActivity.this, TodayTimeActivity.class);
+        this.diary_intent = new Intent(MainActivity.this, TimeLineActivity.class);
+        this.blank_intent = new Intent(MainActivity.this, MoreFunActivity.class);
 
-        ((RadioButton)findViewById(R.id.radio_button0)).setOnCheckedChangeListener(this);
-        ((RadioButton)findViewById(R.id.radio_button1)).setOnCheckedChangeListener(this);
-        ((RadioButton)findViewById(R.id.radio_button2)).setOnCheckedChangeListener(this);
-        ((RadioButton)findViewById(R.id.radio_button3)).setOnCheckedChangeListener(this);
+        ((RadioButton) findViewById(R.id.radio_button0)).setOnCheckedChangeListener(this);
+        ((RadioButton) findViewById(R.id.radio_button1)).setOnCheckedChangeListener(this);
+        ((RadioButton) findViewById(R.id.radio_button2)).setOnCheckedChangeListener(this);
+        ((RadioButton) findViewById(R.id.radio_button3)).setOnCheckedChangeListener(this);
 
         this.tabHost = getTabHost();
 
@@ -62,16 +63,17 @@ public class MainActivity extends TabActivity implements CompoundButton.OnChecke
         return this.tabHost.newTabSpec(tag).setIndicator(getString(name),
                 getResources().getDrawable(icon)).setContent(intent);
     }
+
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        if(b){
-            if(compoundButton.getId()==R.id.radio_button0){
+        if (b) {
+            if (compoundButton.getId() == R.id.radio_button0) {
                 this.tabHost.setCurrentTabByTag("homepage");
-            }else if(compoundButton.getId()==R.id.radio_button1){
+            } else if (compoundButton.getId() == R.id.radio_button1) {
                 this.tabHost.setCurrentTabByTag("see");
-            }else if(compoundButton.getId()==R.id.radio_button2){
+            } else if (compoundButton.getId() == R.id.radio_button2) {
                 this.tabHost.setCurrentTabByTag("write");
-            }else if(compoundButton.getId()==R.id.radio_button3){
+            } else if (compoundButton.getId() == R.id.radio_button3) {
                 this.tabHost.setCurrentTabByTag("more_page");
             }
         }
