@@ -1,4 +1,4 @@
-package com.clownxiaoqiang.TimeNote;
+package com.MMClub.TimeNote.Activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,8 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.clownxiaoqiang.TimeNote.Util.TimeNoteUtil;
-import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
+import com.MMClub.TimeNote.R;
+import com.MMClub.TimeNote.Util.TimeNoteUtil;
+import com.MMClub.TimeNote.SQL.SQlManager;
 
 import java.text.SimpleDateFormat;
 import java.util.*;

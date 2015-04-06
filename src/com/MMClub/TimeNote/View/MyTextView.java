@@ -1,4 +1,4 @@
-package com.clownxiaoqiang.TimeNote;
+package com.MMClub.TimeNote.View;
 
 import android.content.Context;
 import android.util.AttributeSet;

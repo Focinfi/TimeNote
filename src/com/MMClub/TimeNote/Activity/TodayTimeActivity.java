@@ -1,4 +1,4 @@
-package com.clownxiaoqiang.TimeNote;
+package com.MMClub.TimeNote.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,8 +11,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.clownxiaoqiang.TimeNote.Util.TimeNoteUtil;
-import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
+import com.MMClub.TimeNote.R;
+import com.MMClub.TimeNote.View.TodayTimeCircle;
+import com.MMClub.TimeNote.Util.TimeNoteUtil;
+import com.MMClub.TimeNote.SQL.SQlManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

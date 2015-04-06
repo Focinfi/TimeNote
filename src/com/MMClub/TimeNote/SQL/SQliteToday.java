@@ -1,4 +1,4 @@
-package come.clownxiaoqiang.TimeNote.Sql;
+package com.MMClub.TimeNote.SQL;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Time: 下午4:34
  * Today表类
  */
-public class SQLiteToday extends SQLiteOpenHelper {
+class SQLiteToday extends SQLiteOpenHelper {
     //表名为today
     private static final String SQLNAME_Today = "today";
     //储存的数据有_id,event_id定位work,study,sleep,play,note初始化的值为"今天还没感想"

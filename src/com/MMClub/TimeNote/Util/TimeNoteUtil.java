@@ -1,4 +1,4 @@
-package com.clownxiaoqiang.TimeNote.Util;
+package com.MMClub.TimeNote.Util;
 
 import android.app.Activity;
 import android.app.AlertDialog;

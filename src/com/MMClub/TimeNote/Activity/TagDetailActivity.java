@@ -1,4 +1,4 @@
-package com.clownxiaoqiang.TimeNote;
+package com.MMClub.TimeNote.Activity;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -14,9 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.*;
-import com.clownxiaoqiang.TimeNote.fragment.EditTextFragment;
-import com.clownxiaoqiang.TimeNote.fragment.TextViewFragment;
-import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
+import com.MMClub.TimeNote.R;
+import com.MMClub.TimeNote.fragment.EditTextFragment;
+import com.MMClub.TimeNote.fragment.TextViewFragment;
+import com.MMClub.TimeNote.SQL.SQlManager;
 
 import java.util.ArrayList;
 import java.util.Map;

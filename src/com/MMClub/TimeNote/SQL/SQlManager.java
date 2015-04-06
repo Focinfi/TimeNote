@@ -1,4 +1,4 @@
-package come.clownxiaoqiang.TimeNote.Sql;
+package com.MMClub.TimeNote.SQL;
 
 import android.content.ContentValues;
 import android.content.Context;

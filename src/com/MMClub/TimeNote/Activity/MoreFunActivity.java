@@ -1,4 +1,4 @@
-package com.clownxiaoqiang.TimeNote;
+package com.MMClub.TimeNote.Activity;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -8,7 +8,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import com.clownxiaoqiang.TimeNote.Util.TimeNoteUtil;
+import com.MMClub.TimeNote.R;
+import com.MMClub.TimeNote.Util.TimeNoteUtil;
 
 /**
  * Created with IntelliJ IDEA.

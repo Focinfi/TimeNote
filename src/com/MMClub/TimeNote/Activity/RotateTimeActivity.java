@@ -1,4 +1,4 @@
-package com.clownxiaoqiang.TimeNote;
+package com.MMClub.TimeNote.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,8 +7,10 @@ import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.*;
 import android.widget.*;
-import com.clownxiaoqiang.TimeNote.Util.TimeNoteUtil;
-import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
+import com.MMClub.TimeNote.R;
+import com.MMClub.TimeNote.View.RotateTimeCircle;
+import com.MMClub.TimeNote.Util.TimeNoteUtil;
+import com.MMClub.TimeNote.SQL.SQlManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ import java.util.Map;
  */
 public class RotateTimeActivity extends Activity {
 
+    public static int Count = 2;
     private int Screen_x, Screen_y;
     private RotateTimeCircle rotateTimeCircle;
     private LinearLayout linearLayout;
@@ -38,7 +41,6 @@ public class RotateTimeActivity extends Activity {
     private static boolean Iscounting = false;
     private TimeNoteUtil timeNoteUtil;
     private boolean IsDestroyButton = false;
-    final static int Count = 2;
     //要储存的数据
     private String tag, date, time, event_id, date_month, date_week;
     //要查询的数据
@@ -179,7 +181,7 @@ public class RotateTimeActivity extends Activity {
     public static Handler cHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case Count:
+                case 2:
                     Iscounting = msg.getData().getBoolean("changeIscounting");
                     break;
                 default:

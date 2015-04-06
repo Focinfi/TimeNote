@@ -1,4 +1,4 @@
-package com.clownxiaoqiang.TimeNote;
+package com.MMClub.TimeNote.Activity;
 
 import android.app.TabActivity;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.TabHost;
+import com.MMClub.TimeNote.*;
 
 /**
  * Created with IntelliJ IDEA.

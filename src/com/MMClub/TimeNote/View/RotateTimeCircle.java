@@ -1,4 +1,4 @@
-package com.clownxiaoqiang.TimeNote;
+package com.MMClub.TimeNote.View;
 
 import android.content.Context;
 import android.graphics.*;
@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import com.MMClub.TimeNote.Activity.RotateTimeActivity;
+import com.MMClub.TimeNote.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

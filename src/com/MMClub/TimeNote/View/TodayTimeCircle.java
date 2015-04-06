@@ -1,11 +1,10 @@
-package com.clownxiaoqiang.TimeNote;
+package com.MMClub.TimeNote.View;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 

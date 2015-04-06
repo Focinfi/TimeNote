@@ -1,4 +1,4 @@
-package com.clownxiaoqiang.TimeNote;
+package com.MMClub.TimeNote.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import come.clownxiaoqiang.TimeNote.Sql.SQlManager;
+import com.MMClub.TimeNote.R;
+import com.MMClub.TimeNote.SQL.SQlManager;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -58,14 +59,14 @@ public class DiaryWriteActivity extends Activity {
         noteArrayList = noteManager.Query(date);
 
 
-        diary = noteArrayList.get(0).get((Object) "note").toString(); //拿到当天的笔记
+        diary = (String) noteArrayList.get(0).get((Object) "note"); //拿到当天的笔记
 
         noteEditText.setText(diary);
 
         addNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                diary = noteEditText.getText().toString();
+                diary = String.valueOf(noteEditText.getText());
                 Intent intent = getIntent();
                 date = intent.getStringExtra("date");
                 if (diary.isEmpty()) {

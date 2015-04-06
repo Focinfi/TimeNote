@@ -1,4 +1,4 @@
-package com.clownxiaoqiang.TimeNote.fragment;
+package com.MMClub.TimeNote.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import com.clownxiaoqiang.TimeNote.R;
+import com.MMClub.TimeNote.R;
 
 /**
  * Created with IntelliJ IDEA.
